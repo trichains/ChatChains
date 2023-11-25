@@ -1,4 +1,4 @@
-const apiKey = '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';
+const apiKey = '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';
 
 // Cache DOM elements
 const msg = document.getElementById('msg-input');
