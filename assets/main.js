@@ -33,7 +33,7 @@ function sendMsg() {
   })
     .then((response) => response.json())
     .then((response) => {
-      console.log(response);
+      let r = response.choices[0]['text'];
       status.style.display = 'none';
       showHistorico(msg.value, r);
     })
