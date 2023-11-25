@@ -1,4 +1,4 @@
-const apiKey = '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';
+const apiKey = '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';
 
 // Cache DOM elements
 const msg = document.getElementById('msg-input');
@@ -34,7 +34,7 @@ document.addEventListener('click', async (event) => {
         body: JSON.stringify({
           model: 'gpt-3.5-turbo-instruct',
           prompt: msg.value,
-          max_tokens: 2048,
+          max_tokens: 1000,
           temperature: 0.5
         })
       });
