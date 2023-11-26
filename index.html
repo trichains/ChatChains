@@ -26,6 +26,12 @@
       </div>
     </div>
 
-    <script type="module" src="./assets/main.js"></script>
+    <script>
+      const apiKey = '<%= process.env.REACT_APP_API_KEY %>';
+      const script = document.createElement('script');
+      script.src = './assets/main.js';
+      document.body.appendChild(script);
+    </script>
+
   </body>
 </html>
