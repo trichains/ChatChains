@@ -1,4 +1,4 @@
-const apiKey = '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';
+const apiKey = process.env.OPENAI_API_KEY;
 
 function sendMsg() {
   var msg = document.getElementById('msg-input');
@@ -20,7 +20,6 @@ function sendMsg() {
   fetch('https://api.openai.com/v1/completions', {
     method: 'POST',
     headers: {
-      Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization: `Bearer ${apiKey}`
     },

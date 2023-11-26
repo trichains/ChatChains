@@ -1,0 +1,33 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build and deploy
+        run: |
+          sed -i "s/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/${{ secrets.OPENAI_API_KEY }}/g" ./assets/main.js
+          npm run build
+          # Adicione comandos adicionais para implantar no GitHub Pages
+        env:
+          REACT_APP_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        # A chave de API é definida como um segredo no repositório do GitHub
+        # As variáveis de ambiente configuradas aqui estão disponíveis durante a execução deste job
+        # O sed é usado para substituir a chave no arquivo main.js pelo valor do segredo
