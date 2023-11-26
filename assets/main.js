@@ -1,4 +1,4 @@
-const apiKey = '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';
+const apiKey = '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';
 
 function sendMsg() {
   var msg = document.getElementById('msg-input');
@@ -25,9 +25,9 @@ function sendMsg() {
       Authorization: `Bearer ${apiKey}`
     },
     body: JSON.stringify({
-      model: 'text-davinci-003',
+      model: 'gpt-3.5-turbo-instruct',
       prompt: msg.value,
-      max_tokens: 1000,
+      max_tokens: 4000,
       temperature: 0.5
     })
   })
