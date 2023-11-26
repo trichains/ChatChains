@@ -1,4 +1,4 @@
-const apiKey = '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';
+const apiKey = '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';
 
 function sendMsg() {
   var msg = document.getElementById('msg-input');
