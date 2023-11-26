@@ -25,7 +25,12 @@ jobs:
         run: |
           sed -i "s/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/${{ secrets.OPENAI_API_KEY }}/g" ./assets/main.js
           npm run build
-          # Adicione comandos adicionais para implantar no GitHub Pages
+          
+      - name: Debug
+        run: |
+          echo "API Key: ${{ secrets.OPENAI_API_KEY }}"
+          cat ./assets/main.js
+
         env:
           REACT_APP_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         # A chave de API é definida como um segredo no repositório do GitHub

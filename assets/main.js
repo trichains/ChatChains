@@ -30,10 +30,15 @@ function sendMsg() {
   })
     .then((response) => response.json())
     .then((response) => {
-      let r = response.choices[0]['text'];
+      console.log(response);
+      // let r =
+      //   response.choices && response.choices.length > 0
+      //     ? response.choices[0].text
+      //     : 'No response';
       status.style.display = 'none';
       showHistorico(msg.value, r);
     })
+
     .catch((error) => {
       console.log(error);
     })
