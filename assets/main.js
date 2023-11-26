@@ -1,4 +1,4 @@
-const apiKey = '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';
+const apiKey = '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';
 
 function sendMsg() {
   var msg = document.getElementById('msg-input');
@@ -27,7 +27,7 @@ function sendMsg() {
     body: JSON.stringify({
       model: 'text-davinci-003',
       prompt: msg.value,
-      max_tokens: 2048,
+      max_tokens: 1000,
       temperature: 0.5
     })
   })
