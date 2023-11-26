@@ -23,7 +23,7 @@ jobs:
 
       - name: Build and deploy
         run: |
-          sed -i "s/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/${{ secrets.OPENAI_API_KEY }}/g" ./assets/main.js
+          sed -i "s/sua_chave_aqui/${{ secrets.OPENAI_API_KEY }}/g" ./assets/main.js
           npm run build
         env:
           REACT_APP_API_KEY: ${{ secrets.OPENAI_API_KEY }}

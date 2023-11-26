@@ -15,22 +15,24 @@ function sendMsg() {
   btnSubmit.style.cursor = 'not-allowed';
   msg.disabled = true;
 
-  fetch('https://api.openai.com/v1/completions', {
+  fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${react_app_api_key}`
+      'Authorization': `Bearer ${apiKey}`
     },
     body: JSON.stringify({
-      model: 'gpt-3.5-turbo-instruct',
-      prompt: msg.value,
-      max_tokens: 4000,
-      temperature: 0.5
+      model: 'gpt-3.5-turbo',
+      messages: [
+        { role: 'system', content: 'You are a helpful assistant.' },
+        { role: 'user', content: msg.value }
+      ]
     })
   })
     .then((response) => response.json())
     .then((response) => {
       console.log(response);
+      const r = response.choices[0].message.content;
       // let r =
       //   response.choices && response.choices.length > 0
       //     ? response.choices[0].text
