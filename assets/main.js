@@ -132,7 +132,7 @@ themeBtn.addEventListener('click', () => {
 
 deleteBtn.addEventListener('click', () => {
   // Remove todas as conversas do localStorage e chama a função loadDataFromLocalStorage para atualizar o conteúdo do chat
-  if (confirm('Deseja apagar todas as conversas do histórico?')) {
+  if (confirm('Deseja apagar todo o histórico da conversa?')) {
     localStorage.removeItem('all-chats');
     chatContainer.innerHTML = '';
     loadDataFromLocalStorage();
