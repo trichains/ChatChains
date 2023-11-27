@@ -5,7 +5,7 @@ const chatContainer = document.querySelector('.chat-container'); // Contêiner p
 
 // Variáveis Globais
 let userText = null; // Armazena o texto digitado pelo usuário
-const API_KEY = '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'; // Substitua 'sua-chave-de-api' pela sua chave de API da OpenAI
+const API_KEY = 'minhaapikey'; // Substitua 'sua-chave-de-api' pela sua chave de API da OpenAI
 
 // Função de Criação de Elemento HTML
 const createElement = (html, className) => {
@@ -67,14 +67,17 @@ const showTypingAnimation = () => {
 // Manipulação da Saída do Chat
 const handleSaidaChat = () => {
   userText = chatInput.value.trim(); // Obtém o valor do input e remove espaços em branco
+  if (!userText) return; // Se o texto estiver vazio, retorna daqui
+  chatInput.value = ''; // Limpa o input
   const html = `<div class="chat-content">
                   <div class="chat-details">
                     <img src="./assets/imgs/user.svg" alt="Foto do usuário" />
-                    <p>${userText}</p>
+                    <p></p>
                  </div>
                 </div>`;
   // Cria um div de chat de saída com a mensagem do usuário e anexa ao contêiner de chat
   const saidaChatDiv = createElement(html, 'saida');
+  saidaChatDiv.querySelector('.chat-details p').textContent = userText;
   chatContainer.appendChild(saidaChatDiv);
   setTimeout(showTypingAnimation, 500);
 };
