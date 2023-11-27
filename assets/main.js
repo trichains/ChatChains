@@ -49,15 +49,16 @@ const createElement = (html, className) => {
 const getChatResponse = (entradaChatDiv, response) => {
   const pElement = document.createElement('p');
 
-  if (
-    response &&
-    response.choices &&
-    response.choices[0] &&
-    response.choices[0].message &&
-    response.choices[0].message.content !== undefined &&
-    response.choices[0].message.content !== null
-  ) {
-    pElement.textContent = response.choices[0].message.content.trim();
+  if (response && response.choices && response.choices.length > 0) {
+    const content = response.choices[0]?.message?.content;
+
+    if (content !== undefined && content !== null) {
+      pElement.textContent = content.trim();
+    } else {
+      console.error('Resposta da API OpenAI inválida:', response);
+      pElement.classList.add('error');
+      pElement.textContent = 'Resposta inválida da API';
+    }
   } else {
     console.error('Resposta da API OpenAI inválida:', response);
     pElement.classList.add('error');
