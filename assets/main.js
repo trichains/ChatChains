@@ -6,7 +6,7 @@ const themeBtn = document.getElementById('theme-btn'); // Botão para mudar o te
 
 // Variáveis Globais
 let userText = null; // Armazena o texto digitado pelo usuário
-const API_KEY = 'sk-api-key'; // Substitua 'sua-chave-de-api' pela sua chave de API da OpenAI
+const API_KEY = 'sk-api'; // Substitua 'sua-chave-de-api' pela sua chave de API da OpenAI
 
 const loadDataFromLocalStorage = () => {
   // Carrega os dados do localStorage
@@ -17,6 +17,7 @@ const loadDataFromLocalStorage = () => {
     : 'light_mode';
 
   chatContainer.innerHTML = localStorage.getItem('all-chats');
+  chatContainer.scrollTo(0, chatContainer.scrollHeight);
 };
 
 loadDataFromLocalStorage();
@@ -59,6 +60,7 @@ const getChatResponse = async (entradaChatDiv) => {
   // Remove a animação de digitação, adiciona o elemento p e salva o conteúdo do chat no localStorage
   entradaChatDiv.querySelector('.typing-animation').remove();
   entradaChatDiv.querySelector('.chat-details').appendChild(pElement);
+  chatContainer.scrollTo(0, chatContainer.scrollHeight);
   localStorage.setItem('all-chats', chatContainer.innerHTML);
 };
 
@@ -85,6 +87,7 @@ const showTypingAnimation = () => {
                 </div>`;
   const entradaChatDiv = createElement(html, 'entrada');
   chatContainer.appendChild(entradaChatDiv);
+  chatContainer.scrollTo(0, chatContainer.scrollHeight);
   getChatResponse(entradaChatDiv);
 };
 
@@ -103,6 +106,7 @@ const handleSaidaChat = () => {
   const saidaChatDiv = createElement(html, 'saida');
   saidaChatDiv.querySelector('.chat-details p').textContent = userText;
   chatContainer.appendChild(saidaChatDiv);
+  chatContainer.scrollTo(0, chatContainer.scrollHeight);
   setTimeout(showTypingAnimation, 500);
 };
 
