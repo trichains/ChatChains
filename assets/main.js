@@ -99,19 +99,31 @@ const showTypingAnimation = async () => {
   elements.chatContainer.scrollTo(0, elements.chatContainer.scrollHeight);
 
   try {
+    // Alteração: Adicione a opção 'stream' para indicar streaming
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userText })
+      body: JSON.stringify({ userText, stream: true })
     });
 
     if (!response.ok) {
       throw new Error('Erro ao chamar a API OpenAI');
     }
 
-    const responseData = await response.json();
-    // Chama a função para manipular a resposta
-    getChatResponse(entradaChatDiv, responseData);
+    // Alteração: Use uma instância de ReadableStream para lidar com o streaming
+    const reader = response.body.getReader();
+
+    // Alteração: Itera sobre os chunks da resposta da API enquanto ela é transmitida
+    while (true) {
+      const { done, value } = await reader.read();
+
+      if (done) {
+        break;
+      }
+
+      // Alteração: Chama a função para manipular cada chunk da resposta
+      getChatResponse(entradaChatDiv, JSON.parse(value));
+    }
   } catch (error) {
     console.error('Erro ao obter resposta da API OpenAI', error);
     // Caso ocorra um erro, você pode manipulá-lo aqui, se necessário
