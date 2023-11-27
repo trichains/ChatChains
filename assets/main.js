@@ -2,12 +2,20 @@
 const chatInput = document.getElementById('chat-input'); // Input de texto do usuário
 const sendBtn = document.getElementById('send-btn'); // Botão de envio de mensagem
 const chatContainer = document.querySelector('.chat-container'); // Contêiner para exibição das mensagens do chat
+const themeBtn = document.getElementById('theme-btn'); // Botão para mudar o tema
 
 // Variáveis Globais
 let userText = null; // Armazena o texto digitado pelo usuário
-const API_KEY = 'api'; // Substitua 'sua-chave-de-api' pela sua chave de API da OpenAI
+const API_KEY = 'sk-api-key'; // Substitua 'sua-chave-de-api' pela sua chave de API da OpenAI
 
 const loadDataFromLocalStorage = () => {
+  // Carrega os dados do localStorage
+  const themeColor = localStorage.getItem('theme-color');
+  document.body.classList.toggle('light-mode', themeColor === 'light_mode');
+  themeBtn.textContent = document.body.classList.contains('light-mode')
+    ? 'dark_mode'
+    : 'light_mode';
+
   chatContainer.innerHTML = localStorage.getItem('all-chats');
 };
 
@@ -97,6 +105,15 @@ const handleSaidaChat = () => {
   chatContainer.appendChild(saidaChatDiv);
   setTimeout(showTypingAnimation, 500);
 };
+
+themeBtn.addEventListener('click', () => {
+  // Muda o tema do site
+  document.body.classList.toggle('light-mode');
+  localStorage.setItem('theme-color', themeBtn.textContent);
+  themeBtn.textContent = document.body.classList.contains('light-mode')
+    ? 'dark_mode'
+    : 'light_mode';
+});
 
 // Adiciona um ouvinte de evento para o clique no botão de envio, que aciona a manipulação da saída do chat
 sendBtn.addEventListener('click', handleSaidaChat);
