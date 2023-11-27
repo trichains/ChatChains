@@ -66,6 +66,10 @@ body {
   margin-bottom: 10px;
 }
 
+.default-text .destaque {
+  color: var(--destaque);
+}
+
 .default-text p {
   font-size: 1.3rem;
   margin-top: 10px;
@@ -80,7 +84,7 @@ body {
   display: inline-block;
   transition: all 0.3s ease;
   text-decoration: none;
-  color: var(--destaque);
+  color: var(--text-color);
 }
 
 .default-text a:hover {

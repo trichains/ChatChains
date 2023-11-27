@@ -24,7 +24,7 @@ const loadDataFromLocalStorage = () => {
     : 'light_mode';
 
   const defaultText = `<div class='default-text'>
-                          <h1>⛓️ BotChains ⛓️</h1>
+                          <h1>⛓️ Bot<span class='destaque'>Chains</span> ⛓️</h1>
                           <p> Comece a conversar e explore o poder da AI.<br> O histórico do seu chat aparecerá aqui.<br>
                           Desenvolvido por <a href='https://github.com/trichains' target='_blank'>trichains</a></p>
                         </div>`;
