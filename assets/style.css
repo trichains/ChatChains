@@ -22,6 +22,27 @@ body {
   background: var(--saida-chat-bg);
 }
 
+/* Estilo do chat container */
+.chat-container {
+  max-height: 100vh;
+  padding-bottom: 150px;
+  overflow-y: auto;
+}
+
+:where(.chat-container, textarea)::-webkit-scrollbar {
+  width: 6px;
+}
+
+:where(.chat-container, textarea)::-webkit-scrollbar-track {
+  background: var(--entrada-chat-bg);
+  border-radius: 25px;
+}
+
+:where(.chat-container, textarea)::-webkit-scrollbar-thumb {
+  background: var(--icon-color);
+  border-radius: 25px;
+}
+
 .chat-container .chat {
   padding: 25px 10px;
   display: flex;
