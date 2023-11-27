@@ -5,7 +5,7 @@ const chatContainer = document.querySelector('.chat-container'); // Contêiner p
 
 // Variáveis Globais
 let userText = null; // Armazena o texto digitado pelo usuário
-const API_KEY = 'minhaapikey'; // Substitua 'sua-chave-de-api' pela sua chave de API da OpenAI
+const API_KEY = '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'; // Substitua 'sua-chave-de-api' pela sua chave de API da OpenAI
 
 // Função de Criação de Elemento HTML
 const createElement = (html, className) => {
@@ -46,6 +46,14 @@ const getChatResponse = async (entradaChatDiv) => {
   entradaChatDiv.querySelector('.chat-details').appendChild(pElement);
 };
 
+const copyResponse = (copyBtn) => {
+  // Seleciona o elemento p que contém o texto da resposta e o copia para a área de ação do botão
+  const responseTextElement = copyBtn.parentElement.querySelector('p');
+  navigator.clipboard.writeText(responseTextElement.textContent);
+  setTimeout(() => {
+    copyBtn.textContent = 'content_copy';
+  }, 2000);
+};
 // Animação de Digitação
 const showTypingAnimation = () => {
   const html = `<div class='chat-content'>
@@ -57,7 +65,7 @@ const showTypingAnimation = () => {
                       <div class='typing-dot' style='--delay: 0.4s'></div>
                     </div>
                   </div>
-                  <span class='material-symbols-rounded'>content_copy</span>
+                  <span onclick='copyResponse(this)' class='material-symbols-rounded'>content_copy</span>
                 </div>`;
   const entradaChatDiv = createElement(html, 'entrada');
   chatContainer.appendChild(entradaChatDiv);
