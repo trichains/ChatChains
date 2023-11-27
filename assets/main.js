@@ -42,9 +42,15 @@ const createElement = (html, className) => {
 const getChatResponse = (entradaChatDiv, response) => {
   const pElement = document.createElement('p');
 
-  // Verifica se 'message' está presente e não é nulo ou indefinido
-  if (response && response.message !== undefined && response.message !== null) {
-    pElement.textContent = response.message.trim();
+  // Verifica se a resposta possui a propriedade 'choices' e '0' e 'message'
+  if (
+    response &&
+    response.choices &&
+    response.choices[0] &&
+    response.choices[0].message !== undefined &&
+    response.choices[0].message !== null
+  ) {
+    pElement.textContent = response.choices[0].message.trim();
   } else {
     console.error('Resposta da API OpenAI inválida:', response);
     pElement.classList.add('error');
