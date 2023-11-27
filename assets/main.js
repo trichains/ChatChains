@@ -1,21 +1,22 @@
 // Seleção de Elementos do DOM
-const chatInput = document.getElementById('chat-input'); // Input de texto do usuário
-const sendBtn = document.getElementById('send-btn'); // Botão de envio de mensagem
-const chatContainer = document.querySelector('.chat-container'); // Contêiner para exibição das mensagens do chat
-const themeBtn = document.getElementById('theme-btn'); // Botão para mudar o tema
-const githubIcon = document.querySelector('.rede-social img'); // Seleção do elemento do icone do GitHub
-const deleteBtn = document.getElementById('delete-btn'); // Botão para apagar o chat
+const elements = {
+  chatInput: document.getElementById('chat-input'),
+  sendBtn: document.getElementById('send-btn'),
+  chatContainer: document.querySelector('.chat-container'),
+  themeBtn: document.getElementById('theme-btn'),
+  githubIcon: document.querySelector('.rede-social img'),
+  deleteBtn: document.getElementById('delete-btn')
+};
 
 // Variáveis Globais
-let userText = null; // Armazena o texto digitado pelo usuário
-const apiUrl = 'https://botchains.vercel.app/api/openai'; // Substitua pelo URL da sua função Vercel
-const initialHeight = chatInput.scrollHeight;
+let userText = null;
+const apiUrl = 'https://botchains.vercel.app/api/openai';
+const initialHeight = elements.chatInput.scrollHeight;
 
 const loadDataFromLocalStorage = () => {
-  // Carrega os dados do localStorage
   const themeColor = localStorage.getItem('theme-color');
   document.body.classList.toggle('light-mode', themeColor === 'light_mode');
-  themeBtn.textContent = document.body.classList.contains('light-mode')
+  elements.themeBtn.textContent = document.body.classList.contains('light-mode')
     ? 'dark_mode'
     : 'light_mode';
 
@@ -24,26 +25,25 @@ const loadDataFromLocalStorage = () => {
                           <p> Comece a conversar e explore o poder da AI.<br> O histórico do seu chat aparecerá aqui.<br>
                           Desenvolvido por <a href='https://github.com/trichains' target='_blank'>trichains</a></p>
                         </div>`;
-  chatContainer.innerHTML = localStorage.getItem('all-chats') || defaultText;
-  chatContainer.scrollTo(0, chatContainer.scrollHeight);
+  elements.chatContainer.innerHTML =
+    localStorage.getItem('all-chats') || defaultText;
+  elements.chatContainer.scrollTo(0, elements.chatContainer.scrollHeight);
 };
 
 loadDataFromLocalStorage();
 
 // Função de Criação de Elemento HTML
 const createElement = (html, className) => {
-  // Cria um elemento HTML com base no HTML passado como parâmetro e no nome da classe passado como parâmetro
   const chatDiv = document.createElement('div');
   chatDiv.classList.add('chat', className);
   chatDiv.innerHTML = html;
-  return chatDiv; // Retorna o elemento criado
+  return chatDiv;
 };
 
 // Função para Obter Resposta do Chat
 const getChatResponse = (entradaChatDiv, response) => {
   const pElement = document.createElement('p');
 
-  // Verifica se a resposta possui a propriedade 'choices' e '0' e 'message' e 'content'
   if (
     response &&
     response.choices &&
@@ -59,15 +59,13 @@ const getChatResponse = (entradaChatDiv, response) => {
     pElement.textContent = 'Resposta inválida da API';
   }
 
-  // Remove a animação de digitação, adiciona o elemento p e salva o conteúdo do chat no localStorage
   entradaChatDiv.querySelector('.typing-animation').remove();
   entradaChatDiv.querySelector('.chat-details').appendChild(pElement);
-  chatContainer.scrollTo(0, chatContainer.scrollHeight);
-  localStorage.setItem('all-chats', chatContainer.innerHTML);
+  elements.chatContainer.scrollTo(0, elements.chatContainer.scrollHeight);
+  localStorage.setItem('all-chats', elements.chatContainer.innerHTML);
 };
 
 const copyResponse = (copyBtn) => {
-  // Seleciona o elemento p que contém o texto da resposta e o copia para a área de ação do botão
   const responseTextElement = copyBtn.parentElement.querySelector('p');
   navigator.clipboard.writeText(responseTextElement.textContent);
   setTimeout(() => {
@@ -89,16 +87,13 @@ const showTypingAnimation = async () => {
                   <span onclick='copyResponse(this)' class='material-symbols-rounded'>content_copy</span>
                 </div>`;
   const entradaChatDiv = createElement(html, 'entrada');
-  chatContainer.appendChild(entradaChatDiv);
-  chatContainer.scrollTo(0, chatContainer.scrollHeight);
+  elements.chatContainer.appendChild(entradaChatDiv);
+  elements.chatContainer.scrollTo(0, elements.chatContainer.scrollHeight);
 
-  // Chama a função para obter a resposta da API OpenAI
   try {
-    const response = await fetch('/api/openai', {
+    const response = await fetch(apiUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userText })
     });
 
@@ -107,37 +102,30 @@ const showTypingAnimation = async () => {
     }
 
     const responseData = await response.json();
-
-    // Chama a função para manipular a resposta
     getChatResponse(entradaChatDiv, responseData);
   } catch (error) {
     console.error('Erro ao obter resposta da API OpenAI', error);
-
-    // Caso ocorra um erro, você pode manipulá-lo aqui, se necessário
   }
 };
 
 // Manipulação da Saída do Chat
 const handleSaidaChat = () => {
-  userText = chatInput.value.trim(); // Obtém o valor do input e remove espaços em branco
-  if (!userText) return; // Se o texto estiver vazio, retorna daqui
+  userText = elements.chatInput.value.trim();
+  if (!userText) return;
 
-  chatInput.value = ''; // Limpa o input
-  chatInput.style.height = `${initialHeight}px`;
+  elements.chatInput.value = '';
+  elements.chatInput.style.height = `${initialHeight}px`;
   const html = `<div class="chat-content">
                   <div class="chat-details">
                     <img src="./assets/imgs/user.svg" alt="Foto do usuário" />
                     <p></p>
                  </div>
                 </div>`;
-  // Cria um div de chat de saída com a mensagem do usuário e anexa ao contêiner de chat
   const saidaChatDiv = createElement(html, 'saida');
   saidaChatDiv.querySelector('.chat-details p').textContent = userText;
   document.querySelector('.default-text')?.remove();
-  chatContainer.appendChild(saidaChatDiv);
-  chatContainer.scrollTo(0, chatContainer.scrollHeight);
-
-  // Após criar a entrada do usuário, você pode chamar a função para obter a resposta (showTypingAnimation)
+  elements.chatContainer.appendChild(saidaChatDiv);
+  elements.chatContainer.scrollTo(0, elements.chatContainer.scrollHeight);
   showTypingAnimation();
 };
 
@@ -145,47 +133,39 @@ const handleSaidaChat = () => {
 const toggleGithubIcon = () => {
   const isLightMode = document.body.classList.contains('light-mode');
   const iconPath = isLightMode
-    ? './assets/imgs/github-dark.svg' // Caminho para o ícone escuro
-    : './assets/imgs/github.svg'; // Caminho para o ícone claro
-
-  githubIcon.setAttribute('src', iconPath);
+    ? './assets/imgs/github-dark.svg'
+    : './assets/imgs/github.svg';
+  elements.githubIcon.setAttribute('src', iconPath);
 };
 
 // Adiciona um ouvinte de evento para o clique no botão de tema
-themeBtn.addEventListener('click', () => {
-  // Muda o tema do site
+elements.themeBtn.addEventListener('click', () => {
   document.body.classList.toggle('light-mode');
-  localStorage.setItem('theme-color', themeBtn.textContent);
-  themeBtn.textContent = document.body.classList.contains('light-mode')
+  localStorage.setItem('theme-color', elements.themeBtn.textContent);
+  elements.themeBtn.textContent = document.body.classList.contains('light-mode')
     ? 'dark_mode'
     : 'light_mode';
-
-  // Chama a função para trocar o ícone do GitHub
   toggleGithubIcon();
 });
 
-deleteBtn.addEventListener('click', () => {
-  // Remove todas as conversas do localStorage e chama a função loadDataFromLocalStorage para atualizar o conteúdo do chat
+elements.deleteBtn.addEventListener('click', () => {
   if (confirm('Deseja apagar todo o histórico da conversa?')) {
     localStorage.removeItem('all-chats');
-    chatContainer.innerHTML = '';
+    elements.chatContainer.innerHTML = '';
     loadDataFromLocalStorage();
   }
 });
 
-chatInput.addEventListener('input', () => {
-  // Ajusta a altura do input de acordo com o conteúdo
-  chatInput.style.height = `${initialHeight}px`;
-  chatInput.style.height = `${chatInput.scrollHeight}px`;
+elements.chatInput.addEventListener('input', () => {
+  elements.chatInput.style.height = `${initialHeight}px`;
+  elements.chatInput.style.height = `${elements.chatInput.scrollHeight}px`;
 });
 
-chatInput.addEventListener('keydown', (e) => {
-  // Se o botão Enter for pressionado com shift pressionado e a largura da janela for maior que 768, aciona a manipulação da saída do chat
+elements.chatInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' && !e.shiftKey && window.innerWidth > 768) {
     e.preventDefault();
     handleSaidaChat();
   }
 });
 
-// Adiciona um ouvinte de evento para o clique no botão de envio, que aciona a manipulação da saída do chat
-sendBtn.addEventListener('click', handleSaidaChat);
+elements.sendBtn.addEventListener('click', handleSaidaChat);
