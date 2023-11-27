@@ -12,9 +12,25 @@ const createElement = (html, className) => {
   return chatDiv; // retorna o elemento
 };
 
+const showTypingAnimation = () => {
+  const html = `<div class='chat-content'>
+                  <div class='chat-details'>
+                    <img src='./assets/imgs/botchains.svg' alt='Foto do Chat Bot' />
+                    <div class='typing-animation'>
+                      <div class='typing-dot' style='--delay: 0.2s'></div>
+                      <div class='typing-dot' style='--delay: 0.3s'></div>
+                      <div class='typing-dot' style='--delay: 0.4s'></div>
+                    </div>
+                  </div>
+                  <span class='material-symbols-rounded'>content_copy</span>
+                </div>`;
+  const entradaChatDiv = createElement(html, 'entrada');
+  chatContainer.appendChild(entradaChatDiv);
+};
+
 const handleSaidaChat = () => {
   userText = chatInput.value.trim(); // retorna o valor e remove espaços em branco
-  const html = `<div class="chat content">
+  const html = `<div class="chat-content">
                   <div class="chat-details">
                     <img src="./assets/imgs/user.svg" alt="Foto do usuário" />
                     <p>${userText}</p>
@@ -23,6 +39,7 @@ const handleSaidaChat = () => {
   // crie um div de chat de saída com a mensagem do usuário e anexe-o ao contêiner de chat
   const saidaChatDiv = createElement(html, 'saida');
   chatContainer.appendChild(saidaChatDiv);
+  setTimeout(showTypingAnimation, 500);
 };
 
 sendBtn.addEventListener('click', handleSaidaChat);
