@@ -41,7 +41,15 @@ const createElement = (html, className) => {
 // Função para Obter Resposta do Chat
 const getChatResponse = (entradaChatDiv, response) => {
   const pElement = document.createElement('p');
-  pElement.textContent = response.message.trim();
+
+  // Verifica se 'message' está presente e não é nulo ou indefinido
+  if (response && response.message !== undefined && response.message !== null) {
+    pElement.textContent = response.message.trim();
+  } else {
+    console.error('Resposta da API OpenAI inválida:', response);
+    pElement.classList.add('error');
+    pElement.textContent = 'Resposta inválida da API';
+  }
 
   // Remove a animação de digitação, adiciona o elemento p e salva o conteúdo do chat no localStorage
   entradaChatDiv.querySelector('.typing-animation').remove();
