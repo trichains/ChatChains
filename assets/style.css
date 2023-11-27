@@ -47,7 +47,7 @@ body {
   justify-content: space-between;
 }
 
-.chat .chat-content span  {
+.chat .chat-content span {
   font-size: 1.3rem;
   color: var(--icon-color);
   visibility: hidden;
@@ -77,4 +77,33 @@ body {
 span.material-symbols-rounded {
   user-select: none;
   cursor: pointer;
+}
+
+.typing-animation {
+  display: inline-flex;
+  padding-left: 25px;
+}
+
+.typing-animation .typing-dot {
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  opacity: 0.7;
+  margin: 0 3px;
+  background-color: var(--text-color);
+  animation: animateDots 1.5s var(--delay) ease-in-out infinite;
+}
+
+@keyframes animateDots {
+  0%,
+  44% {
+    transform: translateY(0px);
+  }
+  22% {
+    opacity: 0.4;
+    transform: translateY(-5px);
+  }
+  44% {
+    opacity: 0.2;
+  }
 }
