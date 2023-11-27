@@ -3,6 +3,7 @@ const chatInput = document.getElementById('chat-input'); // Input de texto do us
 const sendBtn = document.getElementById('send-btn'); // Botão de envio de mensagem
 const chatContainer = document.querySelector('.chat-container'); // Contêiner para exibição das mensagens do chat
 const themeBtn = document.getElementById('theme-btn'); // Botão para mudar o tema
+const githubIcon = document.querySelector('.rede-social img'); // Seleção do elemento do icone do GitHub
 const deleteBtn = document.getElementById('delete-btn'); // Botão para apagar o chat
 
 // Variáveis Globais
@@ -140,6 +141,17 @@ const handleSaidaChat = () => {
   showTypingAnimation();
 };
 
+// Função para trocar o ícone do GitHub com base no tema atual
+const toggleGithubIcon = () => {
+  const isLightMode = document.body.classList.contains('light-mode');
+  const iconPath = isLightMode
+    ? './assets/imgs/github-dark.svg' // Caminho para o ícone escuro
+    : './assets/imgs/github.svg'; // Caminho para o ícone claro
+
+  githubIcon.setAttribute('src', iconPath);
+};
+
+// Adiciona um ouvinte de evento para o clique no botão de tema
 themeBtn.addEventListener('click', () => {
   // Muda o tema do site
   document.body.classList.toggle('light-mode');
@@ -147,6 +159,9 @@ themeBtn.addEventListener('click', () => {
   themeBtn.textContent = document.body.classList.contains('light-mode')
     ? 'dark_mode'
     : 'light_mode';
+
+  // Chama a função para trocar o ícone do GitHub
+  toggleGithubIcon();
 });
 
 deleteBtn.addEventListener('click', () => {
