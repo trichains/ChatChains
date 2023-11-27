@@ -29,7 +29,13 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         model: 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: userText }]
+        messages: [
+          {
+            role: 'user',
+            content: userText
+          }
+        ],
+        stream: true
       })
     };
 
@@ -38,11 +44,19 @@ export default async function handler(req, res) {
 
     // Verifica se a chamada à API foi bem-sucedida
     if (!response.ok) {
-      throw new Error(`OpenAI API error: ${response.statusText}`);
+      throw new Error(
+        `Erro na chamada da API da OpenAI: ${response.statusText}`
+      );
     }
 
-    // Obtém os dados da resposta da API
-    const responseData = await response.json();
+    // Inicializa a resposta da API como um array vazio
+    const responseData = [];
+
+    // Itera sobre os chunks da resposta da API enquanto ela é transmitida
+    for await (const chunk of response.body) {
+      responseData.push(chunk);
+      // Faça o que for necessário com cada chunk, por exemplo, enviar para o cliente em tempo real
+    }
 
     // Envie a resposta de volta para o cliente
     res.status(200).json(responseData);
