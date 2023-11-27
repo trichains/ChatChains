@@ -7,7 +7,7 @@ const deleteBtn = document.getElementById('delete-btn'); // Botão para apagar o
 
 // Variáveis Globais
 let userText = null; // Armazena o texto digitado pelo usuário
-const API_KEY = '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'; // Substitua 'sua-chave-de-api' pela sua chave de API da OpenAI
+const apiUrl = 'https://botchains.vercel.app/api/openai'; // Substitua pelo URL da sua função Vercel
 const initialHeight = chatInput.scrollHeight;
 
 const loadDataFromLocalStorage = () => {
@@ -39,32 +39,10 @@ const createElement = (html, className) => {
 };
 
 // Função para Obter Resposta do Chat
-const getChatResponse = async (entradaChatDiv) => {
-  const API_URL = 'https://api.openai.com/v1/chat/completions';
+const getChatResponse = (entradaChatDiv, response) => {
   const pElement = document.createElement('p');
+  pElement.textContent = response.message.trim();
 
-  // Define a configuração da requisição
-  const requestOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${API_KEY}`
-    },
-    body: JSON.stringify({
-      model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: userText }]
-    })
-  };
-
-  // Envia a requisição para a API e atualiza o elemento p com o resultado da resposta
-  try {
-    const response = await (await fetch(API_URL, requestOptions)).json();
-    console.log(response);
-    pElement.textContent = response.choices[0].message.content.trim();
-  } catch (err) {
-    pElement.classList.add('error');
-    pElement.textContent = 'API deletada no momento (vou corrigir mais tarde).';
-  }
   // Remove a animação de digitação, adiciona o elemento p e salva o conteúdo do chat no localStorage
   entradaChatDiv.querySelector('.typing-animation').remove();
   entradaChatDiv.querySelector('.chat-details').appendChild(pElement);
@@ -80,8 +58,9 @@ const copyResponse = (copyBtn) => {
     copyBtn.textContent = 'content_copy';
   }, 2000);
 };
+
 // Animação de Digitação
-const showTypingAnimation = () => {
+const showTypingAnimation = async () => {
   const html = `<div class='chat-content'>
                   <div class='chat-details'>
                     <img src='./assets/imgs/botchains.svg' alt='Foto do Chat Bot' />
@@ -96,7 +75,30 @@ const showTypingAnimation = () => {
   const entradaChatDiv = createElement(html, 'entrada');
   chatContainer.appendChild(entradaChatDiv);
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
-  getChatResponse(entradaChatDiv);
+
+  // Chama a função para obter a resposta da API OpenAI
+  try {
+    const response = await fetch('/api/openai', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ userText })
+    });
+
+    if (!response.ok) {
+      throw new Error('Erro ao chamar a API OpenAI');
+    }
+
+    const responseData = await response.json();
+
+    // Chama a função para manipular a resposta
+    getChatResponse(entradaChatDiv, responseData);
+  } catch (error) {
+    console.error('Erro ao obter resposta da API OpenAI', error);
+
+    // Caso ocorra um erro, você pode manipulá-lo aqui, se necessário
+  }
 };
 
 // Manipulação da Saída do Chat
@@ -118,7 +120,9 @@ const handleSaidaChat = () => {
   document.querySelector('.default-text')?.remove();
   chatContainer.appendChild(saidaChatDiv);
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
-  setTimeout(showTypingAnimation, 500);
+
+  // Após criar a entrada do usuário, você pode chamar a função para obter a resposta (showTypingAnimation)
+  showTypingAnimation();
 };
 
 themeBtn.addEventListener('click', () => {
