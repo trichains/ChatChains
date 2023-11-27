@@ -17,6 +17,16 @@
   --saida-chat-border: #343541;
   --entrada-chat-border: #444654;
 }
+.light-mode {
+  --text-color: #343541;
+  --icon-color: #a9a9bc;
+  --icon-hover-bg: #f1f1f3;
+  --placeholder-color: #9f9f9f;
+  --saida-chat-bg: #fff;
+  --entrada-chat-bg: #f7f7f8;
+  --saida-chat-border: #fff;
+  --entrada-chat-border: #d9d9e3;
+}
 
 body {
   background: var(--saida-chat-bg);
