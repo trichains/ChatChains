@@ -5,7 +5,13 @@ const chatContainer = document.querySelector('.chat-container'); // Contêiner p
 
 // Variáveis Globais
 let userText = null; // Armazena o texto digitado pelo usuário
-const API_KEY = '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'; // Substitua 'sua-chave-de-api' pela sua chave de API da OpenAI
+const API_KEY = 'api'; // Substitua 'sua-chave-de-api' pela sua chave de API da OpenAI
+
+const loadDataFromLocalStorage = () => {
+  chatContainer.innerHTML = localStorage.getItem('all-chats');
+};
+
+loadDataFromLocalStorage();
 
 // Função de Criação de Elemento HTML
 const createElement = (html, className) => {
@@ -42,8 +48,10 @@ const getChatResponse = async (entradaChatDiv) => {
   } catch (err) {
     console.log(err);
   }
+  // Remove a animação de digitação, adiciona o elemento p e salva o conteúdo do chat no localStorage
   entradaChatDiv.querySelector('.typing-animation').remove();
   entradaChatDiv.querySelector('.chat-details').appendChild(pElement);
+  localStorage.setItem('all-chats', chatContainer.innerHTML);
 };
 
 const copyResponse = (copyBtn) => {
