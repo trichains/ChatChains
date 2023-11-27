@@ -1,12 +1,15 @@
 /* Google fonts - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 
+/* Reset de estilos padrão e definição da fonte principal */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
+/* Definição de variáveis de cores para fácil ajuste */
 :root {
   --text-color: #fff;
   --icon-color: #acacbe;
@@ -18,6 +21,8 @@
   --entrada-chat-border: #444654;
   --destaque: #dd6633;
 }
+
+/* Estilos para modo claro e escuro */
 .light-mode {
   --text-color: #343541;
   --icon-color: #a9a9bc;
@@ -33,13 +38,14 @@ body {
   background: var(--saida-chat-bg);
 }
 
-/* Estilo do chat container */
+/* Estilo do contêiner do chat */
 .chat-container {
   max-height: 100vh;
   padding-bottom: 150px;
   overflow-y: auto;
 }
 
+/* Estilo para texto padrão quando não há mensagens no chat */
 .default-text {
   display: flex;
   align-items: center;
@@ -88,6 +94,7 @@ body {
   vertical-align: middle;
 }
 
+/* Estilo para links sociais */
 .rede-social {
   display: flex;
   align-items: center;
@@ -96,6 +103,7 @@ body {
   transition: all 0.3s ease;
 }
 
+/* Estilo para a barra de rolagem no chat e áreas de texto */
 :where(.chat-container, textarea)::-webkit-scrollbar {
   width: 6px;
 }
@@ -110,6 +118,7 @@ body {
   border-radius: 25px;
 }
 
+/* Estilos para os chats de entrada e saída */
 .chat-container .chat {
   padding: 25px 10px;
   display: flex;
@@ -127,6 +136,7 @@ body {
   border: 1px solid var(--entrada-chat-border);
 }
 
+/* Estilos para o conteúdo do chat */
 .chat .chat-content {
   display: flex;
   max-width: 1200px;
@@ -141,10 +151,12 @@ body {
   visibility: hidden;
 }
 
+/* Mostra os ícones de controle ao passar o mouse sobre uma mensagem */
 .chat:hover .chat-content:not(:has(.typing-animation, .error)) span {
   visibility: visible;
 }
 
+/* Estilos para os detalhes da mensagem no chat */
 .chat .chat-details {
   display: flex;
   align-items: center;
@@ -163,15 +175,18 @@ body {
   padding: 0 50px 0 25px;
 }
 
+/* Estilos para mensagens de erro */
 .chat .chat-details p.error {
   color: #dd2222;
 }
 
+/* Estilos para ícones com classe material-symbols-rounded */
 span.material-symbols-rounded {
   user-select: none;
   cursor: pointer;
 }
 
+/* Animação de digitação */
 .typing-animation {
   display: inline-flex;
   padding-left: 25px;
@@ -201,7 +216,7 @@ span.material-symbols-rounded {
   }
 }
 
-/* Estilo para o container de digitação */
+/* Estilos para o contêiner de digitação */
 .typing-container {
   display: flex;
   justify-content: center;
@@ -220,6 +235,7 @@ span.material-symbols-rounded {
   align-items: flex-end;
 }
 
+/* Estilos para a área de digitação */
 .typing-content .typing-textarea {
   width: 100%;
   display: flex;
@@ -255,10 +271,12 @@ span.material-symbols-rounded {
   visibility: hidden;
 }
 
+/* Exibe ícone de envio ao preencher a área de texto */
 .typing-textarea textarea:valid ~ span {
   visibility: visible;
 }
 
+/* Estilos para o botão de envio e outros controles */
 .typing-content span {
   height: 55px;
   width: 55px;
@@ -280,6 +298,7 @@ span.material-symbols-rounded {
   border: 1px solid var(--entrada-chat-border);
 }
 
+/* Efeitos de hover e clique nos controles */
 .typing-controls span:hover {
   background: var(--icon-hover-bg);
 }
@@ -288,7 +307,7 @@ span.material-symbols-rounded {
   background: var(--destaque);
 }
 
-/* Responsividade */
+/* Responsividade para telas menores */
 @media only screen and (max-width: 600px) {
   .chat-container {
     width: 100%;

@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="pt-br" dir="ltr">
   <head>
+    <!-- Configurações iniciais do documento -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="./assets/style.css" />
+    <!-- Script JavaScript principal assíncrono -->
     <script src="./assets/main.js" defer></script>
-    <!-- Google Fonts Link For Icons -->
+    <!-- Google Fonts Link para Ícones -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
+    <!-- Título da Página -->
     <title>BotChains</title>
   </head>
   <body>
-    <!-- Chat container -->
+    <!-- Contêiner para exibição das mensagens do chat -->
     <div class="chat-container"></div>
 
-    <!-- Container de digitação -->
+    <!-- Contêiner para a área de digitação -->
     <div class="typing-container">
+      <!-- Link para perfil no GitHub -->
       <a
         class="rede-social"
         href="https://github.com/trichains"
@@ -26,15 +30,21 @@
       >
         <img src="./assets/imgs/github.svg" alt="GitHub" />
       </a>
+      <!-- Área de digitação e controles -->
       <div class="typing-content">
+        <!-- Área de texto para digitar mensagens -->
         <div class="typing-textarea">
           <textarea id="chat-input" placeholder="Digite..." required></textarea>
+          <!-- Botão para enviar mensagem -->
           <span id="send-btn" class="material-symbols-rounded">send</span>
         </div>
+        <!-- Controles adicionais: Tema e Exclusão -->
         <div class="typing-controls">
+          <!-- Botão para alternar entre modos claro/escuro -->
           <span id="theme-btn" class="material-symbols-rounded"
             >light_mode</span
           >
+          <!-- Botão para apagar o histórico do chat -->
           <span id="delete-btn" class="material-symbols-rounded">delete</span>
         </div>
       </div>

@@ -1,6 +1,11 @@
 // api/openai.js
 
+// Importa o módulo 'fetch' para fazer chamadas HTTP
+import fetch from 'node-fetch';
+
+// Manipulador da função Vercel
 export default async function handler(req, res) {
+  // Obtém a chave da API da OpenAI do ambiente
   const apiKey = process.env.OPENAI_API_KEY;
 
   // Certifique-se de que a chave da API está presente
@@ -9,6 +14,7 @@ export default async function handler(req, res) {
     return;
   }
 
+  // URL da API OpenAI para completar as interações do chat
   const API_URL = 'https://api.openai.com/v1/chat/completions';
 
   // Obtenha os dados da requisição do cliente
@@ -28,7 +34,7 @@ export default async function handler(req, res) {
   };
 
   try {
-    // Faça a chamada à API OpenAI
+    // Faça a chamada à API OpenAI usando o módulo 'fetch'
     const response = await fetch(API_URL, requestOptions);
     const responseData = await response.json();
 
@@ -36,6 +42,8 @@ export default async function handler(req, res) {
     res.status(200).json(responseData);
   } catch (error) {
     console.error('Erro ao chamar a API da OpenAI', error);
+
+    // Em caso de erro, envie uma resposta de erro para o cliente
     res.status(500).json({ error: 'Erro no servidor interno e tal' });
   }
 }
