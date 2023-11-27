@@ -8,6 +8,7 @@ const deleteBtn = document.getElementById('delete-btn'); // Botão para apagar o
 // Variáveis Globais
 let userText = null; // Armazena o texto digitado pelo usuário
 const API_KEY = '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'; // Substitua 'sua-chave-de-api' pela sua chave de API da OpenAI
+const initialHeight = chatInput.scrollHeight;
 
 const loadDataFromLocalStorage = () => {
   // Carrega os dados do localStorage
@@ -61,7 +62,8 @@ const getChatResponse = async (entradaChatDiv) => {
     console.log(response);
     pElement.textContent = response.choices[0].message.content.trim();
   } catch (err) {
-    console.log(err);
+    pElement.classList.add('error');
+    pElement.textContent = 'API deletada no momento (vou corrigir mais tarde).';
   }
   // Remove a animação de digitação, adiciona o elemento p e salva o conteúdo do chat no localStorage
   entradaChatDiv.querySelector('.typing-animation').remove();
@@ -101,7 +103,9 @@ const showTypingAnimation = () => {
 const handleSaidaChat = () => {
   userText = chatInput.value.trim(); // Obtém o valor do input e remove espaços em branco
   if (!userText) return; // Se o texto estiver vazio, retorna daqui
+
   chatInput.value = ''; // Limpa o input
+  chatInput.style.height = `${initialHeight}px`;
   const html = `<div class="chat-content">
                   <div class="chat-details">
                     <img src="./assets/imgs/user.svg" alt="Foto do usuário" />
@@ -132,6 +136,20 @@ deleteBtn.addEventListener('click', () => {
     localStorage.removeItem('all-chats');
     chatContainer.innerHTML = '';
     loadDataFromLocalStorage();
+  }
+});
+
+chatInput.addEventListener('input', () => {
+  // Ajusta a altura do input de acordo com o conteúdo
+  chatInput.style.height = `${initialHeight}px`;
+  chatInput.style.height = `${chatInput.scrollHeight}px`;
+});
+
+chatInput.addEventListener('keydown', (e) => {
+  // Se o botão Enter for pressionado com shift pressionado e a largura da janela for maior que 768, aciona a manipulação da saída do chat
+  if (e.key === 'Enter' && !e.shiftKey && window.innerWidth > 768) {
+    e.preventDefault();
+    handleSaidaChat();
   }
 });
 
