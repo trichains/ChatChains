@@ -55,14 +55,20 @@ const getChatResponse = (entradaChatDiv, response) => {
     if (content !== undefined && content !== null) {
       pElement.textContent = content.trim();
     } else {
-      console.error('Resposta da API OpenAI inválida:', response);
+      const errorMessage = 'Resposta inválida da API';
+      console.error(errorMessage, response);
       pElement.classList.add('error');
-      pElement.textContent = 'Resposta inválida da API';
+      pElement.textContent = errorMessage;
+      // Exibe mensagem de erro no chat
+      showError(errorMessage);
     }
   } else {
-    console.error('Resposta da API OpenAI inválida:', response);
+    const errorMessage = 'Resposta inválida da API';
+    console.error(errorMessage, response);
     pElement.classList.add('error');
-    pElement.textContent = 'Resposta inválida da API';
+    pElement.textContent = errorMessage;
+    // Exibe mensagem de erro no chat
+    showError(errorMessage);
   }
 
   // Remove a animação de digitação, adiciona o elemento p e salva o conteúdo do chat no localStorage
@@ -115,8 +121,23 @@ const showTypingAnimation = async () => {
     getChatResponse(entradaChatDiv, responseData);
   } catch (error) {
     console.error('Erro ao obter resposta da API OpenAI', error);
-    // Caso ocorra um erro, você pode manipulá-lo aqui, se necessário
+    // Exibe mensagem de erro no chat
+    showError('Erro ao obter resposta da API OpenAI');
   }
+};
+
+// Função para exibir uma mensagem de erro no chat
+const showError = (errorMessage) => {
+  const html = `<div class="chat-content">
+                  <div class="chat-details">
+                    <img src="./assets/imgs/botchains.svg" alt="Foto do Chat Bot" />
+                    <p class="error">${errorMessage}</p>
+                 </div>
+                </div>`;
+  const errorChatDiv = createElement(html, 'saida');
+  elements.chatContainer.appendChild(errorChatDiv);
+  elements.chatContainer.scrollTo(0, elements.chatContainer.scrollHeight);
+  localStorage.setItem('all-chats', elements.chatContainer.innerHTML);
 };
 
 // Manipulação da Saída do Chat
