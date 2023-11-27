@@ -58,8 +58,11 @@ export default async function handler(req, res) {
       // Faça o que for necessário com cada chunk, por exemplo, enviar para o cliente em tempo real
     }
 
+    // Converte a resposta de Unicode para string antes de enviar de volta para o cliente
+    const stringResponse = responseData.map(unicodeArrayToString);
+
     // Envie a resposta de volta para o cliente
-    res.status(200).json(responseData);
+    res.status(200).json(stringResponse);
   } catch (error) {
     console.error('Erro ao chamar a API da OpenAI', error);
 
