@@ -1,8 +1,5 @@
 // api/openai.js
 
-// Importa o módulo 'fetch' para fazer chamadas HTTP
-import fetch from 'node-fetch';
-
 // Manipulador da função Vercel
 export default async function handler(req, res) {
   // Obtém a chave da API da OpenAI do ambiente
@@ -44,6 +41,6 @@ export default async function handler(req, res) {
     console.error('Erro ao chamar a API da OpenAI', error);
 
     // Em caso de erro, envie uma resposta de erro para o cliente
-    res.status(500).json({ error: 'Erro no servidor interno e tal' });
+    res.status(500).json({ error: 'Erro no servidor interno' });
   }
 }
