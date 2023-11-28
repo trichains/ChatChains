@@ -193,7 +193,6 @@ body {
 
 /* Estilos para ícones com classe material-symbols-rounded */
 button.material-symbols-rounded {
-  user-select: none;
   cursor: pointer;
 }
 
