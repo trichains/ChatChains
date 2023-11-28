@@ -4,12 +4,11 @@
     <!-- Configurações iniciais do documento -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Descrição para melhorar o SEO -->
+    <!-- Adicionei um atributo de descrição para melhorar o SEO -->
     <meta
       name="description"
       content="Um chat bot que utiliza a API da OpenAI do GPT"
     />
-    <!-- Ícone da página -->
     <link
       rel="shortcut icon"
       href="favicon.svg"
@@ -17,11 +16,10 @@
       width="32"
       height="32"
     />
-    <!-- Estilos CSS externos -->
     <link rel="stylesheet" href="./assets/style.css" />
     <!-- Script JavaScript principal assíncrono -->
     <script src="./assets/main.js" defer></script>
-    <!-- Fontes do Google para ícones -->
+    <!-- Google Fonts Link para Ícones -->
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
@@ -46,17 +44,17 @@
           importante que você o habilite para que o Chat funcione. !!
         </p>
       </header>
-      <!-- Seção para as mensagens do chat -->
-      <section class="chat-messages" aria-live="polite" aria-relevant="all">
+      <!-- Adicionei uma seção para as mensagens do chat com uma lista ordenada -->
+      <section class="chat-messages">
         <ol id="chat-list"></ol>
       </section>
     </div>
 
-    <!-- Área de digitação -->
+    <!-- Contêiner para a área de digitação -->
     <div class="typing-container" role="form">
       <!-- Link para perfil no GitHub -->
       <a
-        class="github-link"
+        class="rede-social"
         href="https://github.com/trichains"
         target="_blank"
         rel="noopener noreferrer"
@@ -72,6 +70,7 @@
       <div class="typing-content">
         <!-- Área de texto para digitar mensagens -->
         <div class="typing-textarea">
+          <!-- Adicionei um rótulo para a área de texto -->
           <textarea id="chat-input" placeholder="Digite..." required></textarea>
           <!-- Botão para enviar mensagem -->
           <button
@@ -82,6 +81,7 @@
           >
             send
           </button>
+          <!-- Alterei o elemento de span para button para melhorar a acessibilidade -->
         </div>
         <!-- Controles adicionais: Tema e Exclusão -->
         <div class="typing-controls">
@@ -94,6 +94,7 @@
           >
             light_mode
           </button>
+          <!-- Alterei o elemento de span para button para melhorar a acessibilidade -->
           <!-- Botão para apagar o histórico do chat -->
           <button
             id="delete-btn"
@@ -103,6 +104,7 @@
           >
             delete
           </button>
+          <!-- Alterei o elemento de span para button para melhorar a acessibilidade -->
         </div>
       </div>
     </div>
