@@ -165,11 +165,12 @@ const handleSaidaChat = () => {
 };
 
 // Função para trocar o ícone do GitHub com base no tema atual
+// Função para trocar o ícone do GitHub com base no tema atual
 const toggleGithubIcon = () => {
   const isLightMode = document.body.classList.contains('light-mode');
   const iconPath = isLightMode
-    ? './assets/imgs/github-dark.svg' // Caminho para o ícone escuro
-    : './assets/imgs/github.svg'; // Caminho para o ícone claro
+    ? './assets/imgs/github.svg' // Caminho para o ícone claro
+    : './assets/imgs/github-dark.svg'; // Caminho para o ícone escuro
   elements.githubIcon.setAttribute('src', iconPath);
 };
 
@@ -214,3 +215,5 @@ elements.chatInput.addEventListener('keydown', (e) => {
 
 // Adiciona um ouvinte de evento para o clique no botão de envio, que aciona a manipulação da saída do chat
 elements.sendBtn.addEventListener('click', handleSaidaChat);
+
+toggleGithubIcon();
