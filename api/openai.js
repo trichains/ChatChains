@@ -6,7 +6,7 @@ export default async function openaiHandler(req, res) {
 
     // Certifica-se de que a chave da API está presente
     if (!apiKey) {
-      throw new Error('API key not provided');
+      throw new Error('Chave de API não fornecida');
     }
 
     // URL da API OpenAI para completar as interações do chat
@@ -17,7 +17,7 @@ export default async function openaiHandler(req, res) {
 
     // Certifique-se de que o texto do usuário está presente na requisição
     if (!userText) {
-      throw new Error('User text not provided');
+      throw new Error('Texto do usuário não fornecido');
     }
 
     // Configuração da requisição para a API OpenAI
