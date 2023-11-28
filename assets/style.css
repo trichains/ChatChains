@@ -163,7 +163,7 @@ body {
 }
 
 /* Mostra os ícones de controle ao passar o mouse sobre uma mensagem */
-.chat:hover .chat-content:not(:has(.typing-animation, .error)) span {
+.chat:hover .chat-content:not(:has(.typing-animation, .error)) button {
   visibility: visible;
 }
 
