@@ -1,6 +1,3 @@
-// Importa módulos necessários
-import fetch from 'node-fetch';
-
 // Manipulador da função Vercel
 export default async function openaiHandler(req, res) {
   try {
