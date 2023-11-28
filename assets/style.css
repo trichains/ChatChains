@@ -9,6 +9,13 @@
   font-family: 'Poppins', sans-serif;
 }
 
+button {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  background-color: transparent;
+}
+
 /* Definição de variáveis de cores para fácil ajuste */
 :root {
   --text-color: #fff;
@@ -185,7 +192,7 @@ body {
 }
 
 /* Estilos para ícones com classe material-symbols-rounded */
-span.material-symbols-rounded {
+button.material-symbols-rounded {
   user-select: none;
   cursor: pointer;
 }
@@ -268,7 +275,7 @@ span.material-symbols-rounded {
   color: var(--placeholder-color);
 }
 
-.typing-textarea span {
+.typing-textarea button {
   position: absolute;
   right: 0;
   bottom: 0;
@@ -276,12 +283,12 @@ span.material-symbols-rounded {
 }
 
 /* Exibe ícone de envio ao preencher a área de texto */
-.typing-textarea textarea:valid ~ span {
+.typing-textarea textarea:valid ~ button {
   visibility: visible;
 }
 
 /* Estilos para o botão de envio e outros controles */
-.typing-content span {
+.typing-content button {
   height: 55px;
   width: 55px;
   display: flex;
@@ -294,7 +301,7 @@ span.material-symbols-rounded {
   display: flex;
 }
 
-.typing-controls span {
+.typing-controls button {
   margin-left: 7px;
   font-size: 1.4rem;
   border-radius: 4px;
@@ -303,11 +310,11 @@ span.material-symbols-rounded {
 }
 
 /* Efeitos de hover e clique nos controles */
-.typing-controls span:hover {
+.typing-controls button:hover {
   background: var(--icon-hover-bg);
 }
 
-.typing-controls span:active {
+.typing-controls button:active {
   background: var(--destaque);
 }
 

@@ -4,7 +4,18 @@
     <!-- Configurações iniciais do documento -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml" />
+    <!-- Adicionei um atributo de descrição para melhorar o SEO -->
+    <meta
+      name="description"
+      content="Um chat bot que utiliza a API da OpenAI do GPT"
+    />
+    <link
+      rel="shortcut icon"
+      href="favicon.svg"
+      type="image/svg+xml"
+      width="32"
+      height="32"
+    />
     <link rel="stylesheet" href="./assets/style.css" />
     <!-- Script JavaScript principal assíncrono -->
     <script src="./assets/main.js" defer></script>
@@ -18,34 +29,73 @@
   </head>
   <body>
     <!-- Contêiner para exibição das mensagens do chat -->
-    <div class="chat-container"></div>
+    <div class="chat-container" role="main" aria-live="polite">
+      <!-- Adicionei um cabeçalho para o chat com um título e um subtítulo -->
+      <header class="chat-header">
+        <h1>BotChains</h1>
+        <h2>Um chat bot que utiliza a API da OpenAI do GPT</h2>
+      </header>
+      <!-- Adicionei uma seção para as mensagens do chat com uma lista ordenada -->
+      <section class="chat-messages">
+        <ol id="chat-list"></ol>
+      </section>
+    </div>
 
     <!-- Contêiner para a área de digitação -->
-    <div class="typing-container">
+    <div class="typing-container" role="form">
       <!-- Link para perfil no GitHub -->
       <a
         class="rede-social"
         href="https://github.com/trichains"
         target="_blank"
+        rel="noopener noreferrer"
       >
-        <img src="./assets/imgs/github.svg" alt="GitHub" />
+        <img
+          src="./assets/imgs/github.svg"
+          alt="GitHub"
+          width="32"
+          height="32"
+        />
       </a>
       <!-- Área de digitação e controles -->
       <div class="typing-content">
         <!-- Área de texto para digitar mensagens -->
         <div class="typing-textarea">
+          <!-- Adicionei um rótulo para a área de texto -->
           <textarea id="chat-input" placeholder="Digite..." required></textarea>
           <!-- Botão para enviar mensagem -->
-          <span id="send-btn" class="material-symbols-rounded">send</span>
+          <button
+            id="send-btn"
+            class="material-symbols-rounded"
+            type="submit"
+            aria-label="Enviar"
+          >
+            send
+          </button>
+          <!-- Alterei o elemento de span para button para melhorar a acessibilidade -->
         </div>
         <!-- Controles adicionais: Tema e Exclusão -->
         <div class="typing-controls">
           <!-- Botão para alternar entre modos claro/escuro -->
-          <span id="theme-btn" class="material-symbols-rounded"
-            >light_mode</span
+          <button
+            id="theme-btn"
+            class="material-symbols-rounded"
+            type="button"
+            aria-label="Alternar tema"
           >
+            light_mode
+          </button>
+          <!-- Alterei o elemento de span para button para melhorar a acessibilidade -->
           <!-- Botão para apagar o histórico do chat -->
-          <span id="delete-btn" class="material-symbols-rounded">delete</span>
+          <button
+            id="delete-btn"
+            class="material-symbols-rounded"
+            type="button"
+            aria-label="Apagar histórico"
+          >
+            delete
+          </button>
+          <!-- Alterei o elemento de span para button para melhorar a acessibilidade -->
         </div>
       </div>
     </div>

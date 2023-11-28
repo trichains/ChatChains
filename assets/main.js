@@ -214,3 +214,5 @@ elements.chatInput.addEventListener('keydown', (e) => {
 
 // Adiciona um ouvinte de evento para o clique no botão de envio, que aciona a manipulação da saída do chat
 elements.sendBtn.addEventListener('click', handleSaidaChat);
+
+toggleGithubIcon();
