@@ -1,5 +1,8 @@
+// Importa módulos necessários
+import fetch from 'node-fetch';
+
 // Manipulador da função Vercel
-export default async function handler(req, res) {
+export default async function openaiHandler(req, res) {
   try {
     // Obtém a chave da API da OpenAI do ambiente
     const apiKey = process.env.OPENAI_API_KEY;
@@ -10,7 +13,7 @@ export default async function handler(req, res) {
     }
 
     // URL da API OpenAI para completar as interações do chat
-    const API_URL = 'https://api.openai.com/v1/chat/completions';
+    const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
 
     // Obtenha os dados da requisição do cliente
     const { userText } = req.body;
@@ -20,7 +23,7 @@ export default async function handler(req, res) {
       throw new Error('User text not provided');
     }
 
-    // Defina a configuração da requisição para a API OpenAI
+    // Configuração da requisição para a API OpenAI
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -33,8 +36,8 @@ export default async function handler(req, res) {
       })
     };
 
-    // Faça a chamada à API OpenAI usando o módulo 'fetch'
-    const response = await fetch(API_URL, requestOptions);
+    // Faz a chamada à API OpenAI usando o módulo 'fetch'
+    const response = await fetch(OPENAI_API_URL, requestOptions);
 
     // Verifica se a chamada à API foi bem-sucedida
     if (!response.ok) {
@@ -44,12 +47,12 @@ export default async function handler(req, res) {
     // Obtém os dados da resposta da API
     const responseData = await response.json();
 
-    // Envie a resposta de volta para o cliente
+    // Envia a resposta de volta para o cliente
     res.status(200).json(responseData);
   } catch (error) {
     console.error('Erro ao chamar a API da OpenAI', error);
 
-    // Em caso de erro, envie uma resposta de erro para o cliente
+    // Em caso de erro, envia uma resposta de erro para o cliente
     res.status(500).json({ error: 'Erro no servidor interno' });
   }
 }
