@@ -156,14 +156,14 @@ body {
   justify-content: space-between;
 }
 
-.chat .chat-content span {
+.chat .chat-content button {
   font-size: 1.3rem;
   color: var(--icon-color);
   visibility: hidden;
 }
 
 /* Mostra os ícones de controle ao passar o mouse sobre uma mensagem */
-.chat:hover .chat-content:not(:has(.typing-animation, .error)) span {
+.chat:hover .chat-content:not(:has(.typing-animation, .error)) button {
   visibility: visible;
 }
 

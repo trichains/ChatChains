@@ -94,7 +94,7 @@ const showTypingAnimation = async () => {
                       <div class='typing-dot' style='--delay: 0.4s'></div>
                     </div>
                   </div>
-                  <span onclick='copyResponse(this)' class='material-symbols-rounded'>content_copy</span>
+                  <button onclick='copyResponse(this)' class='material-symbols-rounded'>content_copy</button>
                 </div>`;
   const chatEntry = createElement(html, 'entrada');
   domElements.chatContainer.appendChild(chatEntry);
