@@ -16,6 +16,11 @@ button {
   background-color: transparent;
 }
 
+body.js-enabled .default-text,
+body.js-enabled .js-disable {
+  display: none;
+}
+
 /* Definição de variáveis de cores para fácil ajuste */
 :root {
   --text-color: #fff;
@@ -105,8 +110,12 @@ body {
   vertical-align: middle;
 }
 
-/* Estilo para links sociais */
-.rede-social {
+.js-disable {
+  color: #dd2222 !important;
+}
+
+/* Estilo para github link */
+.github-link {
   display: flex;
   align-items: center;
   justify-content: center;
