@@ -177,8 +177,8 @@ button {
   margin-bottom: 0;
 }
 
-#menu-icon {
-  visibility: hidden;
+.menu-container {
+  display: none;
 }
 
 /* Estilo do contêiner do chat */
