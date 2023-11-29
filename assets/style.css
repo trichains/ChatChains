@@ -1,3 +1,4 @@
+@import url(./mobile.css);
 /* Reset de estilos padrão e definição da fonte principal */
 * {
   margin: 0;
@@ -15,7 +16,6 @@
   --destaque: #777777;
   --border: 1px solid #1e1e1e;
   --input-bg: #1c1e3a;
-  /* ... */
   --icon-color: #b3acbe;
   --placeholder-color: #b5b5b5;
 }
@@ -43,20 +43,19 @@
   margin: 1rem;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-html {
-  /* font-size: 62.5%; */
-}
-
 body {
   background: var(--bg);
   color: var(--text-color);
   font-family: 'Poppins', sans-serif;
-  height: 100vh;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 button {
@@ -68,7 +67,6 @@ button {
 
 .geral {
   display: flex;
-  max-height: 75vh;
   min-height: 100vh;
   font-family: 'Poppins', sans-serif;
 }
@@ -93,6 +91,8 @@ button {
   padding: 2rem;
   border-bottom: var(--border);
   height: 70vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .upperSideTop {
@@ -175,7 +175,7 @@ button {
 
 .main {
   position: relative;
-  min-height: calc(75vh - 14rem);
+  min-height: calc(100vh - 14rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -216,7 +216,6 @@ button {
   height: 75vh;
   justify-content: center;
   align-items: center;
-  justify-content: center;
   color: var(--text-color);
 }
 
@@ -225,7 +224,6 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* margin-bottom: 10px; */
   opacity: 0.1;
 }
 
@@ -432,131 +430,4 @@ button {
 /* Exibe ícone de envio ao preencher a área de texto */
 .typing-textarea textarea:valid ~ button {
   visibility: visible;
-}
-
-/* Adiciona uma classe para estilos específicos de mobile */
-@media screen and (max-width: 1010px) {
-  .geral {
-    flex-direction: column-reverse;
-  }
-
-  .main {
-    margin: 0;
-  }
-
-  .sideBar {
-    display: none;
-  }
-
-  .upperSideTop {
-    margin: 0;
-  }
-
-  .brand {
-    font-size: 2rem;
-  }
-
-  .menu-container {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .menu {
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-    position: relative;
-    margin: 1rem;
-  }
-
-  #menu-icon {
-    visibility: visible;
-    position: absolute;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--icon-color);
-    font-size: 3rem;
-    margin: 1rem;
-    transition: all 0.3s ease;
-  }
-
-  .menu p {
-    font-size: 1.5rem;
-  }
-}
-
-@media screen and (max-width: 496px) {
-
-  .logo-fundo {
-    height: 60vh;
-  }
-
-  .logo-fundo h1 {
-    font-size: 3rem;
-  }
-
-  .default-text {
-    height: 20vh;
-  }
-
-  .default-text h1 {
-    font-size: 3rem;
-  }
-
-  .default-text p {
-    font-size: 1.5rem;
-  }
-
-  .chat-container {
-    height: 50vh;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-    width: 100%;
-    max-width: 75rem;
-    margin: 0 auto;
-  }
-
-  .menu p {
-    font-size: 1rem;
-  }
-
-  .typing-textarea {
-    margin: 0 0.5rem;
-    border-radius: 2rem;
-    padding: 0.3rem;
-  }
-
-  .typing-textarea textarea {
-    padding: 0.3rem;
-    height: 2.5rem;
-    max-height: 10rem;
-  }
-
-  .typing-textarea .github-link {
-    margin: 0.5rem;
-  }
-
-  .typing-textarea button {
-    margin: 0;
-  }
-
-  .chat .chat-details p {
-    font-size: 0.60em;
-    padding: 0 10px 0 10px;
-  }
-
-  .footer-dev {
-    font-size: 1.2rem;
-  }
-
-  .footer-dev span {
-    display: none;
-  }
 }
