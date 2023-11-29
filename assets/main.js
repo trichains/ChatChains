@@ -9,7 +9,7 @@ const domElements = {
 };
 
 // Constantes
-const apiUrl = 'https://botchains.vercel.app/api/openai';
+const apiUrl = 'https://chatchains.vercel.app/api/openai';
 const initialHeight = domElements.chatInput.scrollHeight;
 
 // Carrega dados do localStorage ao iniciar
@@ -87,7 +87,7 @@ const copyResponse = (copyBtn) => {
 const showTypingAnimation = async () => {
   const html = `<div class='chat-content'>
                   <div class='chat-details'>
-                    <img src='./assets/imgs/botchains.svg' alt='Foto do Chat Bot' />
+                    <img src='./assets/imgs/chatchains.svg' alt='Foto do Chat Bot' />
                     <div class='typing-animation'>
                       <div class='typing-dot' style='--delay: 0.2s'></div>
                       <div class='typing-dot' style='--delay: 0.3s'></div>
@@ -125,7 +125,7 @@ const showTypingAnimation = async () => {
 const showError = (errorMessage) => {
   const html = `<div class="chat-content">
                   <div class="chat-details">
-                    <img src="./assets/imgs/botchains.svg" alt="Foto do Chat Bot" />
+                    <img src="./assets/imgs/chatchains.svg" alt="Foto do Chat Bot" />
                     <p class="error">${errorMessage}</p>
                  </div>
                 </div>`;
