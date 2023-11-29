@@ -177,7 +177,7 @@ domElements.themeBtn.addEventListener('click', () => {
     'light-mode'
   )
     ? 'dark_mode'
-    : 'light_mode';
+    : 'light_mode',
 
   // Chama a função para trocar o ícone do GitHub
   toggleGithubIcon();

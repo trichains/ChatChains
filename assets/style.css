@@ -1,11 +1,22 @@
-/* Google fonts - Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-
 /* Reset de estilos padrão e definição da fonte principal */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: var(--link-text);
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background: var(--saida-chat-bg);
+  color: var(--text-color);
   font-family: 'Poppins', sans-serif;
 }
 
@@ -18,15 +29,17 @@ button {
 
 /* Definição de variáveis de cores para fácil ajuste */
 :root {
+  --saida-chat-bg: #13001f;
+  --btn-bg: #2d2043;
   --text-color: #fff;
-  --icon-color: #acacbe;
-  --icon-hover-bg: #5b5e71;
-  --placeholder-color: #ccc;
-  --saida-chat-bg: #343541;
-  --entrada-chat-bg: #444654;
-  --saida-chat-border: #343541;
-  --entrada-chat-border: #444654;
-  --destaque: #dd6633;
+  --link-text: #ae97c6;
+  --destaque: #777777;
+  --border: 1px solid #1e1e1e;
+  --input-bg: #1c1e3a;
+  /* ... */
+  --icon-color: #b3acbe;
+  --icon-hover-bg: #3e2e58;
+  --placeholder-color: #b5b5b5;
 }
 
 /* Estilos para modo claro e escuro */
@@ -37,19 +50,125 @@ button {
   --placeholder-color: #9f9f9f;
   --saida-chat-bg: #fff;
   --entrada-chat-bg: #f7f7f8;
-  --saida-chat-border: #fff;
-  --entrada-chat-border: #d9d9e3;
 }
 
-body {
-  background: var(--saida-chat-bg);
+.geral {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sideBar {
+  border-right: var(--border);
+}
+
+.logo {
+  margin-right: 1rem;
+}
+
+.brand {
+  font-size: 2.5rem;
+}
+
+.destaque {
+  color: var(--destaque);
+}
+
+.upperSide {
+  padding: 2rem;
+  border-bottom: var(--border);
+  height: 70%;
+}
+
+.upperSideTop {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.addBtn {
+  height: 2rem;
+  padding-right: 1rem;
+}
+
+.midBtn {
+  background: var(--btn-bg);
+  color: var(--text-color);
+  border: none;
+  padding: 1.5rem;
+  font-size: 1.5rem;
+  display: flex;
+  width: 25rem;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 3rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.query {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  color: var(--query-text);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 1.5rem;
+  width: 25rem;
+  margin: 1rem auto;
+  border-radius: 0.5rem;
+  border: var(--border);
+}
+
+.query img {
+  margin-right: 2rem;
+  object-fit: cover;
+  height: 1.75rem;
+}
+
+.lowerSide {
+  padding: 2.5rem;
+}
+
+.listItems {
+  margin: 0.75rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.3rem;
+}
+
+.listItemsImg {
+  margin: 1rem;
+  padding-right: 1rem;
+}
+
+.listItems:nth-child(1) > .listItemsImg {
+  margin-right: 0.5rem;
+}
+
+.listItems:nth-child(3) > .listItemsImg {
+  margin-right: 0.75rem;
+}
+
+.main {
+  min-height: calc(100vh - 14rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 6rem 10rem;
+  flex: 9 1;
+  margin-bottom: 0;
 }
 
 /* Estilo do contêiner do chat */
 .chat-container {
-  max-height: 100vh;
-  padding-bottom: 150px;
-  overflow-y: auto;
+  overflow: hidden;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  width: 100%;
+  max-width: 70rem;
+  height: calc(100vh - 17rem);
 }
 
 /* Estilo para texto padrão quando não há mensagens no chat */
@@ -107,11 +226,16 @@ body {
 
 /* Estilo para links sociais */
 .github-link {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   margin-right: 20px;
   transition: all 0.3s ease;
+}
+
+.footer-dev {
+  margin: 1rem 0;
+  font-size: 1.3rem;
 }
 
 /* Estilo para a barra de rolagem no chat e áreas de texto */
@@ -131,20 +255,18 @@ body {
 
 /* Estilos para os chats de entrada e saída */
 .chat-container .chat {
-  padding: 25px 10px;
+  margin: 1rem;
+  padding: 2rem 3rem;
+  font-size: 1.2rem;
   display: flex;
-  justify-content: center;
-  color: var(--text-color);
-}
-
-.chat-container .chat.saida {
-  background: var(--saida-chat-bg);
-  border: 1px solid var(--saida-chat-border);
+  align-items: flex-start;
+  text-align: justify;
 }
 
 .chat-container .chat.entrada {
-  background: var(--entrada-chat-bg);
-  border: 1px solid var(--entrada-chat-border);
+  background-color: var(--input-bg);
+  /* width: fit-content; */
+  border-radius: 0.5rem;
 }
 
 /* Estilos para o conteúdo do chat */
@@ -174,10 +296,10 @@ body {
 }
 
 .chat .chat-details img {
-  width: 50px;
-  height: 50px;
-  align-self: flex-start;
   object-fit: cover;
+  width: 3.5rem;
+  margin-right: 2rem;
+  border-radius: 0.5rem;
 }
 
 .chat .chat-details p {
@@ -194,6 +316,9 @@ body {
 /* Estilos para ícones com classe material-symbols-rounded */
 button.material-symbols-rounded {
   cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 /* Animação de digitação */
@@ -228,93 +353,90 @@ button.material-symbols-rounded {
 
 /* Estilos para o contêiner de digitação */
 .typing-container {
-  display: flex;
-  justify-content: center;
-  padding: 20px 10px;
-  position: fixed;
-  bottom: 0;
+  margin-top: auto;
   width: 100%;
-  background: var(--saida-chat-bg);
-  border: 1px solid var(--entrada-chat-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.typing-container .typing-content {
-  width: 100%;
-  max-width: 950px;
-  display: flex;
-  align-items: flex-end;
-}
+/* .typing-container .typing-content {
+
+} */
 
 /* Estilos para a área de digitação */
-.typing-content .typing-textarea {
-  width: 100%;
+.typing-textarea {
+  padding: 0.5rem;
+  background: var(--input-bg);
   display: flex;
-  position: relative;
+  align-items: center;
+  justify-content: space-between;
+  width: 58rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 .typing-textarea textarea {
-  background: var(--entrada-chat-bg);
-  outline: 1px solid var(--entrada-chat-border);
-  color: var(--text-color);
-  font-size: 1rem;
-  max-height: 250px;
-  overflow-y: auto;
-  padding: 15px 45px 15px 15px;
-  border-radius: 4px;
-  width: 100%;
-  height: 55px;
-  border: none;
+  width: calc(100% - 3rem);
+  outline: none;
   resize: none;
+  padding: 1.25rem;
+  overflow-y: auto;
+  color: var(--text-color);
+  max-height: 16rem;
+  font-size: 1.5rem;
+  border: none;
+  margin-right: 0.5rem;
+  background: transparent;
+  font-family: 'Poppins', sans-serif;
 }
 
 .typing-textarea textarea::placeholder {
-  font-weight: 500;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.1rem;
   opacity: 0.7;
   color: var(--placeholder-color);
 }
 
 .typing-textarea button {
-  position: absolute;
-  right: 0;
-  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-color);
+  height: 3.5rem;
+  width: 3.5rem;
   visibility: hidden;
+}
+
+#theme-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-color);
+  height: 3.5rem;
+  width: 3.5rem;
+}
+
+#theme-btn {
+  margin-left: 7px;
+  font-size: 1.4rem;
+  border-radius: 4px;
+  background: var(--btn-bg);
+  border: 1px solid var(--entrada-chat-border);
+}
+
+#theme-btn:hover {
+  background: var(--icon-hover-bg);
+}
+
+.icon-text {
+  margin-right: 8px; /* ou ajuste conforme necessário para separar o ícone do texto */
+  font-size: 14px; /* ajuste conforme necessário */
+  color: #333; /* cor do texto */
 }
 
 /* Exibe ícone de envio ao preencher a área de texto */
 .typing-textarea textarea:valid ~ button {
   visibility: visible;
-}
-
-/* Estilos para o botão de envio e outros controles */
-.typing-content button {
-  height: 55px;
-  width: 55px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--icon-color);
-}
-
-.typing-controls {
-  display: flex;
-}
-
-.typing-controls button {
-  margin-left: 7px;
-  font-size: 1.4rem;
-  border-radius: 4px;
-  background: var(--entrada-chat-bg);
-  border: 1px solid var(--entrada-chat-border);
-}
-
-/* Efeitos de hover e clique nos controles */
-.typing-controls button:hover {
-  background: var(--icon-hover-bg);
-}
-
-.typing-controls button:active {
-  background: var(--destaque);
 }
 
 /* Responsividade para telas menores */
