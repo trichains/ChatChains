@@ -175,7 +175,7 @@ button {
 
 .main {
   position: relative;
-  min-height: calc(100vh - 50rem);
+  min-height: calc(75vh - 14rem);
   display: flex;
   flex-direction: column;
   align-items: center;
