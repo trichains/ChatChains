@@ -35,17 +35,15 @@
     <div class="geral">
       <div class="sideBar mobile-menu">
         <div class="upperSide">
-          <div class="upperSideTop"><img src='./assets/imgs/chain-logo.svg' alt="Logo" class="logo" /><span class="brand">Chat<span class="destaque">ChainS</span></span> 
-            <!-- Adicione o botão de menu aqui -->
-            <button id="menu-icon" class="material-symbols-rounded" aria-label="Abrir menu">
-              menu
-            </button>
-          </div>
+          <a href="./index.html" target="_self" rel="noopener noreferrer">
+            <div class="upperSideTop"><img src='./assets/imgs/chain-logo.svg' alt="Logo" class="logo" /><span class="brand">Chat<span class="destaque">ChainS</span></span>
+            </div>
+          </a>
           <!-- Botão para apagar o histórico do chat -->
           <div class="upperSideBtn"><button class="midBtn" id="delete-btn" type="button">
             <div class="material-symbols-rounded" aria-label="Nova Conversa">add</div>Nova Conversa
           </button></div>
-
+          
           <div class="upperSideBottom">
             <button class="query"><img src='./assets/imgs/message.svg' alt="Query" />O que é programação?</button>
             <button class="query"><img src='./assets/imgs/message.svg' alt="Query" />Como usar uma API?</button>
@@ -56,20 +54,20 @@
             id="home-btn" class="material-symbols-rounded"
             type="button"
             aria-label="Inicio"
-          >
+            >
             home
           </button>Início</a>
-
+          
           <div class="listItems"><a href="https://trichains.vercel.app" target="_blank" rel="external noopener noreferrer">
             <button
-              id="portfolio-btn" class="material-symbols-rounded"
-              type="button"
-              aria-label="Meu portfolio"
+            id="portfolio-btn" class="material-symbols-rounded"
+            type="button"
+            aria-label="Meu portfolio"
             >
-              folder
-            </button>Meu Portfolio
-          </a></div>
-
+            folder
+          </button>Meu Portfolio
+        </a></div>
+      
           <div class="listItems"><button
             id="theme-btn"
             class="material-symbols-rounded"
@@ -82,6 +80,10 @@
       </div>
       <!-- Contêiner principal -->
       <div class="main">
+        <!-- Adicione o botão de menu aqui -->
+        <button id="menu-icon" class="material-symbols-rounded" aria-label="Abrir menu">
+          menu
+        </button>
         <div class="chat-container" role="application">
           <!-- Adicionei uma seção para as mensagens do chat com uma lista ordenada -->
           <section class="chat-messages">
