@@ -102,7 +102,6 @@ button {
 }
 
 .upperSideBtn {
-  padding: 1rem;
   margin-bottom: 3rem;
 }
 
@@ -115,9 +114,16 @@ button {
   color: var(--text-color);
   font-family: 'Poppins', sans-serif;
   border-radius: 0.5rem;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   width: 100%;
   padding: 1rem 0;
+  position: relative;
+}
+
+.midBtn .add {
+  position: absolute;
+  right: 0px;
+  color: var(--link-text);
 }
 
 .midBtn .material-symbols-rounded {
@@ -211,6 +217,7 @@ button {
   align-items: center;
   justify-content: center;
   margin-bottom: 10px;
+  opacity: 0.1;
 }
 
 .default-text .destaque {
@@ -432,6 +439,14 @@ button {
     display: none;
   }
 
+  .upperSideTop {
+    margin: 0;
+  }
+
+  .brand {
+    font-size: 2rem;
+  }
+
   .chat-container {
     width: 100%;
     max-width: 100%;
@@ -471,30 +486,9 @@ button {
   .menu p {
     font-size: 1.5rem;
   }
-
-  /* .sideBar.mobile-menu {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 70%;
-    max-width: 300px;
-    height: 100vh;
-    background: var(--background-dark);
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-  }
-
-  .sideBar.mobile-menu.show-menu {
-    transform: translateX(0);
-  }
-} */
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 496px) {
   .default-text {
     height: 50rem;
   }
