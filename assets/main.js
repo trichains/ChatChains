@@ -24,7 +24,6 @@ const loadLocalStorageData = () => {
   domElements.themeBtn.textContent = isLightMode ? 'dark_mode' : 'light_mode';
 
   const defaultText = `<div class='default-text'>
-                          <h1>⛓️ Chat<span class='destaque'>Chains</span> ⛓️</h1>
                           <p> Comece uma conversa ❤️<br>O histórico do seu chat aparecerá aqui.<br>
                           Visite <a href='https://github.com/trichains' target='_blank'>trichains</a> no GitHub 👋</p>
                         </div>`;

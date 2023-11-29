@@ -174,6 +174,7 @@ button {
 }
 
 .main {
+  position: relative;
   min-height: calc(100vh - 14rem);
   display: flex;
   flex-direction: column;
@@ -203,20 +204,28 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  align-self: center;
-  flex-direction: column;
-  height: 75rem;
   padding: 0 10px;
   text-align: center;
   color: var(--text-color);
+  height: 50rem;
 }
 
-.default-text h1 {
+.logo-fundo {
+  display: flex;
+  position: absolute;
+  height: 75rem;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
+}
+
+.logo-fundo h1 {
   font-size: 5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   opacity: 0.1;
 }
 
@@ -378,7 +387,7 @@ button {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  border-radius: 0.5rem;
+  border-radius: 2rem;
   max-width: 73rem;
   margin: auto;
 }
