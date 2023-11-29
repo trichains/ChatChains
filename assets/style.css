@@ -56,6 +56,7 @@ body {
   background: var(--bg);
   color: var(--text-color);
   font-family: 'Poppins', sans-serif;
+  height: 100vh;
 }
 
 button {
@@ -491,9 +492,6 @@ button {
 
 @media screen and (max-width: 496px) {
 
-  body {
-    max-height: 600px;
-  }
   .logo-fundo {
     height: 60vh;
   }
@@ -515,7 +513,7 @@ button {
   }
 
   .chat-container {
-    height: 70vh;
+    height: 50vh;
     border-radius: 0.5rem;
     overflow: hidden;
     overflow-y: scroll;
