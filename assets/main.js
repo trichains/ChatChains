@@ -5,7 +5,10 @@ const domElements = {
   chatContainer: document.querySelector('.chat-container'),
   themeBtn: document.getElementById('theme-btn'),
   githubIcon: document.querySelector('.github-link img'),
-  deleteBtn: document.getElementById('delete-btn')
+  deleteBtn: document.getElementById('delete-btn'),
+  menuIcon: document.getElementById('menu-icon'),
+  mobileMenu: document.querySelector('.sideBar.mobile-menu'),
+  portfolioBtn: document.getElementById('portfolio-btn'),
 };
 
 // Constantes
@@ -21,7 +24,7 @@ const loadLocalStorageData = () => {
   domElements.themeBtn.textContent = isLightMode ? 'dark_mode' : 'light_mode';
 
   const defaultText = `<div class='default-text'>
-                          <h1>⛓️ Bot<span class='destaque'>Chains</span> ⛓️</h1>
+                          <h1>⛓️ Chat<span class='destaque'>Chains</span> ⛓️</h1>
                           <p> Comece a conversar e explore o poder da AI.<br> O histórico do seu chat aparecerá aqui.<br>
                           Desenvolvido por <a href='https://github.com/trichains' target='_blank'>trichains</a></p>
                         </div>`;
@@ -168,25 +171,26 @@ const toggleGithubIcon = () => {
   domElements.githubIcon.setAttribute('src', iconPath);
 };
 
-// Adiciona um ouvinte de evento para o clique no botão de tema
-domElements.themeBtn.addEventListener('click', () => {
+// Adiciona um ouvinte de evento para o clique no contêiner pai do botão de tema
+domElements.themeBtn.parentElement.addEventListener('click', () => {
   // Muda o tema do site
   document.body.classList.toggle('light-mode');
   localStorage.setItem('theme-color', domElements.themeBtn.textContent);
-  domElements.themeBtn.textContent = document.body.classList.contains(
-    'light-mode'
-  )
+  domElements.themeBtn.textContent = document.body.classList.contains('light-mode')
     ? 'dark_mode'
-    : 'light_mode',
+    : 'light_mode';
 
   // Chama a função para trocar o ícone do GitHub
   toggleGithubIcon();
 });
 
+// ... (seu código existente)
+
+
 // Adiciona um ouvinte de evento para o clique no botão de apagar
 domElements.deleteBtn.addEventListener('click', () => {
   // Remove todas as conversas do localStorage e chama a função loadLocalStorageData para atualizar o conteúdo do chat
-  if (confirm('Deseja apagar todo o histórico da conversa?')) {
+  if (confirm('Isso apaga todo o historico da sua conversa e inicia uma nova.\nTem certeza?')) {
     localStorage.removeItem('all-chats');
     domElements.chatContainer.innerHTML = '';
     loadLocalStorageData();
@@ -209,7 +213,33 @@ domElements.chatInput.addEventListener('keydown', (e) => {
   }
 });
 
+// Adiciona um ouvinte de evento para o clique no botão de menu
+domElements.menuIcon.addEventListener('click', () => {
+  // Adiciona ou remove a classe 'show-menu' no mobileMenu
+  domElements.mobileMenu.classList.toggle('show-menu');
+});
+
 // Adiciona um ouvinte de evento para o clique no botão de envio, que aciona a manipulação da saída do chat
 domElements.sendBtn.addEventListener('click', handleChatOutput);
 
+// Função para trocar o ícone do botão "Meu Portfolio"
+const handlePortfolioBtnIconChange = () => {
+  const portfolioBtnParent = domElements.portfolioBtn.parentElement;
+  const originalIcon = domElements.portfolioBtn.innerHTML;
+
+  // Adiciona o evento de mouseover para trocar o ícone
+  portfolioBtnParent.addEventListener('mouseover', () => {
+    domElements.portfolioBtn.innerHTML = 'folder_open';
+  });
+
+  // Adiciona o evento de mouseout para restaurar o ícone original
+  portfolioBtnParent.addEventListener('mouseout', () => {
+    domElements.portfolioBtn.innerHTML = originalIcon;
+  });
+};
+
+// Chama a função para trocar o ícone do botão "Meu Portfolio"
+handlePortfolioBtnIconChange();
+
+// Chama a função para trocar o ícone do GitHub com base no tema atual
 toggleGithubIcon();

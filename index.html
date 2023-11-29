@@ -33,11 +33,18 @@
   <body>
     <noscript>Você deve ativar o JavaScript para executar esta página</noscript>
     <div class="geral">
-      <div class="sideBar">
+      <div class="sideBar mobile-menu">
         <div class="upperSide">
-          <div class="upperSideTop"><img src='./assets/imgs/chain-logo.svg' alt="Logo" class="logo" /><span class="brand">Chat<span class="destaque">ChainS</span></span> </div>
+          <div class="upperSideTop"><img src='./assets/imgs/chain-logo.svg' alt="Logo" class="logo" /><span class="brand">Chat<span class="destaque">ChainS</span></span> 
+            <!-- Adicione o botão de menu aqui -->
+            <button id="menu-icon" class="material-symbols-rounded" aria-label="Abrir menu">
+              menu
+            </button>
+          </div>
           <!-- Botão para apagar o histórico do chat -->
-          <button id="delete-btn" type="button" class="midBtn" aria-label="Nova Conversa"><img src='./assets/imgs/add-30.svg' alt="nova conversa" class="addBtn" />Nova Conversa</button>
+          <div class="upperSideBtn"><button class="midBtn" id="delete-btn" type="button">
+            <div class="material-symbols-rounded" aria-label="Nova Conversa">add</div>Nova Conversa
+          </button></div>
 
           <div class="upperSideBottom">
             <button class="query"><img src='./assets/imgs/message.svg' alt="Query" />O que é programação?</button>
@@ -45,22 +52,36 @@
           </div>
         </div>
         <div class="lowerSide">
-          <div class="listItems"><img src='./assets/imgs/home.svg' alt="inicio" class="listItemsImg" />Inicio</div>
+          <a href="./index.html" target="_self" rel="noopener noreferrer" class="listItems"><button
+            id="home-btn" class="material-symbols-rounded"
+            type="button"
+            aria-label="Inicio"
+          >
+            home
+          </button>Início</a>
 
-          <div class="listItems"><img src='./assets/imgs/rocket.svg' alt="portfolio" class="listItemsImg" />Meu Portfolio</div>
+          <div class="listItems"><a href="https://trichains.vercel.app" target="_blank" rel="external noopener noreferrer">
+            <button
+              id="portfolio-btn" class="material-symbols-rounded"
+              type="button"
+              aria-label="Meu portfolio"
+            >
+              folder
+            </button>Meu Portfolio
+          </a></div>
+
+          <div class="listItems"><button
+            id="theme-btn"
+            class="material-symbols-rounded"
+            type="button"
+            aria-label="Alternar tema"
+          >
+            light_mode
+          </button>Mudar Tema</div>
         </div>
       </div>
       <!-- Contêiner principal -->
       <div class="main">
-                  <!-- Botão para alternar entre modos claro/escuro -->
-                  <button
-                  id="theme-btn"
-                  class="material-symbols-rounded"
-                  type="button"
-                  aria-label="Alternar tema"
-                >
-                  light_mode
-                </button>
         <div class="chat-container" role="application">
           <!-- Adicionei uma seção para as mensagens do chat com uma lista ordenada -->
           <section class="chat-messages">
@@ -68,21 +89,21 @@
           </section>
         </div>
         <div class="typing-container" role="form">
-          <!-- Link para perfil no GitHub  -->
-          <a
-            class="github-link"
-            href="https://github.com/trichains"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              src="./assets/imgs/github.svg"
-              alt="GitHub"
-              width="32"
-              height="32"
-            />
-          </a>
           <div class="typing-textarea">
+            <!-- Link para perfil no GitHub  -->  
+            <a
+              class="github-link"
+              href="https://github.com/trichains"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="./assets/imgs/github.svg"
+                alt="GitHub"
+                width="32"
+                height="32"
+              />
+            </a>
             <textarea id="chat-input" placeholder="Escreva uma mensagem..." required></textarea>
             <button
             id="send-btn"
@@ -93,13 +114,10 @@
             send
           </button>
           </div>
-           <!-- Controles adicionais: Tema e Exclusão -->
-          <div class="typing-controls">
+                  </div>
           
-          </div>
-        </div>
         <div class="footer-dev">
-          <p>Desenvolvido por <a href="https://github.com/trichains" target="_blank" rel="noreferrer">trichains</a>. Lembre-se, ChatChains pode cometer erros. </p>
+          <p>Desenvolvido por <a class="trichains" href="https://github.com/trichains" target="_blank" rel="noreferrer">trichains</a>. Lembre-se, ChatChains pode cometer erros. </p>
         </div>
       </div>
   </body>

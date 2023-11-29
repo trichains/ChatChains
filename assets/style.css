@@ -5,9 +5,47 @@
   box-sizing: border-box;
 }
 
+/* Definição de variáveis de cores para fácil ajuste */
+:root {
+  --bg: #13001f;
+  --btn-bg: #2d2043;
+  --btn-bg-hover: #382b50;
+  --text-color: #fff;
+  --link-text: #ae97c6;
+  --destaque: #777777;
+  --border: 1px solid #1e1e1e;
+  --input-bg: #1c1e3a;
+  /* ... */
+  --icon-color: #b3acbe;
+  --placeholder-color: #b5b5b5;
+}
+
+/* Estilos para modo claro e escuro */
+.light-mode {
+  --text-color: #343541;
+  --icon-color: #a9a9bc;
+  --icon-hover-bg: #f1f1f3;
+  --placeholder-color: #9f9f9f;
+  --bg: #fff;
+  --entrada-chat-bg: #f7f7f8;
+}
+
+/* Estilos para ícones com classe material-symbols-rounded */
+
+.material-symbols-rounded {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-color);
+  height: 3.5rem;
+  width: 3.5rem;
+  margin: 1rem;
+}
+
 a {
   text-decoration: none;
-  color: var(--link-text);
+  color: inherit;
 }
 
 html {
@@ -15,7 +53,7 @@ html {
 }
 
 body {
-  background: var(--saida-chat-bg);
+  background: var(--bg);
   color: var(--text-color);
   font-family: 'Poppins', sans-serif;
 }
@@ -27,34 +65,10 @@ button {
   background-color: transparent;
 }
 
-/* Definição de variáveis de cores para fácil ajuste */
-:root {
-  --saida-chat-bg: #13001f;
-  --btn-bg: #2d2043;
-  --text-color: #fff;
-  --link-text: #ae97c6;
-  --destaque: #777777;
-  --border: 1px solid #1e1e1e;
-  --input-bg: #1c1e3a;
-  /* ... */
-  --icon-color: #b3acbe;
-  --icon-hover-bg: #3e2e58;
-  --placeholder-color: #b5b5b5;
-}
-
-/* Estilos para modo claro e escuro */
-.light-mode {
-  --text-color: #343541;
-  --icon-color: #a9a9bc;
-  --icon-hover-bg: #f1f1f3;
-  --placeholder-color: #9f9f9f;
-  --saida-chat-bg: #fff;
-  --entrada-chat-bg: #f7f7f8;
-}
-
 .geral {
   display: flex;
   min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
 }
 
 .sideBar {
@@ -85,25 +99,32 @@ button {
   margin-bottom: 2.5rem;
 }
 
-.addBtn {
-  height: 2rem;
-  padding-right: 1rem;
+.upperSideBtn {
+  padding: 1rem;
+  margin-bottom: 3rem;
 }
 
 .midBtn {
-  background: var(--btn-bg);
-  color: var(--text-color);
-  border: none;
-  padding: 1.5rem;
-  font-size: 1.5rem;
   display: flex;
-  width: 25rem;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
-  margin-bottom: 3rem;
-  border-radius: 0.5rem;
   cursor: pointer;
+  background: var(--btn-bg);
+  color: var(--text-color);
+  font-family: 'Poppins', sans-serif;
+  border-radius: 0.5rem;
+  font-size: 1.3rem;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.midBtn .material-symbols-rounded {
+  display: flex;
+  margin: 0;
+}
+
+.midBtn:hover {
+  background: var(--btn-bg-hover);
 }
 
 .query {
@@ -132,23 +153,16 @@ button {
 }
 
 .listItems {
+  cursor: pointer;
   margin: 0.75rem;
   display: flex;
   align-items: center;
   font-size: 1.3rem;
 }
 
-.listItemsImg {
-  margin: 1rem;
-  padding-right: 1rem;
-}
-
-.listItems:nth-child(1) > .listItemsImg {
-  margin-right: 0.5rem;
-}
-
-.listItems:nth-child(3) > .listItemsImg {
-  margin-right: 0.75rem;
+.listItems a {
+  display: flex;
+  align-items: center;
 }
 
 .main {
@@ -156,8 +170,8 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 6rem 10rem;
-  flex: 9 1;
+  margin: 0 2rem;
+  flex: 1;
   margin-bottom: 0;
 }
 
@@ -167,7 +181,8 @@ button {
   overflow-y: scroll;
   scroll-behavior: smooth;
   width: 100%;
-  max-width: 70rem;
+  max-width: 75rem;
+  margin: 0 auto;
   height: calc(100vh - 17rem);
 }
 
@@ -178,14 +193,14 @@ button {
   justify-content: center;
   align-self: center;
   flex-direction: column;
-  height: 70vh;
+  height: 75rem;
   padding: 0 10px;
   text-align: center;
   color: var(--text-color);
 }
 
 .default-text h1 {
-  font-size: 2rem;
+  font-size: 5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -197,15 +212,15 @@ button {
 }
 
 .default-text p {
-  font-size: 1.3rem;
+  font-size: 2rem;
   margin-top: 10px;
   line-height: 1.5;
   color: var(--placeholder-color);
-  max-width: 500px;
+  max-width: 75rem;
 }
 
 .default-text a {
-  margin-top: 20px;
+  margin-top: 10px;
   padding-bottom: 3px;
   display: inline-block;
   transition: all 0.3s ease;
@@ -217,25 +232,13 @@ button {
   text-decoration: underline;
 }
 
-.default-text img {
-  width: 32px;
-  display: inline;
-  margin-left: 5px;
-  vertical-align: middle;
-}
-
-/* Estilo para links sociais */
-.github-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 20px;
-  transition: all 0.3s ease;
-}
-
 .footer-dev {
   margin: 1rem 0;
   font-size: 1.3rem;
+}
+
+.trichains {
+  color: var(--link-text);
 }
 
 /* Estilo para a barra de rolagem no chat e áreas de texto */
@@ -257,7 +260,7 @@ button {
 .chat-container .chat {
   margin: 1rem;
   padding: 2rem 3rem;
-  font-size: 1.2rem;
+  font-size: 2rem;
   display: flex;
   align-items: flex-start;
   text-align: justify;
@@ -265,14 +268,13 @@ button {
 
 .chat-container .chat.entrada {
   background-color: var(--input-bg);
-  /* width: fit-content; */
   border-radius: 0.5rem;
 }
 
 /* Estilos para o conteúdo do chat */
 .chat .chat-content {
   display: flex;
-  max-width: 1200px;
+  max-width: 75rem;
   width: 100%;
   align-items: flex-start;
   justify-content: space-between;
@@ -293,32 +295,25 @@ button {
 .chat .chat-details {
   display: flex;
   align-items: center;
+  height: 4.5rem;
 }
 
 .chat .chat-details img {
   object-fit: cover;
-  width: 3.5rem;
+  width: 4rem;
   margin-right: 2rem;
   border-radius: 0.5rem;
 }
 
 .chat .chat-details p {
   white-space: pre-wrap;
-  font-size: 1.05rem;
+  font-size: 1.6rem;
   padding: 0 50px 0 25px;
 }
 
 /* Estilos para mensagens de erro */
 .chat .chat-details p.error {
   color: #dd2222;
-}
-
-/* Estilos para ícones com classe material-symbols-rounded */
-button.material-symbols-rounded {
-  cursor: pointer;
-  position: relative;
-  display: flex;
-  align-items: center;
 }
 
 /* Animação de digitação */
@@ -354,15 +349,13 @@ button.material-symbols-rounded {
 /* Estilos para o contêiner de digitação */
 .typing-container {
   margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  max-width: 75rem;
 }
-
-/* .typing-container .typing-content {
-
-} */
 
 /* Estilos para a área de digitação */
 .typing-textarea {
@@ -371,61 +364,41 @@ button.material-symbols-rounded {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 58rem;
+  width: 100%;
   border-radius: 0.5rem;
-  margin-bottom: 1rem;
+  max-width: 73rem;
+  margin: auto;
+}
+
+/* Estilo para links sociais */
+.typing-textarea .github-link {
+  display: flex;
+  align-items: center;
+  margin: 1rem;
+  transition: all 0.3s ease;
 }
 
 .typing-textarea textarea {
-  width: calc(100% - 3rem);
+  width: 100%;
   outline: none;
   resize: none;
   padding: 1.25rem;
   overflow-y: auto;
   color: var(--text-color);
-  max-height: 16rem;
+  max-height: 12rem;
   font-size: 1.5rem;
   border: none;
-  margin-right: 0.5rem;
   background: transparent;
   font-family: 'Poppins', sans-serif;
 }
 
 .typing-textarea textarea::placeholder {
-  letter-spacing: 0.1rem;
   opacity: 0.7;
   color: var(--placeholder-color);
 }
 
 .typing-textarea button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--icon-color);
-  height: 3.5rem;
-  width: 3.5rem;
   visibility: hidden;
-}
-
-#theme-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--icon-color);
-  height: 3.5rem;
-  width: 3.5rem;
-}
-
-#theme-btn {
-  margin-left: 7px;
-  font-size: 1.4rem;
-  border-radius: 4px;
-  background: var(--btn-bg);
-  border: 1px solid var(--entrada-chat-border);
-}
-
-#theme-btn:hover {
-  background: var(--icon-hover-bg);
 }
 
 .icon-text {
@@ -439,9 +412,42 @@ button.material-symbols-rounded {
   visibility: visible;
 }
 
-/* Responsividade para telas menores */
-@media only screen and (max-width: 600px) {
-  .chat-container {
-    width: 100%;
+/* Adiciona uma classe para estilos específicos de mobile */
+@media screen and (max-width: 1010px) {
+  .geral {
+    flex-direction: column-reverse;
   }
+
+  .main {
+    margin: 2rem;
+  }
+
+  /* #menu-icon {
+    display: block;
+    cursor: pointer;
+    color: var(--icon-color);
+    font-size: 2rem;
+    margin: 1rem;
+  }
+
+  /* .sideBar.mobile-menu {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 70%;
+    max-width: 300px;
+    height: 100vh;
+    background: var(--background-dark);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .sideBar.mobile-menu.show-menu {
+    transform: translateX(0);
+  }
+} */
 }
