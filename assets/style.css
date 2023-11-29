@@ -47,6 +47,7 @@ body {
   background: var(--bg);
   color: var(--text-color);
   font-family: 'Poppins', sans-serif;
+  font-size: 1.6rem;
 }
 
 html {
@@ -90,7 +91,7 @@ button {
 .upperSide {
   padding: 2rem;
   border-bottom: var(--border);
-  height: 70vh;
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
 }
@@ -144,7 +145,8 @@ button {
   font-size: 1.5rem;
   cursor: pointer;
   padding: 1.5rem;
-  width: 25rem;
+  width: 100%;
+  max-width: 25rem;
   margin: 1rem auto;
   border-radius: 0.5rem;
   border: var(--border);
@@ -181,7 +183,6 @@ button {
   align-items: center;
   margin: 0 2rem;
   flex: 1;
-  margin-bottom: 0;
 }
 
 .menu-container {
