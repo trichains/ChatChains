@@ -190,12 +190,11 @@ button {
 /* Estilo do contêiner do chat */
 .chat-container {
   overflow-y: scroll;
-  min-height: calc(100vh - 220px);
+  min-height: calc(100vh - 170px);
   scroll-behavior: smooth;
   width: 100%;
   max-width: 75rem;
   margin: 0 auto;
-  padding-bottom: 150px;
 }
 
 /* Estilo para texto padrão quando não há mensagens no chat */
@@ -241,7 +240,9 @@ button {
 }
 
 .footer-dev {
-  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 1rem;
 }
 
@@ -353,14 +354,13 @@ button {
 
 /* Estilos para o contêiner de digitação */
 .typing-container {
-  /* position: fixed; */
-  /* bottom: 0; */
   width: 100%;
   display: flex;
-  padding: 20px 10px;
+  padding: 20px 10px 0;
   justify-content: center;
   /* align-items: center; */
   max-width: 1200px;
+  flex-direction: column;
 }
 
 /* Estilos para a área de digitação */
@@ -415,4 +415,133 @@ button {
 /* Exibe ícone de envio ao preencher a área de texto */
 .typing-textarea textarea:valid ~ button {
   visibility: visible;
+}
+
+/* Adiciona uma classe para estilos específicos de mobile */
+@media screen and (max-width: 1010px) {
+  .main {
+    margin: 0;
+  }
+
+  .sideBar {
+    display: none;
+  }
+
+  .upperSideTop {
+    margin: 0;
+  }
+
+  .brand {
+    font-size: 1.5rem;
+  }
+
+  .menu-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    max-weight: 100%;
+    justify-content: center;
+  }
+
+  .menu {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    position: relative;
+    margin: 1rem;
+  }
+
+  #menu-icon {
+    visibility: visible;
+    position: absolute;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--icon-color);
+    font-size: 2rem;
+    margin: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .menu p {
+    font-size: 1.5rem;
+  }
+
+  .chat .chat-details img {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media screen and (max-width: 496px) {
+  .logo-fundo {
+    height: 60vh;
+  }
+
+  .logo-fundo h1 {
+    font-size: 3rem;
+  }
+
+  .default-text {
+    height: 20vh;
+  }
+
+  .default-text h1 {
+    font-size: 3rem;
+  }
+
+  .default-text p {
+    font-size: 1.5rem;
+  }
+
+  .chat-container {
+    height: 50vh;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    width: 100%;
+    max-width: 75rem;
+    margin: 0 auto;
+    /* padding: 120px; */
+  }
+
+  .menu p {
+    font-size: 1rem;
+  }
+
+  .typing-textarea {
+    margin: 0 0.5rem;
+    border-radius: 2rem;
+    padding: 0.3rem;
+  }
+
+  .typing-textarea textarea {
+    padding: 0.3rem;
+    height: 2.5rem;
+    max-height: 10rem;
+  }
+
+  .typing-textarea .github-link {
+    margin: 0.5rem;
+  }
+
+  .typing-textarea button {
+    margin: 0;
+  }
+
+  .chat .chat-details p {
+    font-size: 0.6em;
+    padding: 0 10px 0 10px;
+  }
+
+  .footer-dev {
+    font-size: 1.2rem;
+  }
+
+  .footer-dev span {
+    display: none;
+  }
 }
