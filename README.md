@@ -1,2 +1,2 @@
-# BotChains
- um chatbot utilizando a API do GPT
+# ChatChains
+ um chatbot que utiliza a API do GPT
