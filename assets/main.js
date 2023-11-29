@@ -25,8 +25,8 @@ const loadLocalStorageData = () => {
 
   const defaultText = `<div class='default-text'>
                           <h1>⛓️ Chat<span class='destaque'>Chains</span> ⛓️</h1>
-                          <p> Comece a conversar e explore o poder da AI.<br> O histórico do seu chat aparecerá aqui.<br>
-                          Desenvolvido por <a href='https://github.com/trichains' target='_blank'>trichains</a></p>
+                          <p> Comece uma conversa ❤️<br>O histórico do seu chat aparecerá aqui.<br>
+                          Visite <a href='https://github.com/trichains' target='_blank'>trichains</a> no GitHub 👋</p>
                         </div>`;
 
   domElements.chatContainer.innerHTML =
