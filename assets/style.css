@@ -490,6 +490,10 @@ button {
 }
 
 @media screen and (max-width: 496px) {
+
+  body {
+    max-height: 600px;
+  }
   .logo-fundo {
     height: 60vh;
   }
