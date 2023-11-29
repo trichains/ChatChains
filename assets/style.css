@@ -190,7 +190,7 @@ button {
 /* Estilo do contêiner do chat */
 .chat-container {
   overflow-y: scroll;
-  min-height: calc(100vh - 150px);
+  /* min-height: calc(100vh - 150px); */
   scroll-behavior: smooth;
   width: 100%;
   max-width: 75rem;
@@ -476,7 +476,7 @@ button {
   }
 
   .chat-container {
-    min-height: calc(100vh - 230px);
+    /* min-height: calc(100vh - 230px); */
   }
 }
 
