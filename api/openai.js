@@ -29,7 +29,8 @@ export default async function openaiHandler(req, res) {
       },
       body: JSON.stringify({
         model: 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: userText }]
+        messages: [{ role: 'system', content: 'Você e um assistente virtual' }, { role: 'user', content: userText }],
+        stream: true,
       })
     };
 
@@ -41,11 +42,14 @@ export default async function openaiHandler(req, res) {
       throw new Error(`OpenAI API error: ${response.statusText}`);
     }
 
-    // Obtém os dados da resposta da API
-    const responseData = await response.json();
+    // Inicia a transmissão da resposta para o cliente
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
 
-    // Envia a resposta de volta para o cliente
-    res.status(200).json(responseData);
+    // Envia a resposta de volta para o cliente em forma de streaming
+    response.body.pipe(res);
+
   } catch (error) {
     console.error('Erro ao chamar a API da OpenAI', error);
 
@@ -53,3 +57,17 @@ export default async function openaiHandler(req, res) {
     res.status(500).json({ error: 'Erro no servidor interno' });
   }
 }
+
+
+//     / Obtém os dados da resposta da API
+//     const responseData = await response.json();
+
+//     / Envia a resposta de volta para o cliente
+//     res.status(200).json(responseData);
+//   } catch (error) {
+//     console.error('Erro ao chamar a API da OpenAI', error);
+
+//      Em caso de erro, envia uma resposta de erro para o cliente
+//     res.status(500).json({ error: 'Erro no servidor interno' });
+//   }
+// }
