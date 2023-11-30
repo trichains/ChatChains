@@ -52,44 +52,50 @@ const createElement = (html, className) => {
   return chatDiv;
 };
 
-// Função para Obter Resposta do Chat
-const handleChatResponse = (chatEntry, response) => {
-  const pElement = document.createElement('p');
-
-  const handleInvalidResponse = () => {
-    const errorMessage = 'Resposta inválida da API';
-    console.error(errorMessage, response);
-    pElement.classList.add('error');
-    pElement.textContent = errorMessage;
-    showError(errorMessage);
-  };
-
+const getErrorMessage = (response) => {
   if (!response || !response.choices || response.choices.length === 0) {
-    handleInvalidResponse();
-    return;
+    return 'Resposta inválida da API';
   }
 
   const content = response.choices[0]?.message?.content;
 
   if (content !== undefined && content !== null) {
-    // pElement.textContent = content.trim();
+    return null;
   } else {
-    handleInvalidResponse();
+    return 'Resposta inválida da API';
   }
+};
 
-  // Remove a animação de digitação
-  const typingAnimation = chatEntry.querySelector('.typing-animation');
-  if (typingAnimation) {
-    typingAnimation.remove();
+
+// Função para manipular a resposta do chat
+const handleChatResponse = (chatEntry, response) => {
+  const pElement = document.createElement('p');
+
+  const errorMessage = getErrorMessage(response);
+
+  if (errorMessage) {
+    console.error(errorMessage, response);
+    pElement.classList.add('error');
+    pElement.textContent = errorMessage;
+    showError(errorMessage, chatEntry);
+  } else {
+    const content = response.choices[0]?.message?.content;
+    // pElement.textContent = content.trim();
+
+    // Remove a animação de digitação
+    const typingAnimation = chatEntry.querySelector('.typing-animation');
+    if (typingAnimation) {
+      typingAnimation.remove();
+    }
+
+    // Substitui a resposta do bot pela mensagem de erro, se houver erro
+    const chatDetails = chatEntry.querySelector('.chat-details');
+    chatDetails.innerHTML = ''; // Limpa o conteúdo atual
+    chatDetails.appendChild(pElement);
+
+    domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight);
+    localStorage.setItem('all-chats', domElements.chatContainer.innerHTML);
   }
-
-  // Substitui a resposta do bot pela mensagem de erro, se houver erro
-  const chatDetails = chatEntry.querySelector('.chat-details');
-  chatDetails.innerHTML = ''; // Limpa o conteúdo atual
-  chatDetails.appendChild(pElement);
-
-  domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight);
-  localStorage.setItem('all-chats', domElements.chatContainer.innerHTML);
 };
 
 
@@ -142,25 +148,34 @@ const showTypingAnimation = async () => {
     handleChatResponse(chatEntry, responseData);
   } catch (error) {
     console.error('Erro ao obter resposta da API OpenAI', error);
-    // Exibe mensagem de erro no chat
-    showError('Erro ao obter resposta, tente novamente.');
+    // Remove a animação de digitação
+    const typingAnimation = chatEntry.querySelector('.typing-animation');
+    if (typingAnimation) {
+      typingAnimation.remove();
+    }
+
+    // Chama a função para exibir a mensagem de erro no chat de entrada atual
+    showError('Erro ao obter resposta, tente novamente.', chatEntry);
   }
 };
 
+
+
 // Função para exibir uma mensagem de erro no chat
-const showError = (errorMessage) => {
-  const html = `
-    <div class="chat-content">
-      <div class="chat-details">
-        <img src="./assets/imgs/chatchains.svg" alt="Foto do Chat Bot" />
-        <p class="error">${errorMessage}</p>
-      </div>
-    </div>`;
-  const errorChatEntry = createElement(html, 'saida');
-  domElements.chatContainer.appendChild(errorChatEntry);
+const showError = (errorMessage, chatEntry) => {
+  const pElement = document.createElement('p');
+  pElement.classList.add('error');
+  pElement.textContent = errorMessage;
+
+  // Adiciona a mensagem de erro na estrutura do chat-details atual
+  const chatDetails = chatEntry.querySelector('.chat-details');
+  chatDetails.appendChild(pElement);
+
   domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight);
   localStorage.setItem('all-chats', domElements.chatContainer.innerHTML);
 };
+
+
 
 // Manipulação da Saída do Chat
 const handleChatOutput = () => {
