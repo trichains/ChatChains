@@ -21,6 +21,8 @@ const portfolioBtn = document.getElementById('portfolio-btn');
 const apiUrl = 'https://chatchains.vercel.app/api/openai';
 const initialHeight = domElements.chatInput.scrollHeight;
 
+let userText = '';
+
 const defaultText = `
 <div class='default-text'>
   <img src='./assets/imgs/chatchains.svg' alt='Foto do usuário'>
