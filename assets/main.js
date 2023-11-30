@@ -96,12 +96,6 @@ const handleChatResponse = (chatEntry, response) => {
       chatDetails.appendChild(botImage);
       chatDetails.appendChild(pElement);
 
-      // Adiciona o botão de cópia dentro do chat-details
-      const copyButton = document.createElement('button');
-      copyButton.className = 'material-symbols-rounded';
-      copyButton.textContent = 'content_copy';
-      chatDetails.appendChild(copyButton);
-
       domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight);
       localStorage.setItem('all-chats', domElements.chatContainer.innerHTML);
     } else {
@@ -137,6 +131,7 @@ const showTypingAnimation = async () => {
             <div class='typing-dot' style='--delay: 0.4s'></div>
           </div>
         </div>
+        <button class='material-symbols-rounded'>content_copy</button>
       </div>`;
     return createElement(html, 'entrada');
   };
