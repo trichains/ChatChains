@@ -21,6 +21,15 @@ const portfolioBtn = document.getElementById('portfolio-btn');
 const apiUrl = 'https://chatchains.vercel.app/api/openai';
 const initialHeight = domElements.chatInput.scrollHeight;
 
+const eventSource = new EventSource(apiUrl);
+
+eventSource.addEventListener('message', (event) => {
+  const responseData = JSON.parse(event.data);
+  // Chama a função para manipular a resposta
+  showTypingAnimation(responseData.userText);
+});
+
+
 const defaultText = `
 <div class='default-text'>
   <img src='./assets/imgs/chatchains.svg' alt='Foto do usuário'>
@@ -120,7 +129,7 @@ const copyResponse = (copyBtn) => {
 };
 
 // Animação de Digitação
-const showTypingAnimation = async () => {
+const showTypingAnimation = (userText) => {
   const createChatEntry = () => {
     const html = `
       <div class='chat-content'>
@@ -137,27 +146,12 @@ const showTypingAnimation = async () => {
     return createElement(html, 'entrada');
   };
 
-  const userText = domElements.chatInput.value.trim();  // Adicione esta linha para obter o texto do usuário
-
-
   const chatEntry = createChatEntry();
   domElements.chatContainer.appendChild(chatEntry);
   domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight);
 
   try {
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userText })
-    });
 
-    if (!response.ok) {
-      throw new Error('Erro ao chamar a API OpenAI');
-    }
-
-    const responseData = await response.json();
-    // Chama a função para manipular a resposta
-    handleChatResponse(chatEntry, responseData);
   } catch (error) {
     console.error('Erro ao obter resposta da API OpenAI', error);
     // Remove a animação de digitação
@@ -170,8 +164,6 @@ const showTypingAnimation = async () => {
     showError('Muitas requisições no momento, tente novamente mais tarde.', chatEntry);
   }
 };
-
-
 
 // Função para exibir uma mensagem de erro no chat
 const showError = (errorMessage, chatEntry) => {
@@ -205,15 +197,13 @@ const handleChatOutput = () => {
     </div>`;
   // Cria um div de chat de saída com a mensagem do usuário e anexa ao contêiner de chat
   const outputChatEntry = createElement(html, 'saida');
-  document.querySelector('.default-text')?.remove();  // Remova o conteúdo padrão imediatamente quando o usuário digitar
-
   outputChatEntry.querySelector('.chat-details p').textContent = userText;
   document.querySelector('.default-text')?.remove();
   domElements.chatContainer.appendChild(outputChatEntry);
   domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight);
 
   // Após criar a entrada do usuário, você pode chamar a função para obter a resposta (showTypingAnimation)
-  showTypingAnimation(userText);
+  showTypingAnimation();
 };
 
 // Função para trocar o ícone do GitHub com base no tema atual
