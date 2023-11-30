@@ -119,7 +119,7 @@ const showTypingAnimation = async () => {
   } catch (error) {
     console.error('Erro ao obter resposta da API OpenAI', error);
     // Exibe mensagem de erro no chat
-    showError('Erro ao obter resposta da API OpenAI');
+    showError('Erro ao obter resposta, tente novamente.');
   }
 };
 
