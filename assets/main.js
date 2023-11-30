@@ -137,6 +137,9 @@ const showTypingAnimation = async () => {
     return createElement(html, 'entrada');
   };
 
+  const userText = domElements.chatInput.value.trim();  // Adicione esta linha para obter o texto do usuário
+
+
   const chatEntry = createChatEntry();
   domElements.chatContainer.appendChild(chatEntry);
   domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight);
@@ -202,13 +205,15 @@ const handleChatOutput = () => {
     </div>`;
   // Cria um div de chat de saída com a mensagem do usuário e anexa ao contêiner de chat
   const outputChatEntry = createElement(html, 'saida');
+  document.querySelector('.default-text')?.remove();  // Remova o conteúdo padrão imediatamente quando o usuário digitar
+
   outputChatEntry.querySelector('.chat-details p').textContent = userText;
   document.querySelector('.default-text')?.remove();
   domElements.chatContainer.appendChild(outputChatEntry);
   domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight);
 
   // Após criar a entrada do usuário, você pode chamar a função para obter a resposta (showTypingAnimation)
-  showTypingAnimation();
+  showTypingAnimation(userText);
 };
 
 // Função para trocar o ícone do GitHub com base no tema atual

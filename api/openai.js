@@ -29,7 +29,8 @@ export default async function openaiHandler(req, res) {
       },
       body: JSON.stringify({
         model: 'gpt-3.5-turbo-1106',
-        messages: [{ role: 'user', content: userText }]
+        messages: [{ role: 'user', content: userText }],
+        stream: true,
       })
     };
 
@@ -41,11 +42,13 @@ export default async function openaiHandler(req, res) {
       throw new Error(`OpenAI API error: ${response.statusText}`);
     }
 
-    // Obtém os dados da resposta da API
-    const responseData = await response.json();
+    // Configura o cabeçalho para transmitir eventos (Server-Sent Events)
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
 
-    // Envia a resposta de volta para o cliente
-    res.status(200).json(responseData);
+    // Transmite a resposta da API de volta para o cliente
+    response.body.pipe(res, { end: false });
   } catch (error) {
     console.error('Erro ao chamar a API da OpenAI', error);
 
