@@ -16,6 +16,7 @@
   --destaque: #777777;
   --border: 1px solid #1e1e1e;
   --input-bg: #1c1e3a;
+  --input-bg-bot: #1c1e3a57;
   --icon-color: #b3acbe;
   --placeholder-color: #b5b5b5;
 }
@@ -30,10 +31,18 @@
   --entrada-chat-bg: #f7f7f8;
 }
 
-/* Estilos para ícones com classe material-symbols-rounded */
+body {
+  background: var(--bg);
+  color: var(--text-color);
+  /* font-family: 'Poppins', sans-serif; */
+}
 
+/* Estilos para ícones com classe material-symbols-rounded */
 .material-symbols-rounded {
   cursor: pointer;
+}
+
+.sideBar .material-symbols-rounded {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,12 +50,6 @@
   height: 3.5rem;
   width: 3.5rem;
   margin: 1rem;
-}
-
-body {
-  background: var(--bg);
-  color: var(--text-color);
-  font-family: 'Poppins', sans-serif;
 }
 
 a {
@@ -61,14 +64,16 @@ button {
   background-color: transparent;
 }
 
-.geral {
-  display: flex;
-  max-height: 100vh;
+/* .container {
+  display: grid;
+  grid-template-columns: minmax(250px, 1fr) 1fr;
+  height: 100vh;
   font-family: 'Poppins', sans-serif;
-}
+} */
 
 .sideBar {
   border-right: var(--border);
+  display: none;
 }
 
 .logo {
@@ -176,12 +181,16 @@ button {
 
 .main {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 2rem;
-  flex: 1;
-  max-height: 100vh;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+  /* margin: 0 2rem; */
+  /* flex: 1; */
+  /* max-height: 100vh; */
+  /* display: grid; */
+  /* grid-template-rows: auto 1fr auto; */
+  /* grid-gap: 20px; */
+  /* padding: 20px; */
 }
 
 .menu-container {
@@ -193,11 +202,22 @@ button {
   max-height: 100vh;
   overflow-y: auto;
   scroll-behavior: smooth;
-  width: 100%;
-  max-width: 75rem;
-  margin: 0 auto;
-  margin-bottom: 20rem;
-  padding-bottom: 150px;
+  padding-bottom: 200px;
+}
+
+/* Estilo para a barra de rolagem no chat e áreas de texto */
+:where(.chat-container, textarea)::-webkit-scrollbar {
+  width: 6px;
+}
+
+:where(.chat-container, textarea)::-webkit-scrollbar-track {
+  background: var(--entrada-chat-bg);
+  border-radius: 25px;
+}
+
+:where(.chat-container, textarea)::-webkit-scrollbar-thumb {
+  background: var(--icon-color);
+  border-radius: 25px;
 }
 
 /* Estilo para texto padrão quando não há mensagens no chat */
@@ -213,9 +233,9 @@ button {
 }
 
 .logo-fundo {
-  position: absolute;
-  align-items: center;
-  height: 75%;
+  height: 90vh;
+  position: fixed;
+  width: 100%;
   z-index: -1;
 }
 
@@ -243,41 +263,16 @@ button {
   text-decoration: underline;
 }
 
-.footer-dev {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1rem;
-}
-
-.trichains {
-  color: var(--link-text);
-}
-
-/* Estilo para a barra de rolagem no chat e áreas de texto */
-:where(.chat-container, textarea)::-webkit-scrollbar {
-  width: 6px;
-}
-
-:where(.chat-container, textarea)::-webkit-scrollbar-track {
-  background: var(--entrada-chat-bg);
-  border-radius: 25px;
-}
-
-:where(.chat-container, textarea)::-webkit-scrollbar-thumb {
-  background: var(--icon-color);
-  border-radius: 25px;
-}
-
 /* Estilos para os chats de entrada e saída */
 .chat-container .chat {
   display: flex;
   margin: 1rem;
+  justify-content: center;
   padding: 25px 10px;
 }
 
 .chat-container .chat.entrada {
-  background-color: var(--input-bg);
+  background-color: var(--input-bg-bot);
   border-radius: 0.5rem;
 }
 
@@ -318,13 +313,14 @@ button {
 .chat .chat-details p {
   color: var(--text-color);
   white-space: pre-wrap;
+  padding-right: 50px;
   font-size: 1.05rem;
   word-break: break-word;
 }
 
 /* Estilos para mensagens de erro */
 .chat .chat-details p.error {
-  color: #dd2222;
+  color: #e55865;
 }
 
 /* Animação de digitação */
@@ -360,45 +356,51 @@ button {
 .typing-container {
   position: fixed;
   bottom: 0;
-  width: 600px;
+  width: 100%;
   display: flex;
-  padding: 20px 10px 0;
+  padding: 20px 10px 10px;
   justify-content: center;
-  /* align-items: center; */
-  max-width: 1200px;
   flex-direction: column;
+  align-items: center;
+}
+
+.typing-container .typing-content {
+  display: flex;
+  max-width: 950px;
+  width: 100%;
+  align-items: flex-end;
 }
 
 /* Estilos para a área de digitação */
 .typing-container .typing-textarea {
-  display: flex;
   width: 100%;
-  /* padding: 0.5rem; */
+  display: flex;
+  position: relative;
   background: var(--input-bg);
-  align-items: center;
+  /* align-items: center; */
   justify-content: space-between;
   border-radius: 2rem;
 }
 
 /* Estilo para links sociais */
 .typing-textarea .github-link {
-  display: flex;
-  align-items: center;
-  margin: 1rem;
-  transition: all 0.3s ease;
+  position: absolute;
+  left: 5px;
+  bottom: 0;
 }
 
 .typing-textarea textarea {
   resize: none;
-  width: 100%;
   height: 55px;
+  width: 100%;
   border: none;
-  outline: none;
-  padding: 1rem;
-  overflow-y: auto;
+  padding: 15px 45px 15px 70px;
   color: var(--text-color);
-  max-height: 100px;
   font-size: 1rem;
+  border-radius: 4px;
+  outline: none;
+  overflow-y: auto;
+  max-height: 250px;
   background: transparent;
   font-family: 'Poppins', sans-serif;
 }
@@ -408,7 +410,25 @@ button {
   color: var(--placeholder-color);
 }
 
+.typing-content .github-link,
+button {
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  font-size: 1.35rem;
+  justify-content: center;
+  color: var(--text-color);
+  border: none;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
 .typing-textarea button {
+  position: absolute;
+  right: 0;
+  bottom: 0;
   visibility: hidden;
 }
 
@@ -421,6 +441,14 @@ button {
 /* Exibe ícone de envio ao preencher a área de texto */
 .typing-textarea textarea:valid ~ button {
   visibility: visible;
+}
+
+.footer-dev {
+  padding-top: 10px;
+}
+
+.trichains {
+  color: var(--link-text);
 }
 
 /* Adiciona uma classe para estilos específicos de mobile */

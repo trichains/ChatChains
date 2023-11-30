@@ -32,7 +32,7 @@
   </head>
   <body>
     <noscript>Você deve ativar o JavaScript para executar esta página</noscript>
-    <div class="geral">
+    <div class="container">
       <div class="sideBar mobile-menu">
         <div class="upperSide">
           <a href="./index.html" target="_self" rel="noopener noreferrer">
@@ -78,6 +78,7 @@
           </button>Mudar Tema</div>
         </div>
       </div>
+      
       <!-- Contêiner principal -->
       <div class="main">
         <!-- Adicione o botão de menu aqui -->
@@ -98,29 +99,31 @@
         <div class="chat-container" role="application">
         </div>
         <div class="typing-container" role="form">
-          <div class="typing-textarea">
-            <!-- Link para perfil no GitHub  -->  
-            <a
-              class="github-link"
-              href="https://github.com/trichains"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="./assets/imgs/github.svg"
-                alt="GitHub"
-                width="32"
-                height="32"
-              />
-            </a>
-            <textarea id="chat-input" placeholder="Digite aqui..." required></textarea>
-            <button
-            id="send-btn"
-            class="material-symbols-rounded"
-            type="submit"
-            aria-label="Enviar">
-            send
-            </button>
+          <div class="typing-content">
+            <div class="typing-textarea">
+              <!-- Link para perfil no GitHub  -->
+              <a
+                class="github-link"
+                href="https://github.com/trichains"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="./assets/imgs/github.svg"
+                  alt="GitHub"
+                  width="32"
+                  height="32"
+                />
+              </a>
+              <textarea id="chat-input" spellcheck="false" placeholder="Digite aqui..." required></textarea>
+              <button
+              id="send-btn"
+              class="material-symbols-rounded"
+              type="submit"
+              aria-label="Enviar">
+              send
+              </button>
+            </div>
           </div>
           <div class="footer-dev">
             <p>Desenvolvido por <a class="trichains" href="https://github.com/trichains" target="_blank" rel="noreferrer">trichains</a>. <span>Lembre-se, ChatChains pode cometer erros.</span></p>
