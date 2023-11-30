@@ -6,8 +6,6 @@ const domElements = {
   themeBtn: document.getElementById('theme-btn'),
   githubIcon: document.querySelector('.github-link img'),
   deleteBtn: document.getElementById('delete-btn'),
-  menuIcon: document.getElementById('menu-icon'),
-  mobileMenu: document.querySelector('.sideBar.mobile-menu'),
   portfolioBtn: document.getElementById('portfolio-btn'),
 };
 
@@ -194,6 +192,7 @@ domElements.deleteBtn.addEventListener('click', () => {
     localStorage.removeItem('all-chats');
     domElements.chatContainer.innerHTML = '';
     loadLocalStorageData();
+    closeSidebar();
   }
 });
 
@@ -211,12 +210,6 @@ domElements.chatInput.addEventListener('keydown', (e) => {
     e.preventDefault();
     handleChatOutput();
   }
-});
-
-// Adiciona um ouvinte de evento para o clique no botão de menu
-domElements.menuIcon.addEventListener('click', () => {
-  // Adiciona ou remove a classe 'show-menu' no mobileMenu
-  domElements.mobileMenu.classList.toggle('show-menu');
 });
 
 // Adiciona um ouvinte de evento para o clique no botão de envio, que aciona a manipulação da saída do chat
@@ -243,3 +236,25 @@ handlePortfolioBtnIconChange();
 
 // Chama a função para trocar o ícone do GitHub com base no tema atual
 toggleGithubIcon();
+
+document.addEventListener('DOMContentLoaded', function () {
+  const menuIcon = document.getElementById('menu-icon');
+  const sideBar = document.querySelector('.sideBar');
+
+  // Adiciona um evento de clique ao ícone do menu
+  menuIcon.addEventListener('click', function () {
+      // Toggle a classe 'sidebar-open' na barra lateral para mostrar/ocultar
+      sideBar.classList.toggle('sidebar-open');
+  });
+
+   // Adiciona um ouvinte de evento ao botão de fechar na barra lateral
+   const closeBtn = document.querySelector('.closeBtn');
+   if (closeBtn) {
+     closeBtn.addEventListener('click', closeSidebar);
+   }
+});
+
+const closeSidebar = () => {
+  const sideBar = document.querySelector('.sideBar');
+  sideBar.classList.remove('sidebar-open');
+};

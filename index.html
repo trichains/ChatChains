@@ -39,21 +39,20 @@
     <noscript>Você deve ativar o JavaScript para executar esta página</noscript>
     <div class="container">
       <div class="sideBar mobile-menu">
+        <div class="closeBtn" onclick="closeSidebar()">
+          <button class="material-symbols-rounded" aria-label="Fechar Menu">close</button></button>
+        </div>
         <div class="upperSide">
           <a href="./index.html" target="_self" rel="noopener noreferrer">
-            <div class="upperSideTop"><img src='./assets/imgs/chain-logo.svg' alt="Logo" class="logo" /><span class="brand">Chat<span class="destaque">ChainS</span></span>
+            <div class="upperSideTop"><img src='./assets/imgs/chain-logo.svg' alt="Logo" class="logo" /><span class="brand mobile">Chat<span class="destaque">ChainS</span></span>
             </div>
           </a>
           <!-- Botão para apagar o histórico do chat -->
-          <!-- <div class="upperSideBtn"><button class="midBtn" id="delete-btn" type="button">
+          <div class="upperSideBtn"><button class="midBtn" id="delete-btn" type="button">
               <div class="material-symbols-rounded add" aria-label="Nova Conversa">arrow_forward</div>Nova Conversa
-          </button></div> -->
+          </button></div>
           
-          <div class="upperSideBottom">
-            <button class="query"><img src='./assets/imgs/message.svg' alt="Query" />Ultima Atualização: 30/11/2023</button>
-            <button class="query"><img src='./assets/imgs/message.svg' alt="Query" />Como usar uma API?</button>
-            <button class="query"><img src='./assets/imgs/message.svg' alt="Query" />Como usar o ChatChains?</button>
-            <button class="query"><img src='./assets/imgs/message.svg' alt="Query" />Onde estão as keys?</button>
+          <div class="upperSideBottom"><button class="material-symbols-rounded" aria-label="Atualização">update</button><p>Última Atualização:<br>30/11/2023</p>
           </div>
         </div>
         <div class="lowerSide">
@@ -84,11 +83,13 @@
             light_mode
           </button>Mudar Tema</div>
         </div>
+        <div class="botImg">
+          <img src='./assets/imgs/botImg.png' alt="Bot Img" />
+        </div>
       </div>
       
       <!-- Contêiner principal -->
       <div class="main">
-        <!-- Adicione o botão de menu aqui -->
         <div class="logo-fundo">
           <h1>⛓️ Chat<span class='destaque'>Chains</span> ⛓️</h1>
         </div>
@@ -131,9 +132,6 @@
               send
               </button>
             </div>
-            <div class="typing-controls">
-              <button id="delete-btn" class="material-symbols-rounded">delete</button>
-          </div>
           </div>
           <div class="footer-dev">
           <p>Desenvolvido por <a class="trichains" href="https://github.com/trichains" target="_blank" rel="noreferrer">trichains</a>.</p>

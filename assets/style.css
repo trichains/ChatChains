@@ -23,12 +23,17 @@
 
 /* Estilos para modo claro e escuro */
 .light-mode {
-  --text-color: #343541;
-  --icon-color: #a9a9bc;
-  --icon-hover-bg: #f1f1f3;
-  --placeholder-color: #9f9f9f;
   --bg: #fff;
-  --entrada-chat-bg: #f7f7f8;
+  --btn-bg: #d5c6eb;
+  --btn-bg-hover: #c0aed9;
+  --text-color: #343541;
+  --link-text: #5a466c;
+  --destaque: #777777;
+  --border: 1px solid #f1f1f3;
+  --input-bg: #f7f7f8;
+  --input-bg-bot: #f7f7f8;
+  --icon-color: #433c4e;
+  --placeholder-color: #838282;
 }
 
 body {
@@ -64,6 +69,14 @@ button {
   flex-direction: column;
   border-right: var(--border);
   height: 100vh;
+}
+
+.closeBtn {
+  display: none;
+}
+
+.sideBar.sidebar-open {
+  display: flex;
 }
 
 .sideBar .material-symbols-rounded {
@@ -107,7 +120,19 @@ button {
 }
 
 .upperSideBottom {
-  margin-bottom: 3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  flex-direction: column;
+}
+
+.upperSideBottom .material-symbols-rounded {
+  margin: 0;
+}
+
+.upperSideBottom p {
+  text-align: center;
 }
 
 .midBtn {
@@ -140,33 +165,12 @@ button {
   background: var(--btn-bg-hover);
 }
 
-.query {
-  display: flex;
-  align-items: center;
-  background: transparent;
-  color: var(--placeholder-color);
-  margin-bottom: 1.5rem;
-  font-size: 1rem;
-  cursor: pointer;
-  padding: 1.5rem;
-  width: 100%;
-  max-width: 25rem;
-  margin: 1rem auto;
-  border-radius: 0.5rem;
-  border: var(--border);
-}
-
-.query img {
-  margin-right: 2rem;
-  object-fit: cover;
-}
-
 .lowerSide {
   padding: 2.5rem 2.5rem 0rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: auto;
+  /* margin-top: auto; */
 }
 
 .listItems {
@@ -179,6 +183,18 @@ button {
 .listItems a {
   display: flex;
   align-items: center;
+}
+
+.botImg {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.botImg img {
+  width: 200px;
 }
 
 .main {
@@ -453,19 +469,6 @@ button {
   visibility: visible;
 }
 
-.typing-controls {
-  display: flex;
-}
-.typing-controls span {
-  margin-left: 7px;
-  font-size: 1.4rem;
-  background: var(--incoming-chat-bg);
-  outline: 1px solid var(--incoming-chat-border);
-}
-.typing-controls span:hover {
-  background: var(--icon-hover-bg);
-}
-
 .footer-dev {
   padding-top: 10px;
 }
@@ -481,12 +484,22 @@ button {
   .main {
     position: initial;
   }
+
   .upperSideTop {
     margin: 0;
   }
 
+  .logo {
+    margin-right: 0;
+  }
+
   .brand {
-    font-size: 1rem;
+    font-size: 1.3rem;
+    margin-left: 0.5rem;
+  }
+
+  .brand.mobile {
+    display: none;
   }
 
   .menu-container {
@@ -518,6 +531,84 @@ button {
   }
 
   .sideBar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: -100%; /* Inicialmente fora da tela */
+    width: 70%; /* Ajuste conforme necessário */
+    height: 100%;
+    background-color: var(--bg);
+    z-index: 2;
+    transition: left 0.3s ease, box-shadow 0.3s ease; /* Adiciona uma transição suave para a animação */
+    box-shadow: -10px 0 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .closeBtn {
+    display: flex;
+    right: 0;
+    top: 5px;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    color: var(--text-color);
+    border: none;
+    border-radius: 0.5rem;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .closeBtn:hover {
+    color: var(--link-text);
+  }
+
+  .sideBar.sidebar-open {
+    left: 0; /* Mostra a barra lateral quando a classe 'sidebar-open' está presente */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .sideBar.sidebar-open + .main::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.303); /* Cor de fundo escura com opacidade */
+    z-index: 1;
+  }
+
+  .upperSide {
+    padding: 1rem;
+    border-bottom: var(--border);
+    /* flex: 1; Para ocupar todo o espaço disponível */
+  }
+
+  .midBtn {
+    margin-top: 50px;
+  }
+
+  .sideBar .material-symbols-rounded {
+    margin: 0;
+    height: 2rem;
+    width: 2rem;
+  }
+
+  .lowerSide {
+    padding: 10px 10px 0;
+    margin-top: auto;
+  }
+
+  .listItems {
+    margin-bottom: 1.5rem;
+    height: 60px;
+  }
+
+  .listItems a {
+    height: 60px;
+  }
+
+  .botImg {
     display: none;
   }
 
@@ -585,7 +676,7 @@ button {
   }
 
   button.material-symbols-rounded {
-    font-size: 1.25rem !important;
+    font-size: 1.4rem !important;
   }
 
   .footer-dev {
