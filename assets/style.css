@@ -223,13 +223,18 @@ button {
 /* Estilo para texto padrão quando não há mensagens no chat */
 .default-text,
 .logo-fundo {
+  background-color: var(--bg);
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 90vh;
+  height: 75vh;
   text-align: center;
   color: var(--text-color);
   padding: 0 10px;
+}
+
+.default-text {
+  flex-direction: column;
 }
 
 .logo-fundo {
@@ -451,71 +456,18 @@ button {
   color: var(--link-text);
 }
 
-/* Adiciona uma classe para estilos específicos de mobile */
-/* @media screen and (max-width: 1010px) {
-  .main {
-    margin: 0;
-  }
-
-  .sideBar {
-    display: none;
-  }
-
-  .upperSideTop {
-    margin: 0;
-  }
-
-  .brand {
-    font-size: 1.5rem;
-  }
-
-  .menu-container {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    max-weight: 100%;
-    justify-content: center;
-  }
-
-  .menu {
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-    position: relative;
-    margin: 1rem;
-  }
-
-  #menu-icon {
-    visibility: visible;
-    position: absolute;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--icon-color);
-    font-size: 2rem;
-    margin: 1rem;
-    transition: all 0.3s ease;
-  }
-
-  .menu p {
-    font-size: 1.5rem;
-  }
-
-  .chat .chat-details img {
-    width: 35px;
-    height: 35px;
-  }
-} */
-
 @media screen and (max-width: 600px) {
   .logo-fundo h1 {
     font-size: 2rem;
   }
 
   .default-text {
-    height: 50vh;
+    height: 60vh;
+  }
+
+  .default-text img {
+    height: 48px;
+    width: 48px;
   }
 
   .default-text p {
@@ -525,16 +477,6 @@ button {
   :where(.default-text p, textarea, .chat p) {
     font-size: 0.95rem !important;
   }
-
-  /* .chat-container {
-    border-radius: 0.5rem;
-    overflow: hidden;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-    width: 100%;
-    max-width: 75rem;
-    margin: 0 auto;
-  } */
 
   .chat-container .chat {
     padding: 20px 10px;
