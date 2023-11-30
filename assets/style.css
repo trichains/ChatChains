@@ -42,16 +42,6 @@ body {
   cursor: pointer;
 }
 
-.sideBar .material-symbols-rounded {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--icon-color);
-  height: 3.5rem;
-  width: 3.5rem;
-  margin: 1rem;
-}
-
 a {
   text-decoration: none;
   color: inherit;
@@ -64,16 +54,26 @@ button {
   background-color: transparent;
 }
 
-/* .container {
+.container {
   display: grid;
-  grid-template-columns: minmax(250px, 1fr) 1fr;
-  height: 100vh;
-  font-family: 'Poppins', sans-serif;
-} */
+  grid-template-columns: 1fr 4fr;
+}
 
 .sideBar {
+  display: flex;
+  flex-direction: column;
   border-right: var(--border);
-  display: none;
+  height: 100vh;
+}
+
+.sideBar .material-symbols-rounded {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-color);
+  height: 3.5rem;
+  width: 3.5rem;
+  margin: 1rem 0;
 }
 
 .logo {
@@ -107,7 +107,7 @@ button {
 }
 
 .upperSideBottom {
-  margin-bottom: 6rem;
+  margin-bottom: 3rem;
 }
 
 .midBtn {
@@ -144,7 +144,7 @@ button {
   display: flex;
   align-items: center;
   background: transparent;
-  color: var(--query-text);
+  color: var(--placeholder-color);
   margin-bottom: 1.5rem;
   font-size: 1rem;
   cursor: pointer;
@@ -159,16 +159,18 @@ button {
 .query img {
   margin-right: 2rem;
   object-fit: cover;
-  height: 1.75rem;
 }
 
 .lowerSide {
   padding: 2.5rem 2.5rem 0rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: auto;
 }
 
 .listItems {
   cursor: pointer;
-  margin: 0.75rem;
   display: flex;
   align-items: center;
   font-size: 1rem;
@@ -181,15 +183,13 @@ button {
 
 .main {
   position: relative;
+  /* width: 700px; */
   /* display: flex; */
   /* flex-direction: column; */
   /* align-items: center; */
   /* margin: 0 2rem; */
   /* flex: 1; */
   /* max-height: 100vh; */
-  /* display: grid; */
-  /* grid-template-rows: auto 1fr auto; */
-  /* grid-gap: 20px; */
   /* padding: 20px; */
 }
 
@@ -223,11 +223,14 @@ button {
 /* Estilo para texto padrão quando não há mensagens no chat */
 .default-text,
 .logo-fundo {
+  position: absolute;
   background-color: var(--bg);
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 75vh;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-100%);
   text-align: center;
   color: var(--text-color);
   padding: 0 10px;
@@ -238,8 +241,6 @@ button {
 }
 
 .logo-fundo {
-  height: 90vh;
-  position: fixed;
   width: 100%;
   z-index: -1;
 }
@@ -359,14 +360,17 @@ button {
 
 /* Estilos para o contêiner de digitação */
 .typing-container {
-  position: fixed;
+  position: absolute;
   bottom: 0;
-  width: 100%;
   display: flex;
-  padding: 20px 10px 10px;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  padding: 20px 10px 10px;
+  border-top: var(--border);
+  max-width: 100%;
+  z-index: 1;
 }
 
 .typing-container .typing-content {
@@ -435,7 +439,7 @@ button {
   right: 0;
   bottom: 0;
   visibility: hidden;
-  margin: 0 5px
+  margin: 0 5px;
 }
 
 .icon-text {
@@ -458,12 +462,58 @@ button {
 }
 
 @media screen and (max-width: 600px) {
-  .logo-fundo h1 {
-    font-size: 2rem;
+  .container {
+    grid-template-columns: 1fr;
+  }
+  .main {
+    position: initial;
+  }
+  .upperSideTop {
+    margin: 0;
   }
 
-  .default-text {
-    height: 60vh;
+  .brand {
+    font-size: 1rem;
+  }
+
+  .menu-container {
+    position: absolute;
+    background-color: var(--bg);
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+
+  .menu {
+    position: relative;
+    margin: 10px;
+  }
+
+  #menu-icon {
+    position: absolute;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--icon-color);
+    font-size: 1.5em;
+    margin: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .sideBar {
+    display: none;
+  }
+
+  .default-text, .logo-fundo {
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+  .logo-fundo h1 {
+    font-size: 1.7em;
   }
 
   .default-text img {
@@ -472,11 +522,8 @@ button {
   }
 
   .default-text p {
-    font-size: 1rem;
-  }
-
-  :where(.default-text p, textarea, .chat p) {
-    font-size: 0.95rem !important;
+    font-size: 1em;
+    width: 250px;
   }
 
   .chat-container .chat {
@@ -499,12 +546,13 @@ button {
   }
 
   .typing-container {
-    padding: 15px 10px;
+    padding: 15px 10px 0;
   }
 
   .typing-textarea textarea {
     border-radius: 1.5rem;
     height: 45px;
+    max-height: 125px;
     padding: 10px 40px 10px 70px;
   }
 
