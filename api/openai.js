@@ -29,9 +29,22 @@ export default async function openaiHandler(req, res) {
       },
       body: JSON.stringify({
         model: 'gpt-3.5-turbo-1106',
-        messages: [{ role: 'user', content: userText }]
+        messages: [{ role: 'user', content: userText }],
+        stream: true
       })
     };
+
+    for await (const chunk of response.body) {
+      const data = new TextDecoder('utf-8').decode(chunk);
+      console.log(data);
+    }
+
+    for await (const part of completion) {
+      let data = part.choices[0].delta.content; 
+      full += data;
+      console.log(full);
+      
+    }
 
     // Faz a chamada à API OpenAI usando o módulo 'fetch'
     const response = await fetch(OPENAI_API_URL, requestOptions);
