@@ -76,6 +76,16 @@ const getErrorMessage = (response) => {
 };
 
 
+// Função SSE para enviar atualizações para o cliente
+const sendSSE = (data) => {
+  if (eventSource.readyState !== 1) {
+    console.error('EventSource connection not open');
+    return;
+  }
+
+  eventSource.send(JSON.stringify(data));
+};
+
 // Função para manipular a resposta do chat
 const handleChatResponse = (chatEntry, response) => {
   const errorMessage = getErrorMessage(response);
@@ -112,6 +122,8 @@ const handleChatResponse = (chatEntry, response) => {
       console.error(errorMessage, response);
       showError(errorMessage, chatEntry);
     }
+    // Envia uma atualização SSE para o cliente
+    sendSSE({ userText: response.userText });
   }
 };
 
@@ -228,7 +240,13 @@ domElements.themeBtn.parentElement.addEventListener('click', () => {
   toggleGithubIcon();
 });
 
-// ... (seu código existente)
+// Função para limpar o histórico no localStorage
+const clearLocalStorage = () => {
+  localStorage.removeItem('all-chats');
+  domElements.chatContainer.innerHTML = '';
+  loadLocalStorageData();
+  closeSidebar();
+};
 
 // Adiciona um ouvinte de evento para o clique no botão de apagar
 domElements.deleteBtn.addEventListener('click', () => {
@@ -238,6 +256,7 @@ domElements.deleteBtn.addEventListener('click', () => {
     domElements.chatContainer.innerHTML = '';
     loadLocalStorageData();
     closeSidebar();
+    clearLocalStorage();
   }
 });
 
@@ -282,6 +301,11 @@ handlePortfolioBtnIconChange();
 // Chama a função para trocar o ícone do GitHub com base no tema atual
 toggleGithubIcon();
 
+// Função SSE para fechar a conexão quando necessário
+const closeSSE = () => {
+  eventSource.close();
+};
+
 document.addEventListener('DOMContentLoaded', function () {
   const menuIcon = document.getElementById('menu-icon');
   const sideBar = document.querySelector('.sideBar');
@@ -295,13 +319,17 @@ document.addEventListener('DOMContentLoaded', function () {
    // Adiciona um ouvinte de evento ao botão de fechar na barra lateral
    const closeBtn = document.querySelector('.closeBtn');
    if (closeBtn) {
-     closeBtn.addEventListener('click', closeSidebar);
+     closeBtn.addEventListener('click', () => {
+       closeSidebar();
+       closeSSE();  // Feche a conexão SSE quando a barra lateral for fechada
+     });
   }
   
      // Adiciona um ouvinte de evento ao clicar fora da barra lateral para fechá-la
      document.addEventListener('click', function (event) {
       if (!sideBar.contains(event.target) && !menuIcon.contains(event.target)) {
         closeSidebar();
+        closeSSE();  // Feche a conexão SSE quando a barra lateral for fechada
       }
     });
 });
