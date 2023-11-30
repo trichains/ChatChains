@@ -72,16 +72,26 @@ const handleChatResponse = (chatEntry, response) => {
   const content = response.choices[0]?.message?.content;
 
   if (content !== undefined && content !== null) {
-    pElement.textContent = content.trim();
+    // pElement.textContent = content.trim();
   } else {
     handleInvalidResponse();
   }
 
-  chatEntry.querySelector('.typing-animation').remove();
-  chatEntry.querySelector('.chat-details').appendChild(pElement);
+  // Remove a animação de digitação
+  const typingAnimation = chatEntry.querySelector('.typing-animation');
+  if (typingAnimation) {
+    typingAnimation.remove();
+  }
+
+  // Substitui a resposta do bot pela mensagem de erro, se houver erro
+  const chatDetails = chatEntry.querySelector('.chat-details');
+  chatDetails.innerHTML = ''; // Limpa o conteúdo atual
+  chatDetails.appendChild(pElement);
+
   domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight);
   localStorage.setItem('all-chats', domElements.chatContainer.innerHTML);
 };
+
 
 // Função para copiar resposta para a área de transferência
 const copyResponse = (copyBtn) => {
