@@ -435,6 +435,7 @@ button {
   right: 0;
   bottom: 0;
   visibility: hidden;
+  margin: 0 5px
 }
 
 .icon-text {
@@ -511,11 +512,10 @@ button {
   button {
     height: 45px;
     width: 45px;
-    margin-left: 5px;
   }
 
   .typing-content button {
-    margin-right: 5px;
+    margin: 0 5px;
   }
 
   button.material-symbols-rounded {
