@@ -34,35 +34,39 @@ export default async function openaiHandler(req, res) {
       })
     };
 
-    for await (const chunk of response.body) {
-      const data = new TextDecoder('utf-8').decode(chunk);
-      console.log(data);
-    }
+// Envia a requisição para a API OpenAI
+    const response = await fetch(OPENAI_API_URL, requestOptions); // eslint-disable-line
 
-    for await (const part of completion) {
-      let data = part.choices[0].delta.content; 
-      full += data;
-      console.log(full);
-      
-    }
-
-    // Faz a chamada à API OpenAI usando o módulo 'fetch'
-    const response = await fetch(OPENAI_API_URL, requestOptions);
-
-    // Verifica se a chamada à API foi bem-sucedida
+// Verifica se a requisição é bem-sucedida
     if (!response.ok) {
-      throw new Error(`OpenAI API error: ${response.statusText}`);
+      throw new Error(`HTTP error! status: ${response.status}`);
+
     }
 
-    // Obtém os dados da resposta da API
-    const responseData = await response.json();
+// Obtenha os dados da resposta da API
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
 
-    // Envia a resposta de volta para o cliente
-    res.status(200).json(responseData);
+    let result = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        break;
+      }
+      const chunk = decoder.decode(value, { stream: true });
+      result += chunk;
+
+    }
+
+// Retorna os dados da resposta da API
+    res.status(200).json({ result });
+
   } catch (error) {
-    console.error('Erro ao chamar a API da OpenAI', error);
+    res.status(500).json({ error: error.message });
 
-    // Em caso de erro, envia uma resposta de erro para o cliente
-    res.status(500).json({ error: 'Erro no servidor interno' });
   }
+
 }
+
+
