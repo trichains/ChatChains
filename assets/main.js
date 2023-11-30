@@ -190,7 +190,7 @@ domElements.themeBtn.parentElement.addEventListener('click', () => {
 // Adiciona um ouvinte de evento para o clique no botão de apagar
 domElements.deleteBtn.addEventListener('click', () => {
   // Remove todas as conversas do localStorage e chama a função loadLocalStorageData para atualizar o conteúdo do chat
-  if (confirm('Isso apaga todo o historico da sua conversa e inicia uma nova.\nTem certeza?')) {
+  if (confirm('Isso apaga todo o historico da sua conversa e inicia uma nova.Tem certeza?')) {
     localStorage.removeItem('all-chats');
     domElements.chatContainer.innerHTML = '';
     loadLocalStorageData();
