@@ -88,10 +88,18 @@ const handleChatResponse = (chatEntry, response) => {
       const pElement = document.createElement('p');
       pElement.textContent = content.trim();
 
-      // Adiciona o parágrafo ao chat-details
+      // Adiciona a imagem e o parágrafo ao chat-details
       const chatDetails = chatEntry.querySelector('.chat-details');
       chatDetails.innerHTML = ''; // Limpa o conteúdo atual
+      const botImage = chatEntry.querySelector('.chat-details img');
+      chatDetails.appendChild(botImage);
       chatDetails.appendChild(pElement);
+
+      // Adiciona o botão de cópia dentro do chat-details
+      const copyButton = document.createElement('button');
+      copyButton.className = 'material-symbols-rounded';
+      copyButton.textContent = 'content_copy';
+      chatDetails.appendChild(copyButton);
 
       domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight);
       localStorage.setItem('all-chats', domElements.chatContainer.innerHTML);
@@ -102,9 +110,6 @@ const handleChatResponse = (chatEntry, response) => {
     }
   }
 };
-
-
-
 
 // Função para copiar resposta para a área de transferência
 const copyResponse = (copyBtn) => {
