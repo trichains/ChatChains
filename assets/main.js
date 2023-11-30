@@ -69,28 +69,26 @@ const getErrorMessage = (response) => {
 
 // Função para manipular a resposta do chat
 const handleChatResponse = (chatEntry, response) => {
-  const pElement = document.createElement('p');
-
   const errorMessage = getErrorMessage(response);
 
   if (errorMessage) {
     console.error(errorMessage, response);
-    pElement.classList.add('error');
-    pElement.textContent = errorMessage;
     showError(errorMessage, chatEntry);
   } else {
     const content = response.choices[0]?.message?.content;
 
     if (content !== undefined && content !== null) {
-      pElement.textContent = content.trim();
-
       // Remove a animação de digitação
       const typingAnimation = chatEntry.querySelector('.typing-animation');
       if (typingAnimation) {
         typingAnimation.remove();
       }
 
-      // Substitui a resposta do bot pela mensagem gerada
+      // Cria um novo parágrafo e adiciona o conteúdo da resposta
+      const pElement = document.createElement('p');
+      pElement.textContent = content.trim();
+
+      // Adiciona o parágrafo ao chat-details
       const chatDetails = chatEntry.querySelector('.chat-details');
       chatDetails.innerHTML = ''; // Limpa o conteúdo atual
       chatDetails.appendChild(pElement);
@@ -100,12 +98,11 @@ const handleChatResponse = (chatEntry, response) => {
     } else {
       const errorMessage = 'Resposta vazia da API';
       console.error(errorMessage, response);
-      pElement.classList.add('error');
-      pElement.textContent = errorMessage;
       showError(errorMessage, chatEntry);
     }
   }
 };
+
 
 
 
