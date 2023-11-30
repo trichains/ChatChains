@@ -91,7 +91,8 @@ const handleChatResponse = (chatEntry, response) => {
       // Adiciona a imagem e o parágrafo ao chat-details
       const chatDetails = chatEntry.querySelector('.chat-details');
       chatDetails.innerHTML = ''; // Limpa o conteúdo atual
-      const botImage = chatEntry.querySelector('.chat-details img');
+      const botImage = document.createElement('img');
+      botImage.src = './assets/imgs/chatchains.svg'; // Substitua pelo caminho real da imagem
       chatDetails.appendChild(botImage);
       chatDetails.appendChild(pElement);
 
@@ -110,6 +111,7 @@ const handleChatResponse = (chatEntry, response) => {
     }
   }
 };
+
 
 // Função para copiar resposta para a área de transferência
 const copyResponse = (copyBtn) => {
