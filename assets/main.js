@@ -137,7 +137,6 @@ const showTypingAnimation = async () => {
             <div class='typing-dot' style='--delay: 0.4s'></div>
           </div>
         </div>
-        <button class='material-symbols-rounded'>content_copy</button>
       </div>`;
     return createElement(html, 'entrada');
   };
