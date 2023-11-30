@@ -510,17 +510,17 @@ button {
 } */
 
 @media screen and (max-width: 600px) {
-  .logo-fundo h1 {
+  /* .logo-fundo h1 {
     font-size: 2rem;
-  }
+  } */
 
-  .default-text {
+  /* .default-text {
     height: 50vh;
-  }
+  } */
 
-  .default-text p {
+  /* .default-text p {
     font-size: 1rem;
-  }
+  } */
 
   :where(.default-text p, textarea, .chat p) {
     font-size: 0.95rem !important;
@@ -578,10 +578,6 @@ button {
 
   button.material-symbols-rounded {
     /* font-size: 1.25rem !important; */
-  }
-
-  .footer-dev {
-    font-size: 0.8rem;
   }
 
   .footer-dev span {
