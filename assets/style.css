@@ -199,10 +199,10 @@ button {
 
 /* Estilo do contêiner do chat */
 .chat-container {
-  max-height: 100vh;
+  max-height: 80vh;
   overflow-y: auto;
   scroll-behavior: smooth;
-  padding-bottom: 200px;
+  padding-bottom: 100px;
 }
 
 /* Estilo para a barra de rolagem no chat e áreas de texto */
@@ -524,6 +524,10 @@ button {
   .default-text p {
     font-size: 1em;
     width: 250px;
+  }
+
+  .chat-container {
+    margin-top: 50px;
   }
 
   .chat-container .chat {
