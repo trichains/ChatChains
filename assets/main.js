@@ -21,15 +21,6 @@ const portfolioBtn = document.getElementById('portfolio-btn');
 const apiUrl = 'https://chatchains.vercel.app/api/openai';
 const initialHeight = domElements.chatInput.scrollHeight;
 
-const eventSource = new EventSource(apiUrl);
-
-eventSource.addEventListener('message', (event) => {
-  const responseData = JSON.parse(event.data);
-  // Chama a função para manipular a resposta
-  showTypingAnimation(responseData.userText);
-});
-
-
 const defaultText = `
 <div class='default-text'>
   <img src='./assets/imgs/chatchains.svg' alt='Foto do usuário'>
@@ -76,16 +67,6 @@ const getErrorMessage = (response) => {
 };
 
 
-// Função SSE para enviar atualizações para o cliente
-const sendSSE = (data) => {
-  if (eventSource.readyState !== 1) {
-    console.error('EventSource connection not open');
-    return;
-  }
-
-  eventSource.send(JSON.stringify(data));
-};
-
 // Função para manipular a resposta do chat
 const handleChatResponse = (chatEntry, response) => {
   const errorMessage = getErrorMessage(response);
@@ -122,8 +103,6 @@ const handleChatResponse = (chatEntry, response) => {
       console.error(errorMessage, response);
       showError(errorMessage, chatEntry);
     }
-    // Envia uma atualização SSE para o cliente
-    sendSSE({ userText: response.userText });
   }
 };
 
@@ -141,7 +120,7 @@ const copyResponse = (copyBtn) => {
 };
 
 // Animação de Digitação
-const showTypingAnimation = (userText) => {
+const showTypingAnimation = async () => {
   const createChatEntry = () => {
     const html = `
       <div class='chat-content'>
@@ -163,7 +142,19 @@ const showTypingAnimation = (userText) => {
   domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight);
 
   try {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userText })
+    });
 
+    if (!response.ok) {
+      throw new Error('Erro ao chamar a API OpenAI');
+    }
+
+    const responseData = await response.json();
+    // Chama a função para manipular a resposta
+    handleChatResponse(chatEntry, responseData);
   } catch (error) {
     console.error('Erro ao obter resposta da API OpenAI', error);
     // Remove a animação de digitação
@@ -176,6 +167,8 @@ const showTypingAnimation = (userText) => {
     showError('Muitas requisições no momento, tente novamente mais tarde.', chatEntry);
   }
 };
+
+
 
 // Função para exibir uma mensagem de erro no chat
 const showError = (errorMessage, chatEntry) => {
@@ -240,13 +233,7 @@ domElements.themeBtn.parentElement.addEventListener('click', () => {
   toggleGithubIcon();
 });
 
-// Função para limpar o histórico no localStorage
-const clearLocalStorage = () => {
-  localStorage.removeItem('all-chats');
-  domElements.chatContainer.innerHTML = '';
-  loadLocalStorageData();
-  closeSidebar();
-};
+// ... (seu código existente)
 
 // Adiciona um ouvinte de evento para o clique no botão de apagar
 domElements.deleteBtn.addEventListener('click', () => {
@@ -256,7 +243,6 @@ domElements.deleteBtn.addEventListener('click', () => {
     domElements.chatContainer.innerHTML = '';
     loadLocalStorageData();
     closeSidebar();
-    clearLocalStorage();
   }
 });
 
@@ -301,11 +287,6 @@ handlePortfolioBtnIconChange();
 // Chama a função para trocar o ícone do GitHub com base no tema atual
 toggleGithubIcon();
 
-// Função SSE para fechar a conexão quando necessário
-const closeSSE = () => {
-  eventSource.close();
-};
-
 document.addEventListener('DOMContentLoaded', function () {
   const menuIcon = document.getElementById('menu-icon');
   const sideBar = document.querySelector('.sideBar');
@@ -319,17 +300,13 @@ document.addEventListener('DOMContentLoaded', function () {
    // Adiciona um ouvinte de evento ao botão de fechar na barra lateral
    const closeBtn = document.querySelector('.closeBtn');
    if (closeBtn) {
-     closeBtn.addEventListener('click', () => {
-       closeSidebar();
-       closeSSE();  // Feche a conexão SSE quando a barra lateral for fechada
-     });
+     closeBtn.addEventListener('click', closeSidebar);
   }
   
      // Adiciona um ouvinte de evento ao clicar fora da barra lateral para fechá-la
      document.addEventListener('click', function (event) {
       if (!sideBar.contains(event.target) && !menuIcon.contains(event.target)) {
         closeSidebar();
-        closeSSE();  // Feche a conexão SSE quando a barra lateral for fechada
       }
     });
 });
