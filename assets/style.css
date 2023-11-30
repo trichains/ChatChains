@@ -453,6 +453,19 @@ button {
   visibility: visible;
 }
 
+.typing-controls {
+  display: flex;
+}
+.typing-controls span {
+  margin-left: 7px;
+  font-size: 1.4rem;
+  background: var(--incoming-chat-bg);
+  outline: 1px solid var(--incoming-chat-border);
+}
+.typing-controls span:hover {
+  background: var(--icon-hover-bg);
+}
+
 .footer-dev {
   padding-top: 10px;
 }
@@ -508,7 +521,8 @@ button {
     display: none;
   }
 
-  .default-text, .logo-fundo {
+  .default-text,
+  .logo-fundo {
     transform: translateX(-50%) translateY(-50%);
   }
 
@@ -571,7 +585,7 @@ button {
   }
 
   button.material-symbols-rounded {
-    /* font-size: 1.25rem !important; */
+    font-size: 1.25rem !important;
   }
 
   .footer-dev {
