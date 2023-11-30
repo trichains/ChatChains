@@ -164,7 +164,7 @@ const showTypingAnimation = async () => {
     }
 
     // Chama a função para exibir a mensagem de erro no chat de entrada atual
-    showError('Erro ao obter resposta, tente novamente.', chatEntry);
+    showError('Muitas requisições no momento, tente novamente mais tarde.', chatEntry);
   }
 };
 
