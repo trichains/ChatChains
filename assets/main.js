@@ -80,23 +80,33 @@ const handleChatResponse = (chatEntry, response) => {
     showError(errorMessage, chatEntry);
   } else {
     const content = response.choices[0]?.message?.content;
-    // pElement.textContent = content.trim();
 
-    // Remove a animação de digitação
-    const typingAnimation = chatEntry.querySelector('.typing-animation');
-    if (typingAnimation) {
-      typingAnimation.remove();
+    if (content !== undefined && content !== null) {
+      pElement.textContent = content.trim();
+
+      // Remove a animação de digitação
+      const typingAnimation = chatEntry.querySelector('.typing-animation');
+      if (typingAnimation) {
+        typingAnimation.remove();
+      }
+
+      // Substitui a resposta do bot pela mensagem gerada
+      const chatDetails = chatEntry.querySelector('.chat-details');
+      chatDetails.innerHTML = ''; // Limpa o conteúdo atual
+      chatDetails.appendChild(pElement);
+
+      domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight);
+      localStorage.setItem('all-chats', domElements.chatContainer.innerHTML);
+    } else {
+      const errorMessage = 'Resposta vazia da API';
+      console.error(errorMessage, response);
+      pElement.classList.add('error');
+      pElement.textContent = errorMessage;
+      showError(errorMessage, chatEntry);
     }
-
-    // Substitui a resposta do bot pela mensagem de erro, se houver erro
-    const chatDetails = chatEntry.querySelector('.chat-details');
-    chatDetails.innerHTML = ''; // Limpa o conteúdo atual
-    chatDetails.appendChild(pElement);
-
-    domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight);
-    localStorage.setItem('all-chats', domElements.chatContainer.innerHTML);
   }
 };
+
 
 
 // Função para copiar resposta para a área de transferência
