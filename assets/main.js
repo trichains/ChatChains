@@ -111,6 +111,7 @@ const handleChatResponse = (chatEntry, response) => {
 const copyResponse = (copyBtn) => {
   const responseTextElement = copyBtn.parentElement.querySelector('p');
   navigator.clipboard.writeText(responseTextElement.textContent);
+  copyBtn.textContent = 'done';
 
   // Restaura o texto do botão após a cópia
   setTimeout(() => {
@@ -131,7 +132,7 @@ const showTypingAnimation = async () => {
             <div class='typing-dot' style='--delay: 0.4s'></div>
           </div>
         </div>
-        <button class='material-symbols-rounded'>content_copy</button>
+        <button onclick="copyResponse(this)" class='material-symbols-rounded'>content_copy</button>
       </div>`;
     return createElement(html, 'entrada');
   };
