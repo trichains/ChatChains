@@ -1,17 +1,32 @@
-// Seleção de Elementos do DOM
-const domElements = {
-  chatInput: document.getElementById('chat-input'),
-  sendBtn: document.getElementById('send-btn'),
-  chatContainer: document.querySelector('.chat-container'),
-  themeBtn: document.getElementById('theme-btn'),
-  githubIcon: document.querySelector('.github-link img'),
-  deleteBtn: document.getElementById('delete-btn'),
-  portfolioBtn: document.getElementById('portfolio-btn'),
-};
+// Armazena referências para elementos DOM frequentemente usados
+const chatInput = document.getElementById('chat-input');
+const sendBtn = document.getElementById('send-btn');
+const chatContainer = document.querySelector('.chat-container');
+const themeBtn = document.getElementById('theme-btn');
+const githubIcon = document.querySelector('.github-link img');
+const deleteBtn = document.getElementById('delete-btn');
+const portfolioBtn = document.getElementById('portfolio-btn');
+
+  const domElements = {
+    chatInput,
+    sendBtn,
+    chatContainer,
+    themeBtn,
+    githubIcon,
+    deleteBtn,
+    portfolioBtn
+  };
 
 // Constantes
 const apiUrl = 'https://chatchains.vercel.app/api/openai';
 const initialHeight = domElements.chatInput.scrollHeight;
+
+const defaultText = `
+<div class='default-text'>
+  <img src='./assets/imgs/chatchains.svg' alt='Foto do usuário'>
+  <p> Comece uma conversa ❤️<br>O histórico do seu chat aparecerá aqui.<br>
+  Visite <a href='https://github.com/trichains' target='_blank'>trichains</a> no GitHub 👋</p>
+</div>`;
 
 // Carrega dados do localStorage ao iniciar
 const loadLocalStorageData = () => {
@@ -21,14 +36,8 @@ const loadLocalStorageData = () => {
   document.body.classList.toggle('light-mode', isLightMode);
   domElements.themeBtn.textContent = isLightMode ? 'dark_mode' : 'light_mode';
 
-  const defaultText = `<div class='default-text'>
-                          <img src='./assets/imgs/chatchains.svg' alt='Foto do usuário'>
-                          <p> Comece uma conversa ❤️<br>O histórico do seu chat aparecerá aqui.<br>
-                          Visite <a href='https://github.com/trichains' target='_blank'>trichains</a> no GitHub 👋</p>
-                        </div>`;
-
-  domElements.chatContainer.innerHTML =
-    localStorage.getItem('all-chats') || defaultText;
+  const allChats = localStorage.getItem('all-chats') || defaultText;
+  domElements.chatContainer.innerHTML = allChats;
   domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight);
 };
 
@@ -38,7 +47,7 @@ loadLocalStorageData();
 // Função de Criação de Elemento HTML
 const createElement = (html, className) => {
   const chatDiv = document.createElement('div');
-  chatDiv.classList.add('chat', className);
+  chatDiv.className = `chat ${className}`;
   chatDiv.innerHTML = html;
   return chatDiv;
 };
@@ -78,6 +87,7 @@ const handleChatResponse = (chatEntry, response) => {
 const copyResponse = (copyBtn) => {
   const responseTextElement = copyBtn.parentElement.querySelector('p');
   navigator.clipboard.writeText(responseTextElement.textContent);
+
   // Restaura o texto do botão após a cópia
   setTimeout(() => {
     copyBtn.textContent = 'content_copy';
@@ -86,18 +96,23 @@ const copyResponse = (copyBtn) => {
 
 // Animação de Digitação
 const showTypingAnimation = async () => {
-  const html = `<div class='chat-content'>
-                  <div class='chat-details'>
-                    <img src='./assets/imgs/chatchains.svg' alt='Foto do Chat Bot' />
-                    <div class='typing-animation'>
-                      <div class='typing-dot' style='--delay: 0.2s'></div>
-                      <div class='typing-dot' style='--delay: 0.3s'></div>
-                      <div class='typing-dot' style='--delay: 0.4s'></div>
-                    </div>
-                  </div>
-                  <button onclick='copyResponse(this)' class='material-symbols-rounded'>content_copy</button>
-                </div>`;
-  const chatEntry = createElement(html, 'entrada');
+  const createChatEntry = () => {
+    const html = `
+      <div class='chat-content'>
+        <div class='chat-details'>
+          <img src='./assets/imgs/chatchains.svg' alt='Foto do Chat Bot' />
+          <div class='typing-animation'>
+            <div class='typing-dot' style='--delay: 0.2s'></div>
+            <div class='typing-dot' style='--delay: 0.3s'></div>
+            <div class='typing-dot' style='--delay: 0.4s'></div>
+          </div>
+        </div>
+        <button class='material-symbols-rounded'>content_copy</button>
+      </div>`;
+    return createElement(html, 'entrada');
+  };
+
+  const chatEntry = createChatEntry();
   domElements.chatContainer.appendChild(chatEntry);
   domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight);
 
@@ -124,12 +139,13 @@ const showTypingAnimation = async () => {
 
 // Função para exibir uma mensagem de erro no chat
 const showError = (errorMessage) => {
-  const html = `<div class="chat-content">
-                  <div class="chat-details">
-                    <img src="./assets/imgs/chatchains.svg" alt="Foto do Chat Bot" />
-                    <p class="error">${errorMessage}</p>
-                 </div>
-                </div>`;
+  const html = `
+    <div class="chat-content">
+      <div class="chat-details">
+        <img src="./assets/imgs/chatchains.svg" alt="Foto do Chat Bot" />
+        <p class="error">${errorMessage}</p>
+      </div>
+    </div>`;
   const errorChatEntry = createElement(html, 'saida');
   domElements.chatContainer.appendChild(errorChatEntry);
   domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight);
@@ -143,12 +159,13 @@ const handleChatOutput = () => {
 
   domElements.chatInput.value = '';
   domElements.chatInput.style.height = `${initialHeight}px`;
-  const html = `<div class="chat-content">
-                  <div class="chat-details">
-                    <img src="./assets/imgs/user.svg" alt="Foto do usuário" />
-                    <p></p>
-                 </div>
-                </div>`;
+  const html = `
+    <div class="chat-content">
+      <div class="chat-details">
+        <img src="./assets/imgs/user.svg" alt="Foto do usuário" />
+        <p></p>
+      </div>
+    </div>`;
   // Cria um div de chat de saída com a mensagem do usuário e anexa ao contêiner de chat
   const outputChatEntry = createElement(html, 'saida');
   outputChatEntry.querySelector('.chat-details p').textContent = userText;
@@ -184,11 +201,10 @@ domElements.themeBtn.parentElement.addEventListener('click', () => {
 
 // ... (seu código existente)
 
-
 // Adiciona um ouvinte de evento para o clique no botão de apagar
 domElements.deleteBtn.addEventListener('click', () => {
   // Remove todas as conversas do localStorage e chama a função loadLocalStorageData para atualizar o conteúdo do chat
-  if (confirm('Isso apaga todo o historico da sua conversa e inicia uma nova.Tem certeza?')) {
+  if (confirm('Isso apaga todo o histórico da sua conversa e inicia uma nova.Tem certeza?')) {
     localStorage.removeItem('all-chats');
     domElements.chatContainer.innerHTML = '';
     loadLocalStorageData();
@@ -251,7 +267,14 @@ document.addEventListener('DOMContentLoaded', function () {
    const closeBtn = document.querySelector('.closeBtn');
    if (closeBtn) {
      closeBtn.addEventListener('click', closeSidebar);
-   }
+  }
+  
+     // Adiciona um ouvinte de evento ao clicar fora da barra lateral para fechá-la
+     document.addEventListener('click', function (event) {
+      if (!sideBar.contains(event.target) && !menuIcon.contains(event.target)) {
+        closeSidebar();
+      }
+    });
 });
 
 const closeSidebar = () => {
