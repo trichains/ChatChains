@@ -96,10 +96,8 @@ const handleValidChatResponse = (chatEntry, content) => {
     typingAnimation.remove();
   }
 
-  // Crie um novo elemento div para a resposta do assistente
   const pElement = document.createElement('p');
-  pElement.className = 'assistant';
-  // pElement.textContent = content.trim();
+  pElement.textContent = content.trim();
 
   const chatDetails = chatEntry.querySelector('.chat-details');
   chatDetails.innerHTML = '';
@@ -107,21 +105,6 @@ const handleValidChatResponse = (chatEntry, content) => {
   botImage.src = './assets/imgs/chatchains.svg';
   chatDetails.appendChild(botImage);
   chatDetails.appendChild(pElement);
-
-  const writerAnimation = pElement;
-
-  let index = 0;
-  const speed = 50; // velocidade da digitação em milissegundos
-    
-  function typeWriter() {
-    if (index < content.length) {
-      writerAnimation.textContent += content.charAt(index);
-      index++;
-      setTimeout(typeWriter, speed);
-    }
-  }
-
-  typeWriter();
 
   const { chatContainer } = domElements;
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
