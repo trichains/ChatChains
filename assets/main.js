@@ -14,6 +14,7 @@ const apiUrl = 'https://chatchains.vercel.app/api/openai';
 const initialHeight = getDomElements().chatInput.scrollHeight;
 let userText = '';
 
+// Mensagem padrão quando não há histórico
 const defaultText = `
   <div class='default-text'>
     <img src='./assets/imgs/chatchains.svg' alt='Foto do usuário'>
@@ -27,9 +28,11 @@ const loadLocalStorageData = () => {
   const themeColor = localStorage.getItem('theme-color');
   const isLightMode = themeColor === 'light_mode';
 
+  // Aplica o tema salvo no localStorage
   document.body.classList.toggle('light-mode', isLightMode);
   themeBtn.textContent = isLightMode ? 'dark_mode' : 'light_mode';
 
+  // Carrega histórico do localStorage ou exibe mensagem padrão
   const allChats = localStorage.getItem('all-chats') || defaultText;
   chatContainer.innerHTML = allChats;
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
@@ -210,6 +213,7 @@ const toggleGithubIcon = () => {
 const addEventListeners = () => {
   const { themeBtn, deleteBtn, chatInput, sendBtn, portfolioBtn } = getDomElements();
 
+  // Ouvinte de evento para alternar entre modos claro e escuro
   themeBtn.parentElement.addEventListener('click', () => {
     document.body.classList.toggle('light-mode');
     localStorage.setItem('theme-color', themeBtn.textContent);
@@ -217,6 +221,7 @@ const addEventListeners = () => {
     toggleGithubIcon();
   });
 
+  // Ouvinte de evento para apagar o histórico do chat
   deleteBtn.addEventListener('click', () => {
     if (confirm('Isso apaga todo o histórico da sua conversa e inicia uma nova. Tem certeza?')) {
       localStorage.removeItem('all-chats');
@@ -225,11 +230,13 @@ const addEventListeners = () => {
     }
   });
 
+  // Ouvinte de evento para ajustar a altura do campo de entrada de chat
   chatInput.addEventListener('input', () => {
     chatInput.style.height = `${initialHeight}px`;
     chatInput.style.height = `${chatInput.scrollHeight}px`;
   });
 
+  // Ouvinte de evento para enviar mensagens ao pressionar Enter
   chatInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && !e.shiftKey && window.innerWidth > 768) {
       e.preventDefault();
@@ -237,6 +244,7 @@ const addEventListeners = () => {
     }
   });
 
+  // Ouvinte de evento para clicar no botão de envio de mensagem
   sendBtn.addEventListener('click', handleChatOutput);
 
   // Função para trocar ícone do botão "Meu Portfolio"
@@ -244,10 +252,12 @@ const addEventListeners = () => {
     const portfolioBtnParent = portfolioBtn.parentElement;
     const originalIcon = portfolioBtn.innerHTML;
 
+    // Ouvinte de evento para alterar o ícone ao passar o mouse sobre o botão
     portfolioBtnParent.addEventListener('mouseover', () => {
       portfolioBtn.innerHTML = 'folder_open';
     });
 
+    // Ouvinte de evento para restaurar o ícone ao remover o mouse do botão
     portfolioBtnParent.addEventListener('mouseout', () => {
       portfolioBtn.innerHTML = originalIcon;
     });
@@ -259,10 +269,12 @@ const addEventListeners = () => {
 // Chama a função para trocar o ícone do botão "Meu Portfolio"
 toggleGithubIcon();
 
+// Ouvinte de evento ao carregar o conteúdo da página
 document.addEventListener('DOMContentLoaded', () => {
   const menuIcon = document.getElementById('menu-icon');
   const sideBar = document.querySelector('.sideBar');
 
+  // Ouvinte de evento para mostrar/ocultar a barra lateral
   menuIcon.addEventListener('click', () => {
     sideBar.classList.toggle('sidebar-open');
   });
@@ -272,15 +284,18 @@ document.addEventListener('DOMContentLoaded', () => {
     closeBtn.addEventListener('click', closeSidebar);
   }
 
+  // Ouvinte de evento para fechar a barra lateral ao clicar fora dela
   document.addEventListener('click', (event) => {
     if (!sideBar.contains(event.target) && !menuIcon.contains(event.target)) {
       closeSidebar();
     }
   });
 
+  // Adiciona outros ouvintes de eventos
   addEventListeners();
 });
 
+// Função para fechar a barra lateral
 const closeSidebar = () => {
   const sideBar = document.querySelector('.sideBar');
   sideBar.classList.remove('sidebar-open');
