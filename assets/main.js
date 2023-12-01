@@ -1,17 +1,25 @@
+// Cache para elementos do DOM
+const domElements = getDomElements();
+
 // Função para obter elementos do DOM
-const getDomElements = () => ({
-  chatInput: document.getElementById('chat-input'),
-  sendBtn: document.getElementById('send-btn'),
-  chatContainer: document.querySelector('.chat-container'),
-  themeBtn: document.getElementById('theme-btn'),
-  githubIcon: document.querySelector('.github-link img'),
-  deleteBtn: document.getElementById('delete-btn'),
-  portfolioBtn: document.getElementById('portfolio-btn')
-});
+function getDomElements() {
+  return {
+    chatInput: document.getElementById('chat-input'),
+    sendBtn: document.getElementById('send-btn'),
+    chatContainer: document.querySelector('.chat-container'),
+    themeBtn: document.getElementById('theme-btn'),
+    githubIcon: document.querySelector('.github-link img'),
+    deleteBtn: document.getElementById('delete-btn'),
+    portfolioBtn: document.getElementById('portfolio-btn'),
+    menuIcon: document.getElementById('menu-icon'),
+    sideBar: document.getElementById('sideBar'),
+    closeBtn: document.querySelector('.closeBtn')
+  };
+}
 
 // Constantes
 const apiUrl = 'https://chatchains.vercel.app/api/openai';
-const initialHeight = getDomElements().chatInput.scrollHeight;
+const initialHeight = domElements.chatInput.scrollHeight;
 let userText = '';
 
 // Mensagem padrão quando não há histórico
@@ -24,7 +32,7 @@ const defaultText = `
 
 // Função para carregar dados do localStorage ao iniciar
 const loadLocalStorageData = () => {
-  const { themeBtn, chatContainer } = getDomElements();
+  const { themeBtn, chatContainer } = domElements;
   const themeColor = localStorage.getItem('theme-color');
   const isLightMode = themeColor === 'light_mode';
 
@@ -97,7 +105,7 @@ const handleValidChatResponse = (chatEntry, content) => {
   chatDetails.appendChild(botImage);
   chatDetails.appendChild(pElement);
 
-  const { chatContainer } = getDomElements();
+  const { chatContainer } = domElements;
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
   localStorage.setItem('all-chats', chatContainer.innerHTML);
 };
@@ -132,7 +140,7 @@ const showTypingAnimation = async () => {
   };
 
   const chatEntry = createChatEntry();
-  const { chatContainer } = getDomElements();
+  const { chatContainer } = domElements;
   chatContainer.appendChild(chatEntry);
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
 
@@ -170,17 +178,17 @@ const showError = (errorMessage, chatEntry) => {
   const chatDetails = chatEntry.querySelector('.chat-details');
   chatDetails.appendChild(pElement);
 
-  const { chatContainer } = getDomElements();
+  const { chatContainer } = domElements;
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
   localStorage.setItem('all-chats', chatContainer.innerHTML);
 };
 
 // Manipulação da Saída do Chat
 const handleChatOutput = () => {
-  userText = getDomElements().chatInput.value.trim();
+  userText = domElements.chatInput.value.trim();
   if (!userText) return;
 
-  const { chatInput, chatContainer } = getDomElements();
+  const { chatInput, chatContainer } = domElements;
   chatInput.value = '';
   chatInput.style.height = `${initialHeight}px`;
 
@@ -203,7 +211,7 @@ const handleChatOutput = () => {
 
 // Função para trocar ícone do GitHub com base no tema atual
 const toggleGithubIcon = () => {
-  const { githubIcon, themeBtn } = getDomElements();
+  const { githubIcon, themeBtn } = domElements;
   const isLightMode = document.body.classList.contains('light-mode');
   const iconPath = isLightMode ? './assets/imgs/github-dark.svg' : './assets/imgs/github.svg';
   githubIcon.setAttribute('src', iconPath);
@@ -211,7 +219,7 @@ const toggleGithubIcon = () => {
 
 // Adiciona ouvintes de eventos relacionados ao chat input
 const addEventListeners = () => {
-  const { themeBtn, deleteBtn, chatInput, sendBtn, portfolioBtn } = getDomElements();
+  const { themeBtn, deleteBtn, chatInput, sendBtn, portfolioBtn } = domElements;
 
   // Ouvinte de evento para alternar entre modos claro e escuro
   themeBtn.parentElement.addEventListener('click', () => {
@@ -271,22 +279,20 @@ toggleGithubIcon();
 
 // Ouvinte de evento ao carregar o conteúdo da página
 document.addEventListener('DOMContentLoaded', () => {
-  const menuIcon = document.getElementById('menu-icon');
-  const sideBar = document.querySelector('.sideBar');
+  const { menuIcon, closeBtn, sideBar } = domElements;
 
   // Ouvinte de evento para mostrar/ocultar a barra lateral
   menuIcon.addEventListener('click', () => {
     sideBar.classList.toggle('sidebar-open');
   });
 
-  const closeBtn = document.querySelector('.closeBtn');
   if (closeBtn) {
     closeBtn.addEventListener('click', closeSidebar);
   }
 
   // Ouvinte de evento para fechar a barra lateral ao clicar fora dela
   document.addEventListener('click', (event) => {
-    if (!sideBar.contains(event.target) && !menuIcon.contains(event.target)) {
+    if (sideBar && !sideBar.contains(event.target) && !menuIcon.contains(event.target)) {
       closeSidebar();
     }
   });
@@ -297,6 +303,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Função para fechar a barra lateral
 const closeSidebar = () => {
-  const sideBar = document.querySelector('.sideBar');
+  const { sideBar } = domElements;
   sideBar.classList.remove('sidebar-open');
 };

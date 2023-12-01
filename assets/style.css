@@ -64,7 +64,7 @@ button {
   grid-template-columns: 1fr 4fr;
 }
 
-.sideBar {
+#sideBar {
   display: flex;
   flex-direction: column;
   border-right: var(--border);
@@ -75,11 +75,11 @@ button {
   display: none;
 }
 
-.sideBar.sidebar-open {
+#sideBar.sideBar-open {
   display: flex;
 }
 
-.sideBar .material-symbols-rounded {
+#sideBar .material-symbols-rounded {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -530,7 +530,7 @@ button {
     transition: all 0.3s ease;
   }
 
-  .sideBar {
+  #sideBar {
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -562,12 +562,12 @@ button {
     color: var(--link-text);
   }
 
-  .sideBar.sidebar-open {
+  #sideBar.sidebar-open {
     left: 0; /* Mostra a barra lateral quando a classe 'sidebar-open' está presente */
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   }
 
-  .sideBar.sidebar-open + .main::before {
+  #sideBar.sidebar-open + .main::before {
     content: '';
     position: fixed;
     top: 0;
@@ -588,7 +588,7 @@ button {
     margin-top: 50px;
   }
 
-  .sideBar .material-symbols-rounded {
+  #sideBar .material-symbols-rounded {
     margin: 0;
     height: 2rem;
     width: 2rem;
