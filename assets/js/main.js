@@ -96,8 +96,8 @@ const handleValidChatResponse = (chatEntry, content) => {
     typingAnimation.remove();
   }
 
-  // const pElement = document.createElement('p');
-  // pElement.textContent = content.trim();
+  const pElement = document.createElement('p');
+  pElement.textContent = content.trim();
 
   const textContainer = chatEntry.querySelector('.chat-details p');
   if (textContainer) {
