@@ -20,6 +20,8 @@ export default async function openaiHandler(req, res) {
       throw new Error('Texto do usuário não fornecido');
     }
 
+    const openaiModel = process.env.OPENAI_MODEL || 'gpt-3.5-turbo-1106';
+
     // Configuração da requisição para a API OpenAI
     const requestOptions = {
       method: 'POST',
@@ -28,7 +30,7 @@ export default async function openaiHandler(req, res) {
         Authorization: `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: 'gpt-3.5-turbo-1106',
+        model: openaiModel,
         messages: [{ role: 'user', content: userText }],
       })
     };
@@ -49,7 +51,8 @@ export default async function openaiHandler(req, res) {
   } catch (error) {
     console.error('Erro ao chamar a API da OpenAI', error);
 
-    // Em caso de erro, envia uma resposta de erro para o cliente
-    res.status(500).json({ error: 'Erro no servidor interno' });
+  // Em caso de erro, envia uma resposta de erro detalhada para o cliente
+  res.status(500).json({ error: `Erro ao chamar a API da OpenAI: ${error.message}` });
+
   }
 }
