@@ -77,7 +77,7 @@ const handleChatResponse = (chatEntry, response) => {
     showError(errorMessage, chatEntry);
   } else {
     const content = response.choices[0]?.message?.content;
-    // console.log(content);
+    console.log(content);
 
     if (content !== undefined && content !== null) {
       handleValidChatResponse(chatEntry, content);
@@ -90,42 +90,52 @@ const handleChatResponse = (chatEntry, response) => {
 };
 
 // Função para manipular resposta de chat válida
-const handleValidChatResponse = (chatEntry, content) => {
+const handleValidChatResponse = async (chatEntry, content) => {
+  // Remoção da animação de digitação, se existir
   const typingAnimation = chatEntry.querySelector('.typing-animation');
   if (typingAnimation) {
     typingAnimation.remove();
   }
+  // Aguarda um pequeno atraso antes de começar a animação
+  await new Promise(resolve => setTimeout(resolve, 500));
 
-  // const pElement = document.createElement('p');
-  // pElement.textContent = content.trim();
-
+  // Criação do elemento <p> (parágrafo) contendo o conteúdo da resposta
+  const pElement = document.createElement('p');
   const textContainer = chatEntry.querySelector('.chat-details p');
-  if (textContainer) {
-    textContainer.innerHTML = '';
-    let index = 0;
-    const speed = 50;
+  pElement.textContent = content.trim();
 
-    function typeWriter() {
-      if (index < content.length) {
-        const textNode = document.createTextNode(content.charAt(index));
-        textContainer.innerHTML += content.charAt(index);
-        index++;
-        setTimeout(typeWriter, speed);
-      }
-    }
-
-    typeWriter();
-  } 
-  // const chatDetails = chatEntry.querySelector('.chat-details');
-  // chatDetails.innerHTML = '';
-  // const botImage = document.createElement('img');
-  // botImage.src = './assets/imgs/chatchains.svg';
-  // chatDetails.appendChild(botImage);
-  // chatDetails.appendChild(pElement);
-
+  // Adição da imagem do bot à área de detalhes do chat
   const { chatContainer } = domElements;
+  const botImage = document.createElement('img');
+  botImage.src = './assets/imgs/chatchains.svg';
+
+  // Adiciona a imagem do bot antes do início da animação de digitação
+  chatEntry.querySelector('.chat-details').appendChild(botImage);
+
+  // Adição do parágrafo à área de detalhes do chat
+  textContainer.appendChild(pElement);
+
+  // Atualização da posição de rolagem para exibir a resposta
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
+
+  // Atualização do histórico do chat no armazenamento local
   localStorage.setItem('all-chats', chatContainer.innerHTML);
+
+  // Animação de Digitação
+  let index = 0;
+  const speed = 50;
+
+  const typeWriter = () => {
+    if (index < content.length) {
+      const textNode = document.createTextNode(content.charAt(index));
+      textContainer.appendChild(textNode);
+      index++;
+      setTimeout(typeWriter, speed);
+    }
+  };
+
+  // Inicia a animação de digitação
+  typeWriter();
 };
 
 // Função para copiar resposta para a área de transferência
@@ -228,7 +238,6 @@ const handleChatOutput = () => {
 
   showTypingAnimation();
 };
-
 
 // Função para trocar ícone do GitHub com base no tema atual
 const toggleGithubIcon = () => {
