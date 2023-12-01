@@ -220,7 +220,6 @@ const addEventListeners = () => {
   deleteBtn.addEventListener('click', () => {
     if (confirm('Isso apaga todo o histórico da sua conversa e inicia uma nova. Tem certeza?')) {
       localStorage.removeItem('all-chats');
-      chatContainer.innerHTML = '';
       loadLocalStorageData();
       closeSidebar();
     }
