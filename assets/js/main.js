@@ -98,6 +98,10 @@ const handleValidChatResponse = (chatEntry, content) => {
 
   const pElement = document.createElement('p');
   pElement.textContent = content.trim();
+  // 
+  const textContainer = document.createElement('div');
+  textContainer.id = 'text-container';  // Adiciona o ID ao container de texto
+  pElement.appendChild(textContainer);
 
   const chatDetails = chatEntry.querySelector('.chat-details');
   chatDetails.innerHTML = '';
