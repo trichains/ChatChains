@@ -13,7 +13,7 @@ function getDomElements() {
     portfolioBtn: document.getElementById('portfolio-btn'),
     menuIcon: document.getElementById('menu-icon'),
     sideBar: document.getElementById('sideBar'),
-    closeBtn: document.querySelector('.closeBtn')
+    closeBtn: document.querySelector('.closeBtn'),
   };
 }
 
@@ -148,7 +148,7 @@ const showTypingAnimation = async () => {
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userText })
+      body: JSON.stringify({ userText }),
     });
 
     if (!response.ok) {
@@ -222,12 +222,13 @@ const addEventListeners = () => {
   const { themeBtn, deleteBtn, chatInput, sendBtn, portfolioBtn } = domElements;
 
   // Ouvinte de evento para alternar entre modos claro e escuro
-  themeBtn.parentElement.addEventListener('click', () => {
+  const handleThemeToggle = () => {
     document.body.classList.toggle('light-mode');
     localStorage.setItem('theme-color', themeBtn.textContent);
     themeBtn.textContent = document.body.classList.contains('light-mode') ? 'dark_mode' : 'light_mode';
     toggleGithubIcon();
-  });
+  };
+  themeBtn.parentElement.addEventListener('click', handleThemeToggle);
 
   // Ouvinte de evento para apagar o histórico do chat
   deleteBtn.addEventListener('click', () => {
