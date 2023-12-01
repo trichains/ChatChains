@@ -166,6 +166,8 @@ const showTypingAnimation = async () => {
     }
 
     showError('Muitas requisições no momento, tente novamente mais tarde.', chatEntry);
+  } finally {
+    loadLocalStorageData();
   }
 };
 
