@@ -91,49 +91,25 @@ const handleChatResponse = (chatEntry, response) => {
 
 // Função para manipular resposta de chat válida
 const handleValidChatResponse = (chatEntry, content) => {
-  // Remoção da animação de digitação, se existir
   const typingAnimation = chatEntry.querySelector('.typing-animation');
   if (typingAnimation) {
     typingAnimation.remove();
   }
 
-  // Criação do elemento <p> (parágrafo) contendo o conteúdo da resposta
   const pElement = document.createElement('p');
-  const textContainer = chatEntry.querySelector('.chat-details p');
+  pElement.textContent = content.trim();
 
-  // Adição da imagem do bot à área de detalhes do chat
-  const { chatContainer } = domElements;
+  const chatDetails = chatEntry.querySelector('.chat-details');
+  chatDetails.innerHTML = '';
   const botImage = document.createElement('img');
   botImage.src = './assets/imgs/chatchains.svg';
+  chatDetails.appendChild(botImage);
+  chatDetails.appendChild(pElement);
 
-  // Adiciona a imagem do bot antes do início da animação de digitação
-  chatEntry.querySelector('.chat-details').appendChild(botImage);
-
-  // Adição do parágrafo à área de detalhes do chat
-  textContainer.appendChild(pElement);
-
-  // Atualização da posição de rolagem para exibir a resposta
+  const { chatContainer } = domElements;
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
-
-  // Atualização do histórico do chat no armazenamento local
   localStorage.setItem('all-chats', chatContainer.innerHTML);
-
-typeWriter(content, pElement);
 };
-
-// Função para realizar a animação de digitação
-const typeWriter = async (text, targetElement) => {
-  const speed = 50;
-
-  for (let i = 0; i < text.length; i++) {
-    const char = text.charAt(i);
-    targetElement.textContent += char;
-    await sleep(speed);
-  }
-};
-
-// Função de pausa para controlar a velocidade da animação
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Função para copiar resposta para a área de transferência
 const copyResponse = (copyBtn) => {
