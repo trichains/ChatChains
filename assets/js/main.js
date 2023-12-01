@@ -64,7 +64,6 @@ const getErrorMessage = (response) => {
   }
 
   const content = response.choices[0]?.message?.content;
-  console.log(content);
 
   return content !== undefined && content !== null ? null : 'Resposta inválida da API';
 };
@@ -78,7 +77,6 @@ const handleChatResponse = (chatEntry, response) => {
     showError(errorMessage, chatEntry);
   } else {
     const content = response.choices[0]?.message?.content;
-    console.log(content);
 
     if (content !== undefined && content !== null) {
       handleValidChatResponse(chatEntry, content);
@@ -152,6 +150,7 @@ const showTypingAnimation = async () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userText }),
     });
+    console.log(response);
 
     if (!response.ok) {
       throw new Error('Erro ao chamar a API OpenAI');
