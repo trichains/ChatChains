@@ -96,8 +96,8 @@ const handleValidChatResponse = (chatEntry, content) => {
     typingAnimation.remove();
   }
 
-  const pElement = document.createElement('p');
-  pElement.textContent = content.trim();
+  // const pElement = document.createElement('p');
+  // pElement.textContent = content.trim();
 
   const textContainer = chatEntry.querySelector('.chat-details p');
   if (textContainer) {
@@ -115,12 +115,12 @@ const handleValidChatResponse = (chatEntry, content) => {
     typeWriter();
   }
 
-  const chatDetails = chatEntry.querySelector('.chat-details');
-  chatDetails.innerHTML = '';
-  const botImage = document.createElement('img');
-  botImage.src = './assets/imgs/chatchains.svg';
-  chatDetails.appendChild(botImage);
-  chatDetails.appendChild(pElement);
+  // const chatDetails = chatEntry.querySelector('.chat-details');
+  // chatDetails.innerHTML = '';
+  // const botImage = document.createElement('img');
+  // botImage.src = './assets/imgs/chatchains.svg';
+  // chatDetails.appendChild(botImage);
+  // chatDetails.appendChild(pElement);
 
   const { chatContainer } = domElements;
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
