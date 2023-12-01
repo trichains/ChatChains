@@ -1,34 +1,25 @@
 // Armazena referências para elementos DOM frequentemente usados
-const chatInput = document.getElementById('chat-input');
-const sendBtn = document.getElementById('send-btn');
-const chatContainer = document.querySelector('.chat-container');
-const themeBtn = document.getElementById('theme-btn');
-const githubIcon = document.querySelector('.github-link img');
-const deleteBtn = document.getElementById('delete-btn');
-const portfolioBtn = document.getElementById('portfolio-btn');
-
 const domElements = {
-  chatInput,
-  sendBtn,
-  chatContainer,
-  themeBtn,
-  githubIcon,
-  deleteBtn,
-  portfolioBtn
+  chatInput: document.getElementById('chat-input'),
+  sendBtn: document.getElementById('send-btn'),
+  chatContainer: document.querySelector('.chat-container'),
+  themeBtn: document.getElementById('theme-btn'),
+  githubIcon: document.querySelector('.github-link img'),
+  deleteBtn: document.getElementById('delete-btn'),
+  portfolioBtn: document.getElementById('portfolio-btn')
 };
 
 // Constantes
 const apiUrl = 'https://chatchains.vercel.app/api/openai';
 const initialHeight = domElements.chatInput.scrollHeight;
-
 let userText = '';
 
 const defaultText = `
-<div class='default-text'>
-  <img src='./assets/imgs/chatchains.svg' alt='Foto do usuário'>
-  <p> Comece uma conversa ❤️<br>O histórico do seu chat aparecerá aqui.<br>
-  Visite <a href='https://github.com/trichains' target='_blank'>trichains</a> no GitHub 👋</p>
-</div>`;
+  <div class='default-text'>
+    <img src='./assets/imgs/chatchains.svg' alt='Foto do usuário'>
+    <p> Comece uma conversa ❤️<br>O histórico do seu chat aparecerá aqui.<br>
+    Visite <a href='https://github.com/trichains' target='_blank'>trichains</a> no GitHub 👋</p>
+  </div>`;
 
 // Carrega dados do localStorage ao iniciar
 const loadLocalStorageData = () => {
