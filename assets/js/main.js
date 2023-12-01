@@ -107,6 +107,7 @@ const handleValidChatResponse = (chatEntry, content) => {
 
     function typeWriter() {
       if (index < content.length) {
+        const textNode = document.createTextNode(content.charAt(index));
         textContainer.innerHTML += content.charAt(index);
         index++;
         setTimeout(typeWriter, speed);
@@ -114,18 +115,7 @@ const handleValidChatResponse = (chatEntry, content) => {
     }
 
     typeWriter();
-  } else {
-    const pElement = document.createElement('p');
-    pElement.textContent = content.trim();
-  
-    const chatDetails = chatEntry.querySelector('.chat-details');
-    chatDetails.innerHTML = '';
-    const botImage = document.createElement('img');
-    botImage.src = './assets/imgs/chatchains.svg';
-    chatDetails.appendChild(botImage);
-    chatDetails.appendChild(pElement);
-  }
-
+  } 
   // const chatDetails = chatEntry.querySelector('.chat-details');
   // chatDetails.innerHTML = '';
   // const botImage = document.createElement('img');
