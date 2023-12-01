@@ -157,6 +157,7 @@ const showTypingAnimation = async () => {
     }
 
     const responseData = await response.json();
+    console.log(responseData);
     handleChatResponse(chatEntry, responseData);
   } catch (error) {
     console.error('Erro ao obter resposta da API OpenAI', error);
