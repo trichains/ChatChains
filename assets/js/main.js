@@ -96,12 +96,24 @@ const handleValidChatResponse = (chatEntry, content) => {
     typingAnimation.remove();
   }
 
-  const pElement = document.createElement('p');
-  pElement.textContent = content.trim();
-  // 
-  const textContainer = document.createElement('div');
-  textContainer.id = 'text-container';  // Adiciona o ID ao container de texto
-  pElement.appendChild(textContainer);
+  // const pElement = document.createElement('p');
+  // pElement.textContent = content.trim();
+
+  const textContainer = chatEntry.querySelector('.chat-details p');
+  if (textContainer) {
+    let index = 0;
+    const speed = 50;
+
+    function typeWriter() {
+      if (index < content.length) {
+        textContainer.innerHTML += content.charAt(index);
+        index++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+
+    typeWriter();
+  }
 
   const chatDetails = chatEntry.querySelector('.chat-details');
   chatDetails.innerHTML = '';
@@ -113,8 +125,6 @@ const handleValidChatResponse = (chatEntry, content) => {
   const { chatContainer } = domElements;
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
   localStorage.setItem('all-chats', chatContainer.innerHTML);
-
-  typeWriter(content);
 };
 
 // Função para copiar resposta para a área de transferência
@@ -218,22 +228,6 @@ const handleChatOutput = () => {
   showTypingAnimation();
 };
 
- // Função de animação de digitação (typeWriter)
- const typeWriter = (assistantMessage) => {
-  let index = 0;
-  const speed = 50; // velocidade da digitação em milissegundos
-  const textContainer = document.getElementById("text-container");
-
-  function type() {
-    if (index < assistantMessage.length) {
-      textContainer.innerHTML += assistantMessage.charAt(index);
-      index++;
-      setTimeout(type, speed);
-    }
-  }
-
-  type();
-};
 
 // Função para trocar ícone do GitHub com base no tema atual
 const toggleGithubIcon = () => {
