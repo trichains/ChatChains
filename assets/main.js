@@ -7,15 +7,15 @@ const githubIcon = document.querySelector('.github-link img');
 const deleteBtn = document.getElementById('delete-btn');
 const portfolioBtn = document.getElementById('portfolio-btn');
 
-  const domElements = {
-    chatInput,
-    sendBtn,
-    chatContainer,
-    themeBtn,
-    githubIcon,
-    deleteBtn,
-    portfolioBtn
-  };
+const domElements = {
+  chatInput,
+  sendBtn,
+  chatContainer,
+  themeBtn,
+  githubIcon,
+  deleteBtn,
+  portfolioBtn
+};
 
 // Constantes
 const apiUrl = 'https://chatchains.vercel.app/api/openai';
@@ -68,7 +68,6 @@ const getErrorMessage = (response) => {
   }
 };
 
-
 // Função para manipular a resposta do chat
 const handleChatResponse = (chatEntry, response) => {
   const errorMessage = getErrorMessage(response);
@@ -107,7 +106,6 @@ const handleChatResponse = (chatEntry, response) => {
     }
   }
 };
-
 
 // Função para copiar resposta para a área de transferência
 const copyResponse = (copyBtn) => {
@@ -170,8 +168,6 @@ const showTypingAnimation = async () => {
   }
 };
 
-
-
 // Função para exibir uma mensagem de erro no chat
 const showError = (errorMessage, chatEntry) => {
   const pElement = document.createElement('p');
@@ -185,8 +181,6 @@ const showError = (errorMessage, chatEntry) => {
   domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight);
   localStorage.setItem('all-chats', domElements.chatContainer.innerHTML);
 };
-
-
 
 // Manipulação da Saída do Chat
 const handleChatOutput = () => {
@@ -223,49 +217,57 @@ const toggleGithubIcon = () => {
 };
 
 // Adiciona um ouvinte de evento para o clique no contêiner pai do botão de tema
-domElements.themeBtn.parentElement.addEventListener('click', () => {
-  // Muda o tema do site
-  document.body.classList.toggle('light-mode');
-  localStorage.setItem('theme-color', domElements.themeBtn.textContent);
-  domElements.themeBtn.textContent = document.body.classList.contains('light-mode')
-    ? 'dark_mode'
-    : 'light_mode';
+const addThemeBtnEventListener = () => {
+  domElements.themeBtn.parentElement.addEventListener('click', () => {
+    // Muda o tema do site
+    document.body.classList.toggle('light-mode');
+    localStorage.setItem('theme-color', domElements.themeBtn.textContent);
+    domElements.themeBtn.textContent = document.body.classList.contains('light-mode')
+      ? 'dark_mode'
+      : 'light_mode';
 
-  // Chama a função para trocar o ícone do GitHub
-  toggleGithubIcon();
-});
-
-// ... (seu código existente)
+    // Chama a função para trocar o ícone do GitHub
+    toggleGithubIcon();
+  });
+};
 
 // Adiciona um ouvinte de evento para o clique no botão de apagar
-domElements.deleteBtn.addEventListener('click', () => {
-  // Remove todas as conversas do localStorage e chama a função loadLocalStorageData para atualizar o conteúdo do chat
-  if (confirm('Isso apaga todo o histórico da sua conversa e inicia uma nova.Tem certeza?')) {
-    localStorage.removeItem('all-chats');
-    domElements.chatContainer.innerHTML = '';
-    loadLocalStorageData();
-    closeSidebar();
-  }
-});
+const addDeleteBtnEventListener = () => {
+  domElements.deleteBtn.addEventListener('click', () => {
+    // Remove todas as conversas do localStorage e chama a função loadLocalStorageData para atualizar o conteúdo do chat
+    if (confirm('Isso apaga todo o histórico da sua conversa e inicia uma nova.Tem certeza?')) {
+      localStorage.removeItem('all-chats');
+      domElements.chatContainer.innerHTML = '';
+      loadLocalStorageData();
+      closeSidebar();
+    }
+  });
+};
 
-// Adiciona um ouvinte de evento para o evento de entrada no campo de texto
-domElements.chatInput.addEventListener('input', () => {
-  // Ajusta a altura do input de acordo com o conteúdo
-  domElements.chatInput.style.height = `${initialHeight}px`;
-  domElements.chatInput.style.height = `${domElements.chatInput.scrollHeight}px`;
-});
+// Adiciona ouvintes de eventos relacionados ao chat input
+const addChatInputEventListeners = () => {
+  // Event listener para evento de entrada no campo de texto
+  domElements.chatInput.addEventListener('input', () => {
+    // Ajusta a altura do input de acordo com o conteúdo
+    domElements.chatInput.style.height = `${initialHeight}px`;
+    domElements.chatInput.style.height = `${domElements.chatInput.scrollHeight}px`;
+  });
 
-// Adiciona um ouvinte de evento para o pressionamento de tecla no campo de texto
-domElements.chatInput.addEventListener('keydown', (e) => {
-  // Se o botão Enter for pressionado com shift pressionado e a largura da janela for maior que 768, aciona a manipulação da saída do chat
-  if (e.key === 'Enter' && !e.shiftKey && window.innerWidth > 768) {
-    e.preventDefault();
-    handleChatOutput();
-  }
-});
+  // Event listener para pressionamento de tecla no campo de texto
+  domElements.chatInput.addEventListener('keydown', (e) => {
+    // Se o botão Enter for pressionado com shift pressionado e a largura da janela for maior que 768, aciona a manipulação da saída do chat
+    if (e.key === 'Enter' && !e.shiftKey && window.innerWidth > 768) {
+      e.preventDefault();
+      handleChatOutput();
+    }
+  });
+};
 
-// Adiciona um ouvinte de evento para o clique no botão de envio, que aciona a manipulação da saída do chat
-domElements.sendBtn.addEventListener('click', handleChatOutput);
+// Adiciona ouvintes de eventos relacionados ao chat input
+const addSendBtnEventListener = () => {
+  // Event listener para o clique no botão de envio, que aciona a manipulação da saída do chat
+  domElements.sendBtn.addEventListener('click', handleChatOutput);
+};
 
 // Função para trocar o ícone do botão "Meu Portfolio"
 const handlePortfolioBtnIconChange = () => {
@@ -295,22 +297,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Adiciona um evento de clique ao ícone do menu
   menuIcon.addEventListener('click', function () {
-      // Toggle a classe 'sidebar-open' na barra lateral para mostrar/ocultar
-      sideBar.classList.toggle('sidebar-open');
+    // Toggle a classe 'sidebar-open' na barra lateral para mostrar/ocultar
+    sideBar.classList.toggle('sidebar-open');
   });
 
-   // Adiciona um ouvinte de evento ao botão de fechar na barra lateral
-   const closeBtn = document.querySelector('.closeBtn');
-   if (closeBtn) {
-     closeBtn.addEventListener('click', closeSidebar);
+  // Adiciona um ouvinte de evento ao botão de fechar na barra lateral
+  const closeBtn = document.querySelector('.closeBtn');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeSidebar);
   }
-  
-     // Adiciona um ouvinte de evento ao clicar fora da barra lateral para fechá-la
-     document.addEventListener('click', function (event) {
-      if (!sideBar.contains(event.target) && !menuIcon.contains(event.target)) {
-        closeSidebar();
-      }
-    });
+
+  // Adiciona um ouvinte de evento ao clicar fora da barra lateral para fechá-la
+  document.addEventListener('click', function (event) {
+    if (!sideBar.contains(event.target) && !menuIcon.contains(event.target)) {
+      closeSidebar();
+    }
+  });
+
+  // Adiciona ouvintes de eventos relacionados ao chat input
+  addThemeBtnEventListener();
+  addDeleteBtnEventListener();
+  addChatInputEventListeners();
+  addSendBtnEventListener();
 });
 
 const closeSidebar = () => {
