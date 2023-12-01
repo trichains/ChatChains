@@ -90,15 +90,12 @@ const handleChatResponse = (chatEntry, response) => {
 };
 
 // Função para manipular resposta de chat válida
-const handleValidChatResponse = async (chatEntry, content) => {
+const handleValidChatResponse = (chatEntry, content) => {
   // Remoção da animação de digitação, se existir
   const typingAnimation = chatEntry.querySelector('.typing-animation');
   if (typingAnimation) {
     typingAnimation.remove();
   }
-
-  // Aguarda um pequeno atraso antes de começar a animação
-  await new Promise(resolve => setTimeout(resolve, 500));
 
   // Criação do elemento <p> (parágrafo) contendo o conteúdo da resposta
   const pElement = document.createElement('p');
@@ -121,8 +118,7 @@ const handleValidChatResponse = async (chatEntry, content) => {
   // Atualização do histórico do chat no armazenamento local
   localStorage.setItem('all-chats', chatContainer.innerHTML);
 
-  // Animação de Digitação no Texto da Resposta
-  await typeWriter(content, pElement);
+typeWriter(content, pElement);
 };
 
 // Função para realizar a animação de digitação
