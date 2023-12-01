@@ -77,7 +77,7 @@ const handleChatResponse = (chatEntry, response) => {
     showError(errorMessage, chatEntry);
   } else {
     const content = response.choices[0]?.message?.content;
-    console.log(content);
+    // console.log(content);
 
     if (content !== undefined && content !== null) {
       handleValidChatResponse(chatEntry, content);
@@ -109,6 +109,8 @@ const handleValidChatResponse = (chatEntry, content) => {
   const { chatContainer } = domElements;
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
   localStorage.setItem('all-chats', chatContainer.innerHTML);
+
+  typeWriter(content);
 };
 
 // Função para copiar resposta para a área de transferência
@@ -210,6 +212,23 @@ const handleChatOutput = () => {
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
 
   showTypingAnimation();
+};
+
+ // Função de animação de digitação (typeWriter)
+ const typeWriter = (assistantMessage) => {
+  let index = 0;
+  const speed = 50; // velocidade da digitação em milissegundos
+  const textContainer = document.getElementById("text-container");
+
+  function type() {
+    if (index < assistantMessage.length) {
+      textContainer.innerHTML += assistantMessage.charAt(index);
+      index++;
+      setTimeout(type, speed);
+    }
+  }
+
+  type();
 };
 
 // Função para trocar ícone do GitHub com base no tema atual
