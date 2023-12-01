@@ -101,6 +101,7 @@ const handleValidChatResponse = (chatEntry, content) => {
 
   const textContainer = chatEntry.querySelector('.chat-details p');
   if (textContainer) {
+    textContainer.innerHTML = '';
     let index = 0;
     const speed = 50;
 
@@ -113,6 +114,16 @@ const handleValidChatResponse = (chatEntry, content) => {
     }
 
     typeWriter();
+  } else {
+    const pElement = document.createElement('p');
+    pElement.textContent = content.trim();
+  
+    const chatDetails = chatEntry.querySelector('.chat-details');
+    chatDetails.innerHTML = '';
+    const botImage = document.createElement('img');
+    botImage.src = './assets/imgs/chatchains.svg';
+    chatDetails.appendChild(botImage);
+    chatDetails.appendChild(pElement);
   }
 
   // const chatDetails = chatEntry.querySelector('.chat-details');
