@@ -113,7 +113,7 @@ const handleValidChatResponse = async (chatEntry, content) => {
   chatEntry.querySelector('.chat-details').appendChild(botImage);
 
   // Adição do parágrafo à área de detalhes do chat
-  textContainer.appendChild(pElement);
+  chatDetails.appendChild(pElement);
 
   // Atualização da posição de rolagem para exibir a resposta
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
