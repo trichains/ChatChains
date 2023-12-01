@@ -77,7 +77,7 @@ const handleChatResponse = (chatEntry, response) => {
     showError(errorMessage, chatEntry);
   } else {
     const content = response.choices[0]?.message?.content;
-    // console.log(content);
+    console.log(content);
 
     if (content !== undefined && content !== null) {
       handleValidChatResponse(chatEntry, content);
@@ -109,7 +109,6 @@ const handleValidChatResponse = (chatEntry, content) => {
   const { chatContainer } = domElements;
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
   localStorage.setItem('all-chats', chatContainer.innerHTML);
-  console.log(content.choices[0].message.content);
 };
 
 // Função para copiar resposta para a área de transferência
