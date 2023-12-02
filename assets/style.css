@@ -217,7 +217,7 @@ button {
 .chat-container {
   max-height: 80vh;
   overflow-y: auto;
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
   padding-bottom: 100px;
 }
 
