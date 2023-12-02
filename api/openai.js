@@ -32,6 +32,7 @@ export default async function openaiHandler(req, res) {
       body: JSON.stringify({
         model: openaiModel,
         messages: [{ role: 'user', content: userText }],
+        language: 'pt-BR',
       })
     };
 
