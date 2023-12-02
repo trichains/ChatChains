@@ -94,8 +94,7 @@ const handleValidChatResponse = (chatEntry, content) => {
   if (typingAnimation) {
     typingAnimation.remove();
   }
- 
-  // domElements.chatInput.disabled = true;
+
   const pElement = document.createElement('p');
   pElement.classList.add('assistant');
  
