@@ -109,26 +109,36 @@ const handleValidChatResponse = (chatEntry, content) => {
  
   const { chatContainer } = domElements;
   let index = 0;
- 
-  function typeWriter() {
-    if (index < content.length) {
-      pElement.innerHTML += content.charAt(index);
-      index++;
- 
-      // Se o usuário não estiver rolando manualmente para cima, force o scroll para a parte inferior
-      if (chatContainer.scrollTop + chatContainer.clientHeight !== chatContainer.scrollHeight) {
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-      }
- 
-      requestAnimationFrame(typeWriter);
-    } else {
-      pElement.innerHTML = content;
-      localStorage.setItem('all-chats', chatContainer.innerHTML);
-      domElements.chatInput.disabled = false;
-    }
+  let startTime;
+  let endTime;
+  let elapsedTime;
+  
+  function typeWriter(timestamp) {
+   if (!startTime) startTime = timestamp;
+   elapsedTime = timestamp - startTime;
+  
+   if (elapsedTime < 1000) { // 1000ms = 1s
+     if (index < content.length) {
+       pElement.innerHTML += content.charAt(index);
+       index++;
+  
+       // Se o usuário não estiver rolando manualmente para cima, force o scroll para a parte inferior
+       if (!isUserScrolling) {
+         chatContainer.scrollTop = chatContainer.scrollHeight;
+       }
+  
+       requestAnimationFrame(typeWriter);
+     } else {
+       pElement.innerHTML = content;
+       localStorage.setItem('all-chats', chatContainer.innerHTML);
+       domElements.chatInput.disabled = false;
+       isUserScrolling = false; // Reset the flag when the typing animation is done
+     }
+   }
   }
- 
+  
   requestAnimationFrame(typeWriter);
+  
  };
  
 
