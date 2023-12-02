@@ -95,7 +95,7 @@ const handleValidChatResponse = (chatEntry, content) => {
     typingAnimation.remove();
   }
  
-  domElements.chatInput.disabled = true; // Desativa a entrada de texto
+  // domElements.chatInput.disabled = true;
   const pElement = document.createElement('p');
   pElement.classList.add('assistant');
  
