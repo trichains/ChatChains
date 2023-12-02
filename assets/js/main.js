@@ -96,8 +96,9 @@ const handleValidChatResponse = (chatEntry, content) => {
     typingAnimation.remove();
   }
 
+  // Crie um novo elemento p para a resposta do assistente
   const pElement = document.createElement('p');
-  pElement.textContent = content.trim();
+  pElement.classList.add('assistant');
 
   const chatDetails = chatEntry.querySelector('.chat-details');
   chatDetails.innerHTML = '';
@@ -107,9 +108,23 @@ const handleValidChatResponse = (chatEntry, content) => {
   chatDetails.appendChild(pElement);
 
   const { chatContainer } = domElements;
-  chatContainer.scrollTo(0, chatContainer.scrollHeight);
-  localStorage.setItem('all-chats', chatContainer.innerHTML);
-};
+  let index = 0;
+  // const speed = 7;
+ 
+  function typeWriter() {
+    if (index < content.length) {
+      pElement.innerHTML += content.charAt(index);
+      index++;
+      chatContainer.scrollTo(0, chatContainer.scrollHeight);
+      window.scrollTo(0, document.body.scrollHeight);
+      requestAnimationFrame(typeWriter);
+    } else {
+      pElement.innerHTML = content;
+      localStorage.setItem('all-chats', chatContainer.innerHTML);
+    }
+  }
+  requestAnimationFrame(typeWriter);
+}; 
 
 // Função para copiar resposta para a área de transferência
 const copyResponse = (copyBtn) => {
@@ -167,8 +182,6 @@ const showTypingAnimation = async () => {
     }
 
     showError('Muitas requisições no momento, tente novamente mais tarde.', chatEntry);
-  } finally {
-    loadLocalStorageData();
   }
 };
 
