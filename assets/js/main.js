@@ -77,6 +77,7 @@ const handleChatResponse = (chatEntry, response) => {
     showError(errorMessage, chatEntry);
   } else {
     const content = response.choices[0]?.message?.content;
+    console.log(content);
 
     if (content !== undefined && content !== null) {
       handleValidChatResponse(chatEntry, content);
@@ -95,9 +96,8 @@ const handleValidChatResponse = (chatEntry, content) => {
     typingAnimation.remove();
   }
 
-  // Crie um novo elemento p para a resposta do assistente
   const pElement = document.createElement('p');
-  pElement.classList.add('assistant');
+  pElement.textContent = content.trim();
 
   const chatDetails = chatEntry.querySelector('.chat-details');
   chatDetails.innerHTML = '';
@@ -107,28 +107,9 @@ const handleValidChatResponse = (chatEntry, content) => {
   chatDetails.appendChild(pElement);
 
   const { chatContainer } = domElements;
-  let index = 0;
-  let userScrollActive = true;
- 
-  function typeWriter() {
-    if (index < content.length) {
-      pElement.innerHTML += content.charAt(index);
-      index++;
-      if (userScrollActive) {
-        chatContainer.scrollTo(0, chatContainer.scrollHeight);
-      }
-      requestAnimationFrame(typeWriter);
-    } else {
-      pElement.innerHTML = content;
-      localStorage.setItem('all-chats', chatContainer.innerHTML);
-    }
-  }
-  chatContainer.addEventListener('scroll', () => {
-    userScrollActive = false;
-  })
-
-  requestAnimationFrame(typeWriter);
-}; 
+  chatContainer.scrollTo(0, chatContainer.scrollHeight);
+  localStorage.setItem('all-chats', chatContainer.innerHTML);
+};
 
 // Função para copiar resposta para a área de transferência
 const copyResponse = (copyBtn) => {
@@ -186,6 +167,8 @@ const showTypingAnimation = async () => {
     }
 
     showError('Muitas requisições no momento, tente novamente mais tarde.', chatEntry);
+  } finally {
+    loadLocalStorageData();
   }
 };
 
