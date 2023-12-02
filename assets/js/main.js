@@ -108,18 +108,25 @@ const handleValidChatResponse = (chatEntry, content) => {
 
   const { chatContainer } = domElements;
   let index = 0;
+  let userScrollActive = true;
  
   function typeWriter() {
     if (index < content.length) {
       pElement.innerHTML += content.charAt(index);
       index++;
-      chatContainer.scrollTo(0, chatContainer.scrollHeight);
+      if (userScrollActive) {
+        chatContainer.scrollTo(0, chatContainer.scrollHeight);
+      }
       requestAnimationFrame(typeWriter);
     } else {
       pElement.innerHTML = content;
       localStorage.setItem('all-chats', chatContainer.innerHTML);
     }
   }
+  chatContainer.addEventListener('scroll', () => {
+    userScrollActive = false;
+  })
+
   requestAnimationFrame(typeWriter);
 }; 
 
