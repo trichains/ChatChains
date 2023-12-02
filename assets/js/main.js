@@ -95,6 +95,7 @@ const handleValidChatResponse = (chatEntry, content) => {
     typingAnimation.remove();
   }
 
+  domElements.chatInput.disable = true;
   const pElement = document.createElement('p');
   pElement.classList.add('assistant');
 
@@ -127,11 +128,11 @@ const handleValidChatResponse = (chatEntry, content) => {
     } else {
       pElement.innerHTML = content;
       localStorage.setItem('all-chats', chatContainer.innerHTML);
+      domElements.chatInput.disable = false;
     }
   }
 
   requestAnimationFrame(typeWriter);
-  domElements.chatInput.disabled = false;
 };
 
 
@@ -164,6 +165,7 @@ const showTypingAnimation = async () => {
     return createElement(html, 'entrada');
   };
 
+  domElements.chatInput.disable = true;
   const chatEntry = createChatEntry();
   const { chatContainer } = domElements;
   chatContainer.appendChild(chatEntry);
@@ -233,7 +235,6 @@ const handleChatOutput = () => {
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
 
   showTypingAnimation();
-  domElements.chatInput.disabled = true;
 };
 
 // Função para trocar ícone do GitHub com base no tema atual
