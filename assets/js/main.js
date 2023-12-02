@@ -113,7 +113,7 @@ const handleValidChatResponse = (chatEntry, content) => {
     if (index < content.length) {
       pElement.innerHTML += content.charAt(index);
       index++;
-      chatContainer.scrollTop = chatContainer.scrollHeight;
+      chatContainer.scrollTo(0, chatContainer.scrollHeight);
       requestAnimationFrame(typeWriter);
     } else {
       pElement.innerHTML = content;
