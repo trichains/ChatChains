@@ -34,11 +34,11 @@ const defaultText = `
 const loadLocalStorageData = () => {
   const { themeBtn, chatContainer } = domElements;
   const themeColor = localStorage.getItem('theme-color');
-  const isLightMode = themeColor === 'light_mode';
+  const isDarkMode = themeColor === 'dark_mode';	
 
   // Aplica o tema salvo no localStorage
-  document.body.classList.toggle('light-mode', isLightMode);
-  themeBtn.textContent = isLightMode ? 'dark_mode' : 'light_mode';
+  document.body.classList.toggle('dark-mode', isDarkMode);
+  themeBtn.textContent = isDarkMode ? 'light_mode' : 'dark_mode';
 
   // Carrega histórico do localStorage ou exibe mensagem padrão
   const allChats = localStorage.getItem('all-chats') || defaultText;
@@ -240,8 +240,8 @@ const handleChatOutput = () => {
 // Função para trocar ícone do GitHub com base no tema atual
 const toggleGithubIcon = () => {
   const { githubIcon, themeBtn } = domElements;
-  const isLightMode = document.body.classList.contains('light-mode');
-  const iconPath = isLightMode ? './assets/imgs/github-dark.svg' : './assets/imgs/github.svg';
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  const iconPath = isDarkMode ? './assets/imgs/github.svg' : './assets/imgs/github-dark.svg';
   githubIcon.setAttribute('src', iconPath);
 };
 
@@ -251,9 +251,9 @@ const addEventListeners = () => {
 
   // Ouvinte de evento para alternar entre modos claro e escuro
   const handleThemeToggle = () => {
-    document.body.classList.toggle('light-mode');
+    document.body.classList.toggle('dark-mode');
     localStorage.setItem('theme-color', themeBtn.textContent);
-    themeBtn.textContent = document.body.classList.contains('light-mode') ? 'dark_mode' : 'light_mode';
+    themeBtn.textContent = document.body.classList.contains('dark-mode') ? 'light_mode' : 'dark_mode';
     toggleGithubIcon();
   };
   themeBtn.parentElement.addEventListener('click', handleThemeToggle);

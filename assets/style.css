@@ -7,21 +7,6 @@
 
 /* Definição de variáveis de cores para fácil ajuste */
 :root {
-  --bg: #13001f;
-  --btn-bg: #2d2043;
-  --btn-bg-hover: #382b50;
-  --text-color: #fff;
-  --link-text: #ae97c6;
-  --destaque: #777777;
-  --border: 1px solid #1e1e1e;
-  --input-bg: #1c1e3a;
-  --input-bg-bot: #1c1e3a57;
-  --icon-color: #b3acbe;
-  --placeholder-color: #b5b5b5;
-}
-
-/* Estilos para modo claro e escuro */
-.light-mode {
   --bg: #fff;
   --btn-bg: #d5c6eb;
   --btn-bg-hover: #c0aed9;
@@ -33,6 +18,21 @@
   --input-bg-bot: #f7f7f8;
   --icon-color: #433c4e;
   --placeholder-color: #838282;
+}
+
+/* Estilos para modo claro e escuro */
+.dark-mode {
+  --bg: #13001f;
+  --btn-bg: #2d2043;
+  --btn-bg-hover: #382b50;
+  --text-color: #fff;
+  --link-text: #ae97c6;
+  --destaque: #777777;
+  --border: 1px solid #1e1e1e;
+  --input-bg: #1c1e3a;
+  --input-bg-bot: #1c1e3a57;
+  --icon-color: #b3acbe;
+  --placeholder-color: #b5b5b5;
 }
 
 body {
