@@ -114,8 +114,7 @@ const handleValidChatResponse = (chatEntry, content) => {
     if (index < content.length) {
       pElement.innerHTML += content.charAt(index);
       index++;
- 
-      chatContainer.scrollTo(0, chatContainer.scrollHeight);
+      pElement.scrollTop = pElement.scrollHeight;
   
       requestAnimationFrame(typeWriter);
     } else {
@@ -158,7 +157,7 @@ const showTypingAnimation = async () => {
     return createElement(html, 'entrada');
   };
 
-  domElements.chatInput.disable = true;
+  domElements.chatInput.disabled = true;
   const chatEntry = createChatEntry();
   const { chatContainer } = domElements;
   chatContainer.appendChild(chatEntry);
