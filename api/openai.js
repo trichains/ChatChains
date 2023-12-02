@@ -15,7 +15,7 @@ export default async function openaiHandler(req, res) {
     if (!userText) {
       throw new Error('Texto do usuário não fornecido');
     }
-    const openaiModel = 'gpt-3.5-turbo-1106';
+    const openaiModel = process.env.OPENAI_MODEL || 'gpt-3.5-turbo-1106';
     // Configuração da requisição para a API OpenAI
     const requestOptions = {
       method: 'POST',
