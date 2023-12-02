@@ -131,6 +131,7 @@ const handleValidChatResponse = (chatEntry, content) => {
   }
 
   requestAnimationFrame(typeWriter);
+  domElements.chatInput.disabled = false;
 };
 
 
@@ -232,6 +233,7 @@ const handleChatOutput = () => {
   chatContainer.scrollTo(0, chatContainer.scrollHeight);
 
   showTypingAnimation();
+  domElements.chatInput.disabled = true;
 };
 
 // Função para trocar ícone do GitHub com base no tema atual
