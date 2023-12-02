@@ -142,6 +142,7 @@ const copyResponse = (copyBtn) => {
 // Animação de Digitação
 const showTypingAnimation = async () => {
   const createChatEntry = () => {
+    domElements.chatInput.disabled = true;
     const html = `
       <div class='chat-content'>
         <div class='chat-details'>
@@ -178,6 +179,7 @@ const showTypingAnimation = async () => {
     handleChatResponse(chatEntry, responseData);
   } catch (error) {
     console.error('Erro ao obter resposta da API OpenAI', error);
+    domElements.chatInput.disabled = false;
 
     const typingAnimation = chatEntry.querySelector('.typing-animation');
     if (typingAnimation) {
