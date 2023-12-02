@@ -110,25 +110,29 @@ const handleValidChatResponse = (chatEntry, content) => {
   const { chatContainer } = domElements;
   let index = 0;
 
+  let isUserScrolling = false;
+
+  // Adicione um ouvinte de evento de scroll ao contêiner de chat
+  domElements.chatContainer.addEventListener('scroll', () => {
+    isUserScrolling = true;
+  });
+
   function typeWriter() {
     if (index < content.length) {
       pElement.innerHTML += content.charAt(index);
       index++;
-
-      // Verifique se o usuário atingiu a parte superior ou inferior do contêiner
-      const isScrolledToBottom = chatContainer.scrollHeight - chatContainer.scrollTop === chatContainer.clientHeight;
-      const isScrolledToTop = chatContainer.scrollTop === 0;
-
-      if (isScrolledToBottom || !isScrolledToTop) {
-        // Se o usuário não estiver rolando manualmente para cima, force o scroll para a parte inferior
+  
+      // Se o usuário não estiver rolando manualmente para cima, force o scroll para a parte inferior
+      if (!isUserScrolling) {
         chatContainer.scrollTo(0, chatContainer.scrollHeight);
       }
-
+  
       requestAnimationFrame(typeWriter);
     } else {
       pElement.innerHTML = content;
       localStorage.setItem('all-chats', chatContainer.innerHTML);
-      domElements.chatInput.disable = false;
+      domElements.chatInput.disabled = false;
+      isUserScrolling = false; // Reset the flag when the typing animation is done
     }
   }
 
