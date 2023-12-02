@@ -116,6 +116,7 @@ const handleValidChatResponse = (chatEntry, content) => {
       chatContainer.scrollTop = chatContainer.scrollHeight;
   
       requestAnimationFrame(typeWriter);
+      setTimeout(typeWriter, 50);
     } else {
       pElement.innerHTML = content;
       localStorage.setItem('all-chats', chatContainer.innerHTML);
