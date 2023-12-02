@@ -94,40 +94,39 @@ const handleValidChatResponse = (chatEntry, content) => {
   if (typingAnimation) {
     typingAnimation.remove();
   }
-
-  domElements.chatInput.disable = true;
+ 
+  domElements.chatInput.disabled = true; // Desativa a entrada de texto
   const pElement = document.createElement('p');
   pElement.classList.add('assistant');
-
+ 
   const chatDetails = chatEntry.querySelector('.chat-details');
   chatDetails.innerHTML = '';
-
+ 
   const botImage = document.createElement('img');
   botImage.src = './assets/imgs/chatchains.svg';
   chatDetails.appendChild(botImage);
   chatDetails.appendChild(pElement);
-
+ 
   const { chatContainer } = domElements;
   let index = 0;
-
-
+ 
   function typeWriter() {
     if (index < content.length) {
       pElement.innerHTML += content.charAt(index);
       index++;
-
+ 
       chatContainer.scrollTo(0, chatContainer.scrollHeight);
   
       requestAnimationFrame(typeWriter);
     } else {
       pElement.innerHTML = content;
       localStorage.setItem('all-chats', chatContainer.innerHTML);
-      domElements.chatInput.disabled = false;
+      domElements.chatInput.disabled = false; // Reativa a entrada de texto
     }
   }
-
+ 
   requestAnimationFrame(typeWriter);
-};
+ };
 
 
 // Função para copiar resposta para a área de transferência
