@@ -472,7 +472,7 @@ button {
 }
 
 /* Estilo para o campo de entrada quando está desabilitado */
-.chat-input:disabled {
+#chat-input:disabled {
   background-color: #cccccc; /* Altera a cor de fundo para cinza claro */
   color: #666666; /* Altera a cor do texto para cinza escuro */
   cursor: not-allowed; /* Altera o cursor para um ícone de "não permitido" */
