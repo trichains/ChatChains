@@ -142,7 +142,6 @@ const copyResponse = (copyBtn) => {
 // Animação de Digitação
 const showTypingAnimation = async () => {
   const createChatEntry = () => {
-    domElements.chatInput.disabled = true;
     const html = `
       <div class='chat-content'>
         <div class='chat-details'>
