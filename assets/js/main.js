@@ -94,53 +94,40 @@ const handleValidChatResponse = (chatEntry, content) => {
   if (typingAnimation) {
     typingAnimation.remove();
   }
- 
+
   domElements.chatInput.disable = true;
   const pElement = document.createElement('p');
   pElement.classList.add('assistant');
- 
+
   const chatDetails = chatEntry.querySelector('.chat-details');
   chatDetails.innerHTML = '';
- 
+
   const botImage = document.createElement('img');
   botImage.src = './assets/imgs/chatchains.svg';
   chatDetails.appendChild(botImage);
   chatDetails.appendChild(pElement);
- 
+
   const { chatContainer } = domElements;
   let index = 0;
-  let startTime;
-  let endTime;
-  let elapsedTime;
+
+
+  function typeWriter() {
+    if (index < content.length) {
+      pElement.innerHTML += content.charAt(index);
+      index++;
+
+      chatContainer.scrollTo(0, chatContainer.scrollHeight);
   
-  function typeWriter(timestamp) {
-   if (!startTime) startTime = timestamp;
-   elapsedTime = timestamp - startTime;
-  
-   if (elapsedTime < 1000) { // 1000ms = 1s
-     if (index < content.length) {
-       pElement.innerHTML += content.charAt(index);
-       index++;
-  
-       // Se o usuário não estiver rolando manualmente para cima, force o scroll para a parte inferior
-       if (!isUserScrolling) {
-         chatContainer.scrollTop = chatContainer.scrollHeight;
-       }
-  
-       requestAnimationFrame(typeWriter);
-     } else {
-       pElement.innerHTML = content;
-       localStorage.setItem('all-chats', chatContainer.innerHTML);
-       domElements.chatInput.disabled = false;
-       isUserScrolling = false; // Reset the flag when the typing animation is done
-     }
-   }
+      requestAnimationFrame(typeWriter);
+    } else {
+      pElement.innerHTML = content;
+      localStorage.setItem('all-chats', chatContainer.innerHTML);
+      domElements.chatInput.disabled = false;
+    }
   }
-  
+
   requestAnimationFrame(typeWriter);
-  
- };
- 
+};
 
 
 // Função para copiar resposta para a área de transferência
