@@ -18,7 +18,7 @@ function getDomElements() {
 }
 
 // Constantes
-const apiUrl = 'https://chatchains.vercel.app/api/openai';
+const apiUrl = 'https://chatchains.vercel.app/add/openai';
 const initialHeight = domElements.chatInput.scrollHeight;
 let userText = '';
 
