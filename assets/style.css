@@ -328,6 +328,7 @@ button {
   width: 3.5rem;
   margin-right: 2rem;
   border-radius: 50%;
+  align-items: flex-start;
 }
 
 .chat .chat-details p {

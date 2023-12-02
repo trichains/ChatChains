@@ -114,7 +114,10 @@ const handleValidChatResponse = (chatEntry, content) => {
 
   // Adicione um ouvinte de evento de scroll ao contêiner de chat
   domElements.chatContainer.addEventListener('scroll', () => {
-    isUserScrolling = true;
+    isUserScrolling = false;
+    setTimeout(() => {
+      isUserScrolling = true;
+    }, 100);
   });
 
   function typeWriter() {
@@ -124,7 +127,7 @@ const handleValidChatResponse = (chatEntry, content) => {
   
       // Se o usuário não estiver rolando manualmente para cima, force o scroll para a parte inferior
       if (!isUserScrolling) {
-        chatContainer.scrollTo(0, chatContainer.scrollHeight);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
       }
   
       requestAnimationFrame(typeWriter);
@@ -135,6 +138,7 @@ const handleValidChatResponse = (chatEntry, content) => {
       isUserScrolling = false; // Reset the flag when the typing animation is done
     }
   }
+  
 
   requestAnimationFrame(typeWriter);
 };
