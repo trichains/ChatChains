@@ -110,14 +110,18 @@ const handleValidChatResponse = (chatEntry, content) => {
   const { chatContainer } = domElements;
   let index = 0;
 
-  let isUserScrolling = false;
+  let lastScrollTop = chatContainer.scrollTop;
 
   // Adicione um ouvinte de evento de scroll ao contêiner de chat
   domElements.chatContainer.addEventListener('scroll', () => {
-    isUserScrolling = false;
-    setTimeout(() => {
+    if (chatContainer.scrollTop !== lastScrollTop) {
+      // lastScrollTop = chatContainer.scrollTop;
       isUserScrolling = true;
-    }, 100);
+    } else {
+      isUserScrolling = false;
+    }
+
+    lastScrollTop = chatContainer.scrollTop;
   });
 
   function typeWriter() {
