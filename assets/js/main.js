@@ -127,7 +127,7 @@ const handleValidChatResponse = (chatEntry, content) => {
   
       // Se o usuário não estiver rolando manualmente para cima, force o scroll para a parte inferior
       if (!isUserScrolling) {
-        chatContainer.scrollTop = chatContainer.scrollHeight;
+        pElement.scrollIntoView(false);
       }
   
       requestAnimationFrame(typeWriter);

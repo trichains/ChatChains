@@ -322,13 +322,16 @@ button {
   align-items: center;
 }
 
+.entrada .chat-details {
+  align-items: flex-start;
+}
+
 .chat .chat-details img {
   object-fit: cover;
   height: 3.5rem;
   width: 3.5rem;
   margin-right: 2rem;
   border-radius: 50%;
-  align-items: flex-start;
 }
 
 .chat .chat-details p {
