@@ -110,41 +110,24 @@ const handleValidChatResponse = (chatEntry, content) => {
   const { chatContainer } = domElements;
   let index = 0;
  
-  let isUserScrolling = false;
-  let lastScrollTop = chatContainer.scrollTop;
- 
-  // Adicione um ouvinte de evento de scroll ao contêiner de chat
-  domElements.chatContainer.addEventListener('scroll', () => {
-    if (chatContainer.scrollTop !== lastScrollTop) {
-      // O usuário está rolando a barra de rolagem manualmente
-      isUserScrolling = true;
-    } else {
-      // O usuário não está rolando a barra de rolagem manualmente
-      isUserScrolling = false;
-    }
- 
-    lastScrollTop = chatContainer.scrollTop;
-  });
- 
   function typeWriter() {
     if (index < content.length) {
       pElement.innerHTML += content.charAt(index);
       index++;
-  
+ 
       // Se o usuário não estiver rolando manualmente para cima, force o scroll para a parte inferior
-      if (!isUserScrolling) {
+      if (chatContainer.scrollTop + chatContainer.clientHeight !== chatContainer.scrollHeight) {
         chatContainer.scrollTop = chatContainer.scrollHeight;
       }
-  
+ 
       requestAnimationFrame(typeWriter);
     } else {
       pElement.innerHTML = content;
       localStorage.setItem('all-chats', chatContainer.innerHTML);
       domElements.chatInput.disabled = false;
-      isUserScrolling = false; // Reset the flag when the typing animation is done
     }
   }
-  
+ 
   requestAnimationFrame(typeWriter);
  };
  
