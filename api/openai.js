@@ -32,8 +32,7 @@ export default async function openaiHandler(req, res) {
       body: JSON.stringify({
         model: openaiModel,
         messages: [{ role: 'user', content: userText }],
-        max_tokens: 4096,
-        temperature: 0.5,
+        language: 'pt',
       })
     };
 
