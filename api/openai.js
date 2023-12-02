@@ -26,10 +26,12 @@ export default async function openaiHandler(req, res) {
       body: JSON.stringify({
         model: openaiModel,
         messages: [
-          { role: 'system', content: 'Você é um assistente de chat chamado ChatChains, responda sempre em portugues do brasil.' },
-          // { role: 'assistant', content: 'Ola, eu sou o ChatChains. Como posso ajudá-lo?' },
+          { role: 'system', content: 'Você é um assistente de chat desenvolvido pelo trichains.' },
+          { role: 'assistant', content: 'Olá, eu sou o ChatChains. Como posso ajudá-lo?' },
+          { role: 'user', content: 'Posso obter informações em português?' }, // Adicione uma mensagem em português
           ...assistantMessages,
-          { role: 'user', content: userText }],
+          { role: 'user', content: userText }
+        ],
       })
     };
     // Faz a chamada à API OpenAI usando o módulo 'fetch'
@@ -44,7 +46,7 @@ export default async function openaiHandler(req, res) {
     res.status(200).json(responseData);
   } catch (error) {
     console.error('Erro ao chamar a API da OpenAI', error);
-  // Em caso de erro, envia uma resposta de erro detalhada para o cliente
+    // Em caso de erro, envia uma resposta de erro detalhada para o cliente
     res.status(500).json({ error: `Erro ao chamar a API da OpenAI: ${error.message}` });
     return;
   }
