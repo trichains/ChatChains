@@ -10,7 +10,7 @@ export default async function openaiHandler(req, res) {
     // URL da API OpenAI para completar as interações do chat
     const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions';
     // Obtenha os dados da requisição do cliente
-    const { userText, assistantMessages } = req.body;
+    const { userText } = req.body;
     // Certifique-se de que o texto do usuário está presente na requisição
     if (!userText) {
       throw new Error('Texto do usuário não fornecido');
@@ -29,7 +29,7 @@ export default async function openaiHandler(req, res) {
           { role: 'system', content: 'Você é um assistente de chat desenvolvido pelo trichains.' },
           { role: 'assistant', content: 'Olá, eu sou o ChatChains. Como posso ajudá-lo?' },
           { role: 'user', content: 'Posso obter informações em português?' }, // Adicione uma mensagem em português
-          ...assistantMessages,
+          // ...assistantMessages,
           { role: 'user', content: userText }
         ],
       })
