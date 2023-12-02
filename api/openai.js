@@ -41,6 +41,7 @@ export default async function openaiHandler(req, res) {
   } catch (error) {
     console.error('Erro ao chamar a API da OpenAI', error);
   // Em caso de erro, envia uma resposta de erro detalhada para o cliente
-  res.status(500).json({ error: `Erro ao chamar a API da OpenAI: ${error.message}` });
+    res.status(500).json({ error: `Erro ao chamar a API da OpenAI: ${error.message}` });
+    return;
   }
 }
