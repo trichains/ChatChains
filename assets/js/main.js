@@ -77,7 +77,6 @@ const handleChatResponse = (chatEntry, response) => {
     showError(errorMessage, chatEntry);
   } else {
     const content = response.choices[0]?.message?.content;
-    console.log(content);
 
     if (content !== undefined && content !== null) {
       handleValidChatResponse(chatEntry, content);
