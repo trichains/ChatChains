@@ -108,25 +108,18 @@ const handleValidChatResponse = (chatEntry, content) => {
 
   const { chatContainer } = domElements;
   let index = 0;
-  let userScrollActive = true;
  
   function typeWriter() {
     if (index < content.length) {
       pElement.innerHTML += content.charAt(index);
       index++;
-      if (userScrollActive) {
-        chatContainer.scrollTo(0, chatContainer.scrollHeight);
-      }
+      chatContainer.scrollTo(0, chatContainer.scrollHeight);
       requestAnimationFrame(typeWriter);
     } else {
       pElement.innerHTML = content;
       localStorage.setItem('all-chats', chatContainer.innerHTML);
     }
   }
-  chatContainer.addEventListener('scroll', () => {
-    userScrollActive = false;
-  })
-
   requestAnimationFrame(typeWriter);
 }; 
 
@@ -168,7 +161,7 @@ const showTypingAnimation = async () => {
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userText: '' }),
+      body: JSON.stringify({ userText }),
     });
 
     if (!response.ok) {
