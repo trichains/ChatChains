@@ -133,13 +133,13 @@ const handleValidChatResponse = (chatEntry, content) => {
   }
  
   requestAnimationFrame(typeWriter);
+  const delay = 50;
+  
+  let startTime;
+  
+  typeWriter();
 }
  
-const delay = 50;
-
-let startTime;
-
-typeWriter();
 
 
 // Função para copiar resposta para a área de transferência
