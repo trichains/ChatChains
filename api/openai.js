@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config({ path: '.env.local' });
+}
+
 // Manipulador da função Vercel
 export default async function openaiHandler(req, res) {
   try {
@@ -6,6 +10,7 @@ export default async function openaiHandler(req, res) {
 
     // Certifica-se de que a chave da API está presente
     if (!apiKey) {
+      console.log('Chave de API não fornecida, Verifique suas variáveis de ambiente');
       throw new Error('Chave de API não fornecida');
     }
 
