@@ -94,43 +94,47 @@ const handleValidChatResponse = (chatEntry, content) => {
   if (typingAnimation) {
     typingAnimation.remove();
   }
-
+ 
   domElements.chatInput.disable = true;
   const pElement = document.createElement('p');
   pElement.classList.add('assistant');
-
+ 
   const chatDetails = chatEntry.querySelector('.chat-details');
   chatDetails.innerHTML = '';
-
+ 
   const botImage = document.createElement('img');
   botImage.src = './assets/imgs/chatchains.svg';
   chatDetails.appendChild(botImage);
   chatDetails.appendChild(pElement);
-
+ 
   const { chatContainer } = domElements;
   let index = 0;
-
+ 
+  let isUserScrolling = false;
   let lastScrollTop = chatContainer.scrollTop;
-
+ 
   // Adicione um ouvinte de evento de scroll ao contêiner de chat
   domElements.chatContainer.addEventListener('scroll', () => {
     if (chatContainer.scrollTop !== lastScrollTop) {
-      // lastScrollTop = chatContainer.scrollTop;
+      // O usuário está rolando a barra de rolagem manualmente
       isUserScrolling = true;
     } else {
+      // O usuário não está rolando a barra de rolagem manualmente
       isUserScrolling = false;
     }
-
+ 
     lastScrollTop = chatContainer.scrollTop;
   });
-
+ 
   function typeWriter() {
     if (index < content.length) {
       pElement.innerHTML += content.charAt(index);
       index++;
   
       // Se o usuário não estiver rolando manualmente para cima, force o scroll para a parte inferior
-      chatContainer.scrollTop = chatContainer.scrollHeight;
+      if (!isUserScrolling) {
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }
   
       requestAnimationFrame(typeWriter);
     } else {
@@ -141,9 +145,9 @@ const handleValidChatResponse = (chatEntry, content) => {
     }
   }
   
-
   requestAnimationFrame(typeWriter);
-};
+ };
+ 
 
 
 // Função para copiar resposta para a área de transferência
