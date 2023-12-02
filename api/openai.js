@@ -1,3 +1,6 @@
+// Variável para armazenar o histórico da conversa
+let conversationHistory = [];
+
 // Manipulador da função Vercel
 export default async function openaiHandler(req, res) {
   try {
@@ -16,6 +19,10 @@ export default async function openaiHandler(req, res) {
       throw new Error('Texto do usuário não fornecido');
     }
     const openaiModel = process.env.OPENAI_MODEL || 'gpt-3.5-turbo-1106';
+    
+    // Adiciona a mensagem do usuário ao histórico
+    conversationHistory.push({ role: 'user', content: userText });
+
     // Configuração da requisição para a API OpenAI
     const requestOptions = {
       method: 'POST',
@@ -26,11 +33,10 @@ export default async function openaiHandler(req, res) {
       body: JSON.stringify({
         model: openaiModel,
         messages: [
-          { role: 'system', content: 'Você é um assistente de chat desenvolvido pelo trichains.' },
-          { role: 'assistant', content: 'Olá, eu sou o ChatChains. Como posso ajudá-lo?' },
+          { role: 'system', content: 'Você é um assistente de chat chamado ChatChains' },
+          { role: 'assistant', content: userText },
           { role: 'user', content: 'Posso obter informações em português?' }, // Adicione uma mensagem em português
-          // ...assistantMessages,
-          { role: 'user', content: userText }
+          ...conversationHistory,  // Adiciona o histórico da conversa
         ],
       })
     };
@@ -42,6 +48,10 @@ export default async function openaiHandler(req, res) {
     }
     // Obtém os dados da resposta da API
     const responseData = await response.json();
+    
+    // Adiciona a mensagem do assistente ao histórico
+    conversationHistory.push({ role: 'assistant', content: responseData.choices[0].message.content });
+
     // Envia a resposta de volta para o cliente
     res.status(200).json(responseData);
   } catch (error) {
