@@ -95,12 +95,12 @@ const handleValidChatResponse = (chatEntry, content) => {
     typingAnimation.remove();
   }
 
-  // Crie um novo elemento p para a resposta do assistente
   const pElement = document.createElement('p');
   pElement.classList.add('assistant');
 
   const chatDetails = chatEntry.querySelector('.chat-details');
   chatDetails.innerHTML = '';
+
   const botImage = document.createElement('img');
   botImage.src = './assets/imgs/chatchains.svg';
   chatDetails.appendChild(botImage);
@@ -108,27 +108,31 @@ const handleValidChatResponse = (chatEntry, content) => {
 
   const { chatContainer } = domElements;
   let index = 0;
-  let userScrollActive = true;
- 
+
   function typeWriter() {
     if (index < content.length) {
       pElement.innerHTML += content.charAt(index);
       index++;
-      if (userScrollActive) {
+
+      // Verifique se o usuário atingiu a parte superior ou inferior do contêiner
+      const isScrolledToBottom = chatContainer.scrollHeight - chatContainer.scrollTop === chatContainer.clientHeight;
+      const isScrolledToTop = chatContainer.scrollTop === 0;
+
+      if (isScrolledToBottom || !isScrolledToTop) {
+        // Se o usuário não estiver rolando manualmente para cima, force o scroll para a parte inferior
         chatContainer.scrollTo(0, chatContainer.scrollHeight);
       }
+
       requestAnimationFrame(typeWriter);
     } else {
       pElement.innerHTML = content;
       localStorage.setItem('all-chats', chatContainer.innerHTML);
     }
   }
-  chatContainer.addEventListener('scroll', () => {
-    userScrollActive = false;
-  })
 
   requestAnimationFrame(typeWriter);
-}; 
+};
+
 
 // Função para copiar resposta para a área de transferência
 const copyResponse = (copyBtn) => {
