@@ -109,37 +109,23 @@ const handleValidChatResponse = (chatEntry, content) => {
   const { chatContainer } = domElements;
   let index = 0;
  
-  function typeWriter(timestamp) {
-    if (timestamp) {
-      startTime = timestamp;
-    }
-
-    const elapsed = timestamp - startTime;
-
-    if (elapsed > delay) {
-      startTime = timestamp;
-    }
+  function typeWriter() {
     if (index < content.length) {
       pElement.innerHTML += content.charAt(index);
       index++;
       chatContainer.scrollTop = chatContainer.scrollHeight;
   
+      requestAnimationFrame(typeWriter);
     } else {
       pElement.innerHTML = content;
       localStorage.setItem('all-chats', chatContainer.innerHTML);
       domElements.chatInput.disabled = false; // Reativa a entrada de texto
-      return;
+      chatContainer.scrollTo(0, chatContainer.scrollHeight);
     }
   }
  
   requestAnimationFrame(typeWriter);
-  const delay = 50;
-  
-  let startTime;
-  
-  typeWriter();
-}
- 
+ };
 
 
 // Função para copiar resposta para a área de transferência
