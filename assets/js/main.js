@@ -22,7 +22,6 @@ const apiUrl = 'https://chatchains.vercel.app/api/openai';
 const initialHeight = domElements.chatInput.scrollHeight;
 let userText = '';
 
-// test
 // Mensagem padrão quando não há histórico
 const defaultText = `
   <div class='default-text'>
