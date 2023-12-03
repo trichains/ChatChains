@@ -33,9 +33,10 @@ export default async function openaiHandler(req, res) {
       body: JSON.stringify({
         model: openaiModel,
         messages: [
-          { role: 'system', content: 'Você é um assistente de chat chamado ChatChains' },
-          { role: 'assistant', content: userText },
+          { role: 'system', content: 'Você é o ChatChains, um assistente virtual desenvolvido para fornecer informações e assistência.' },
+
           { role: 'user', content: 'Posso obter informações em português?' }, // Adicione uma mensagem em português
+          { role: 'assistant', content: userText },
           ...conversationHistory,  // Adiciona o histórico da conversa
         ],
       })
