@@ -36,16 +36,6 @@ ChatChains é um bot de chat baseado no modelo GPT 3.5 Turbo da OpenAI, desenvol
 
 - **Botão para Nova Conversa:** Inicie uma nova conversa e apague o histórico anterior com um clique.
 
-### Contribuindo
-
-Gostaria de contribuir para o desenvolvimento do ChatChains? Ótimo! Siga estas etapas:
-
-1. Faça um Fork do projeto.
-2. Crie sua própria branch: `git checkout -b feature/NovoRecurso`.
-3. Faça commit das suas alterações: `git commit -m 'Adicionando NovoRecurso'`.
-4. Faça push para a branch: `git push origin feature/NovoRecurso`.
-5. Abra um Pull Request.
-
 ### Problemas e Sugestões
 
 Encontrou um bug ou tem uma ideia para melhorar o ChatChains? Abra uma [issue](https://github.com/trichains/ChatChains/issues) e vamos trabalhar juntos para tornar o ChatChains ainda melhor!
