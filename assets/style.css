@@ -8,30 +8,34 @@
 /* Definição de variáveis de cores para fácil ajuste */
 :root {
   --bg: #fff;
-  --btn-bg: #d5c6eb;
-  --btn-bg-hover: #c0aed9;
-  --text-color: #343541;
-  --link-text: #5a466c;
-  --destaque: #777777;
-  --border: 1px solid #f1f1f3;
-  --input-bg: #f7f7f8;
-  --input-bg-bot: #f7f7f8;
-  --icon-color: #433c4e;
+  --sideBar-bg: #f9f9f9;
+  --btn-bg: #f9f9f9;
+  --btn-bg-hover: #ececec;
+  --text-color: #0d0d0d;
+  --link-text: #2964aa;
+  --link-text-hover: #749ac8;
+  --destaque: #9b9b9b;
+  --border: 1px solid #9b9b9b;
+  --input-bg: #fff;
+  --input-bg-bot: #fff;
+  --icon-color: #000;
   --placeholder-color: #838282;
 }
 
 /* Estilos para modo claro e escuro */
 .dark-mode {
-  --bg: #13001f;
-  --btn-bg: #2d2043;
-  --btn-bg-hover: #382b50;
-  --text-color: #fff;
-  --link-text: #ae97c6;
-  --destaque: #777777;
-  --border: 1px solid #1e1e1e;
-  --input-bg: #1c1e3a;
-  --input-bg-bot: #1c1e3a57;
-  --icon-color: #b3acbe;
+  --bg: #171717;
+  --sideBar-bg: #0d0d0d;
+  --btn-bg: #0d0d0d;
+  --btn-bg-hover: #262626;
+  --text-color: #f9f9f9;
+  --link-text: #7ab7ff;
+  --link-text-hover: #5e83b3;
+  --destaque: #9b9b9b;
+  --border: 1px solid #d9d9e326;
+  --input-bg: #171717;
+  --input-bg-bot: #171717;
+  --icon-color: #fff;
   --placeholder-color: #b5b5b5;
 }
 
@@ -64,9 +68,9 @@ button {
 }
 
 #sideBar {
+  background-color: var(--sideBar-bg);
   display: flex;
   flex-direction: column;
-  border-right: var(--border);
   height: 100vh;
 }
 
@@ -102,7 +106,6 @@ button {
 
 .upperSide {
   padding: 2rem;
-  border-bottom: var(--border);
   display: flex;
   flex-direction: column;
 }
@@ -198,14 +201,6 @@ button {
 
 .main {
   position: relative;
-  /* width: 700px; */
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* align-items: center; */
-  /* margin: 0 2rem; */
-  /* flex: 1; */
-  /* max-height: 100vh; */
-  /* padding: 20px; */
 }
 
 .menu-container {
@@ -386,7 +381,6 @@ button {
   align-items: center;
   width: 100%;
   padding: 20px 10px 10px;
-  border-top: var(--border);
   max-width: 100%;
   z-index: 1;
 }
@@ -396,6 +390,8 @@ button {
   max-width: 950px;
   width: 100%;
   align-items: flex-end;
+  border: var(--border);
+  border-radius: 1rem;
 }
 
 /* Estilos para a área de digitação */
@@ -404,7 +400,6 @@ button {
   display: flex;
   position: relative;
   background: var(--input-bg);
-  /* align-items: center; */
   justify-content: space-between;
   border-radius: 2rem;
 }
@@ -479,6 +474,10 @@ button {
   color: var(--link-text);
 }
 
+.trichains:hover {
+  color: var(--link-text-hover);
+}
+
 @media screen and (max-width: 600px) {
   .container {
     grid-template-columns: 1fr;
@@ -507,6 +506,7 @@ button {
   .menu-container {
     position: absolute;
     background-color: var(--bg);
+    border-bottom: var(--border);
     display: flex;
     width: 100%;
     align-items: center;
@@ -540,7 +540,7 @@ button {
     left: -100%; /* Inicialmente fora da tela */
     width: 70%; /* Ajuste conforme necessário */
     height: 100%;
-    background-color: var(--bg);
+    background-color: var(--sideBar-bg);
     z-index: 2;
     transition: left 0.3s ease, box-shadow 0.3s ease; /* Adiciona uma transição suave para a animação */
     box-shadow: -10px 0 15px rgba(0, 0, 0, 0.2);
