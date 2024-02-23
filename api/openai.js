@@ -18,8 +18,8 @@ export default async function openaiHandler(req, res) {
     if (!userText) {
       throw new Error('Texto do usuário não fornecido');
     }
-    const openaiModel = process.env.OPENAI_MODEL || 'gpt-3.5-turbo-1106';
-    
+    const openaiModel = process.env.OPENAI_MODEL || 'gpt-3.5-turbo-0125';
+
     // Adiciona a mensagem do usuário ao histórico
     conversationHistory.push({ role: 'user', content: userText });
 
@@ -35,7 +35,8 @@ export default async function openaiHandler(req, res) {
         messages: [
           {
             role: 'system',
-            content: 'Eu sou o ChatChains, um assistente virtual desenvolvido para fornecer informações e assistência e fui desenvolvido por trichains.'
+            content:
+              'Eu sou o ChatChains, um assistente virtual desenvolvido para fornecer informações e assistência e fui desenvolvido por trichains.'
           },
 
           {
@@ -46,8 +47,8 @@ export default async function openaiHandler(req, res) {
             role: 'assistant',
             content: userText
           },
-          ...conversationHistory,  // Adiciona o histórico da conversa
-        ],
+          ...conversationHistory // Adiciona o histórico da conversa
+        ]
       })
     };
     // Faz a chamada à API OpenAI usando o módulo 'fetch'
@@ -58,16 +59,21 @@ export default async function openaiHandler(req, res) {
     }
     // Obtém os dados da resposta da API
     const responseData = await response.json();
-    
+
     // Adiciona a mensagem do assistente ao histórico
-    conversationHistory.push({ role: 'assistant', content: responseData.choices[0].message.content });
+    conversationHistory.push({
+      role: 'assistant',
+      content: responseData.choices[0].message.content
+    });
 
     // Envia a resposta de volta para o cliente
     res.status(200).json(responseData);
   } catch (error) {
     console.error('Erro ao chamar a API da OpenAI', error);
     // Em caso de erro, envia uma resposta de erro detalhada para o cliente
-    res.status(500).json({ error: `Erro ao chamar a API da OpenAI: ${error.message}` });
+    res
+      .status(500)
+      .json({ error: `Erro ao chamar a API da OpenAI: ${error.message}` });
     return;
   }
 }
