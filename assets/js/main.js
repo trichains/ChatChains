@@ -92,11 +92,6 @@ const handleChatResponse = (chatEntry, response) => {
 
 // Função para manipular resposta de chat válida
 const handleValidChatResponse = (chatEntry, content) => {
-  const typingAnimation = chatEntry.querySelector('.typing-animation');
-  if (typingAnimation) {
-    typingAnimation.remove();
-  }
-
   const pElement = document.createElement('p');
   pElement.classList.add('assistant');
 
@@ -107,6 +102,11 @@ const handleValidChatResponse = (chatEntry, content) => {
   botImage.src = './assets/imgs/chatchains.svg';
   chatDetails.appendChild(botImage);
   chatDetails.appendChild(pElement);
+
+  pElement.innerHTML = content;
+  localStorage.setItem('all-chats', chatContainer.innerHTML);
+  domElements.chatInput.disabled = false; // Reativa a entrada de texto
+  chatContainer.scrollTo(0, chatContainer.scrollHeight);
 };
 
 // Função para copiar resposta para a área de transferência
