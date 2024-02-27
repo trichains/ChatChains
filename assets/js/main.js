@@ -13,7 +13,7 @@ function getDomElements() {
     portfolioBtn: document.getElementById('portfolio-btn'),
     menuIcon: document.getElementById('menu-icon'),
     sideBar: document.getElementById('sideBar'),
-    closeBtn: document.querySelector('.closeBtn'),
+    closeBtn: document.querySelector('.closeBtn')
   };
 }
 
@@ -34,7 +34,7 @@ const defaultText = `
 const loadLocalStorageData = () => {
   const { themeBtn, chatContainer } = domElements;
   const themeColor = localStorage.getItem('theme-color');
-  const isDarkMode = themeColor === 'dark_mode';	
+  const isDarkMode = themeColor === 'dark_mode';
 
   // Aplica o tema salvo no localStorage
   document.body.classList.toggle('dark-mode', isDarkMode);
@@ -65,7 +65,9 @@ const getErrorMessage = (response) => {
 
   const content = response.choices[0]?.message?.content;
 
-  return content !== undefined && content !== null ? null : 'Resposta inválida da API';
+  return content !== undefined && content !== null
+    ? null
+    : 'Resposta inválida da API';
 };
 
 // Função para manipular a resposta do chat
@@ -97,36 +99,15 @@ const handleValidChatResponse = (chatEntry, content) => {
 
   const pElement = document.createElement('p');
   pElement.classList.add('assistant');
- 
+
   const chatDetails = chatEntry.querySelector('.chat-details');
   chatDetails.innerHTML = '';
- 
+
   const botImage = document.createElement('img');
   botImage.src = './assets/imgs/chatchains.svg';
   chatDetails.appendChild(botImage);
   chatDetails.appendChild(pElement);
- 
-  const { chatContainer } = domElements;
-  let index = 0;
- 
-  function typeWriter() {
-    if (index < content.length) {
-      pElement.innerHTML += content.charAt(index);
-      index++;
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-  
-      requestAnimationFrame(typeWriter);
-    } else {
-      pElement.innerHTML = content;
-      localStorage.setItem('all-chats', chatContainer.innerHTML);
-      domElements.chatInput.disabled = false; // Reativa a entrada de texto
-      chatContainer.scrollTo(0, chatContainer.scrollHeight);
-    }
-  }
- 
-  requestAnimationFrame(typeWriter);
- };
-
+};
 
 // Função para copiar resposta para a área de transferência
 const copyResponse = (copyBtn) => {
@@ -167,7 +148,7 @@ const showTypingAnimation = async () => {
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userText }),
+      body: JSON.stringify({ userText })
     });
 
     if (!response.ok) {
@@ -185,7 +166,10 @@ const showTypingAnimation = async () => {
       typingAnimation.remove();
     }
 
-    showError('Muitas requisições no momento, tente novamente mais tarde.', chatEntry);
+    showError(
+      'Muitas requisições no momento, tente novamente mais tarde.',
+      chatEntry
+    );
   }
 };
 
@@ -233,7 +217,9 @@ const handleChatOutput = () => {
 const toggleGithubIcon = () => {
   const { githubIcon, themeBtn } = domElements;
   const isDarkMode = document.body.classList.contains('dark-mode');
-  const iconPath = isDarkMode ? './assets/imgs/github.svg' : './assets/imgs/github-dark.svg';
+  const iconPath = isDarkMode
+    ? './assets/imgs/github.svg'
+    : './assets/imgs/github-dark.svg';
   githubIcon.setAttribute('src', iconPath);
 };
 
@@ -245,14 +231,20 @@ const addEventListeners = () => {
   const handleThemeToggle = () => {
     document.body.classList.toggle('dark-mode');
     localStorage.setItem('theme-color', themeBtn.textContent);
-    themeBtn.textContent = document.body.classList.contains('dark-mode') ? 'light_mode' : 'dark_mode';
+    themeBtn.textContent = document.body.classList.contains('dark-mode')
+      ? 'light_mode'
+      : 'dark_mode';
     toggleGithubIcon();
   };
   themeBtn.parentElement.addEventListener('click', handleThemeToggle);
 
   // Ouvinte de evento para apagar o histórico do chat
   deleteBtn.addEventListener('click', () => {
-    if (confirm('Isso apaga todo o histórico da sua conversa e inicia uma nova. Tem certeza?')) {
+    if (
+      confirm(
+        'Isso apaga todo o histórico da sua conversa e inicia uma nova. Tem certeza?'
+      )
+    ) {
       localStorage.removeItem('all-chats');
       loadLocalStorageData();
       closeSidebar();
@@ -313,7 +305,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Ouvinte de evento para fechar a barra lateral ao clicar fora dela
   document.addEventListener('click', (event) => {
-    if (sideBar && !sideBar.contains(event.target) && !menuIcon.contains(event.target)) {
+    if (
+      sideBar &&
+      !sideBar.contains(event.target) &&
+      !menuIcon.contains(event.target)
+    ) {
       closeSidebar();
     }
   });
