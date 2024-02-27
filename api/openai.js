@@ -1,5 +1,6 @@
 // Variável para armazenar o histórico da conversa
 let conversationHistory = [];
+let eventSource; // Adiciona a declaração do eventSource
 
 // Manipulador da função Vercel
 export default async function openaiHandler(req, res) {
@@ -38,7 +39,6 @@ export default async function openaiHandler(req, res) {
             content:
               'Eu sou o ChatChains, um assistente virtual desenvolvido para fornecer informações e assistência e fui desenvolvido por trichains.'
           },
-
           {
             role: 'user',
             content: 'Posso obter informações em português?'
@@ -48,26 +48,28 @@ export default async function openaiHandler(req, res) {
             content: userText
           },
           ...conversationHistory // Adiciona o histórico da conversa
-        ]
+        ],
+        stream: true // Adiciona o sinalizador de streaming
       })
     };
     // Faz a chamada à API OpenAI usando o módulo 'fetch'
     const response = await fetch(OPENAI_API_URL, requestOptions);
-    // Verifica se a chamada à API foi bem-sucedida
-    if (!response.ok) {
-      throw new Error(`OpenAI API error: ${response.statusText}`);
-    }
-    // Obtém os dados da resposta da API
-    const responseData = await response.json();
 
-    // Adiciona a mensagem do assistente ao histórico
-    conversationHistory.push({
-      role: 'assistant',
-      content: responseData.choices[0].message.content
-    });
+    // Check if the response has an 'Event-Stream' content type
+    const contentType = response.headers.get('Content-Type');
+    if (contentType && contentType.includes('text/event-stream')) {
+      // Start listening for server-sent events
+      eventSource = new EventSource(response.url);
+      eventSource.onmessage = handleStreamMessage;
+    } else {
+      // Handle non-streaming response
+      const responseData = await response.json();
+      const botMessage = responseData.choices[0].message.content;
+      appendMessage('assistant', botMessage);
+    }
 
     // Envia a resposta de volta para o cliente
-    res.status(200).json(responseData);
+    res.status(200).end(); // Indica que a resposta foi enviada com sucesso
   } catch (error) {
     console.error('Erro ao chamar a API da OpenAI', error);
     // Em caso de erro, envia uma resposta de erro detalhada para o cliente
@@ -76,4 +78,22 @@ export default async function openaiHandler(req, res) {
       .json({ error: `Erro ao chamar a API da OpenAI: ${error.message}` });
     return;
   }
+}
+
+// Função para manipular a resposta de streaming
+function handleStreamMessage(event) {
+  // Parse the streaming message and handle the data
+  const data = JSON.parse(event.data);
+  const botMessage = data.choices[0]?.message?.content || '';
+  appendMessage('assistant', botMessage);
+
+  // Check if the streaming is complete
+  if (data.finish_reason === 'stop') {
+    eventSource.close(); // Close the event source when streaming is complete
+  }
+}
+
+// Função para adicionar mensagem ao histórico da conversa
+function appendMessage(role, content) {
+  conversationHistory.push({ role, content });
 }
