@@ -18,7 +18,7 @@ export default async function openaiHandler(req, res) {
     if (!userText) {
       throw new Error('Texto do usuário não fornecido');
     }
-    const openaiModel = process.env.OPENAI_MODEL || 'gpt-3.5-turbo';
+    const openaiModel = process.env.OPENAI_MODEL;
 
     // Adiciona a mensagem do usuário ao histórico
     conversationHistory.push({ role: 'user', content: userText });
