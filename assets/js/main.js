@@ -92,6 +92,11 @@ const handleChatResponse = (chatEntry, response) => {
 
 // Função para manipular resposta de chat válida
 const handleValidChatResponse = (chatEntry, content) => {
+  const typingAnimation = chatEntry.querySelector('.typing-animation');
+  if (typingAnimation) {
+    typingAnimation.remove();
+  }
+
   const pElement = document.createElement('p');
   pElement.classList.add('assistant');
 
@@ -103,10 +108,25 @@ const handleValidChatResponse = (chatEntry, content) => {
   chatDetails.appendChild(botImage);
   chatDetails.appendChild(pElement);
 
-  pElement.innerHTML = content;
-  localStorage.setItem('all-chats', domElements.chatContainer.innerHTML); // Corrigido aqui
-  domElements.chatInput.disabled = false; // Reativa a entrada de texto
-  domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight); // Corrigido aqui
+  const { chatContainer } = domElements;
+  let index = 0;
+
+  function typeWriter() {
+    if (index < content.length) {
+      pElement.innerHTML += content.charAt(index);
+      index++;
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+
+      requestAnimationFrame(typeWriter);
+    } else {
+      pElement.innerHTML = content;
+      localStorage.setItem('all-chats', chatContainer.innerHTML);
+      domElements.chatInput.disabled = false; // Reativa a entrada de texto
+      chatContainer.scrollTo(0, chatContainer.scrollHeight);
+    }
+  }
+
+  requestAnimationFrame(typeWriter);
 };
 
 // Função para copiar resposta para a área de transferência
