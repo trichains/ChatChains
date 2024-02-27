@@ -2,7 +2,7 @@
 
 ![ChatChains Logo](https://i.ibb.co/ZSSwLQ2/chainsimg.png)
 
-Bem-vindo ao ChatChains, seu companheiro de conversas inteligentes! ✨
+Bem-vindo ao ChatChains, seu companheiro de conversas inteligentes!! ✨
 
 ### O que é o ChatChains?
 
