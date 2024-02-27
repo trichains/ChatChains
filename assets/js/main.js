@@ -104,9 +104,9 @@ const handleValidChatResponse = (chatEntry, content) => {
   chatDetails.appendChild(pElement);
 
   pElement.innerHTML = content;
-  localStorage.setItem('all-chats', chatContainer.innerHTML);
+  localStorage.setItem('all-chats', domElements.chatContainer.innerHTML); // Corrigido aqui
   domElements.chatInput.disabled = false; // Reativa a entrada de texto
-  chatContainer.scrollTo(0, chatContainer.scrollHeight);
+  domElements.chatContainer.scrollTo(0, domElements.chatContainer.scrollHeight); // Corrigido aqui
 };
 
 // Função para copiar resposta para a área de transferência
